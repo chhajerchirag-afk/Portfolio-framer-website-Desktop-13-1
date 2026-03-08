@@ -5,6 +5,7 @@ import {
   ChevronRightIcon,
   LoaderIcon,
 } from "lucide-react";
+import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
@@ -75,21 +76,23 @@ const reasoningSteps: Record<ResponseType, string[]> = {
 interface ResponseBlock {
   type: "paragraph" | "heading" | "numbered-item" | "bullet" | "break" | "experience-role";
   text?: string;
+  number?: number;
   subtitle?: string;
   description?: string;
   highlight?: string;
   duration?: string;
   bullets?: string[];
+  focusLabel?: string;
 }
 
 const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
   work: [
     { type: "paragraph", text: "\u003Cb\u003EHere\u2019s a compilation of Chirag\u2019s work.\u003C/b\u003E It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems. Some of his most impactful work includes:" },
     { type: "break" },
-    { type: "numbered-item", text: "AI Agents for HR Teams", description: "Designing AI agents that help HR Admins and Recruiters configure talent engagement workflows with significantly less effort and time." },
-    { type: "numbered-item", text: "Reimagining AI Experiences", description: "Simplifying how users interact with AI systems, making learning, discovery, and adoption more intuitive." },
-    { type: "numbered-item", text: "Interview Scheduling for Talent Acquisition", description: "Streamlining the scheduling process for recruiters and hiring managers to reduce coordination friction." },
-    { type: "numbered-item", text: "Visual Design Explorations", description: "" },
+    { type: "numbered-item", number: 1, text: "AI Agents for HR Teams", description: "Designing AI agents that help HR Admins and Recruiters configure talent engagement workflows with significantly less effort and time." },
+    { type: "numbered-item", number: 2, text: "Reimagining AI Experiences", description: "Simplifying how users interact with AI systems, making learning, discovery, and adoption more intuitive." },
+    { type: "numbered-item", number: 3, text: "Interview Scheduling for Talent Acquisition", description: "Streamlining the scheduling process for recruiters and hiring managers to reduce coordination friction." },
+    { type: "numbered-item", number: 4, text: "Visual Design Explorations", description: "" },
     { type: "break" },
     { type: "paragraph", text: "Beyond this, Chirag has also worked on simplifying research for legal professionals and establishing the MVP for an AI-powered cybersecurity platform." },
   ],
@@ -108,9 +111,12 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
   experience: [
     { type: "heading", text: "Here\u2019s Chirag\u2019s career progression so far." },
     { type: "break" },
-    { type: "experience-role", text: "Product Designer", subtitle: "Sense", duration: "2022 \u2013 Present", highlight: "Sense", description: "Working on AI-powered HR products, leading design for features like AI Agents, Interview Scheduling, and talent engagement platforms.", bullets: ["Designed end-to-end AI agent workflows for HR Admins and Recruiters", "Led the redesign of Sense\u2019s AI experience to improve usability and adoption", "Shipped Interview Scheduling module used by enterprise recruiting teams", "Collaborated with PMs and Engineers to define product strategy and ship fast"] },
-    { type: "experience-role", text: "Product Designer", subtitle: "Gistr", duration: "2021 \u2013 2022", highlight: "Gistr", description: "Designed AI-assisted research tools for legal professionals, establishing the product\u2019s visual language and core UX patterns from the ground up.", bullets: ["Built the MVP design system and interaction patterns for the platform", "Simplified complex legal research workflows into intuitive experiences", "Worked closely with founders to define product direction and user flows"] },
-    { type: "experience-role", text: "UX Designer", subtitle: "Nudge Lab", duration: "2020 \u2013 2021", highlight: "Nudge Lab", description: "Worked on an AI-powered cybersecurity platform, helping define the MVP and core user flows.", bullets: ["Designed dashboards and alert systems for security analysts", "Made complex cybersecurity data accessible to non-technical users", "Contributed to product-market fit explorations in early-stage startup environment"] },
+    { type: "experience-role", text: "Product Designer", subtitle: "Sense Hq", duration: "2025 \u2014 Present", highlight: "Sense Hq", description: "Currently designing AI-powered recruiter tools that help HR teams create conversational talent workflows and automate engagement.", focusLabel: "Focus areas:", bullets: ["AI agents for recruiters", "Simplifying complex AI workflows", "Scaling interaction patterns for enterprise hiring tools"] },
+    { type: "experience-role", text: "Product Designer", subtitle: "Nudge Lab", duration: "2023 \u2014 2025", highlight: "Nudge Lab", description: "Worked across early-stage AI and SaaS products, helping founders turn rough ideas into usable products.", focusLabel: "Focus areas:", bullets: ["Designed AI-powered tools for legal research and cybersecurity", "Improved onboarding and conversion for multiple products", "Built scalable design systems across 100+ screens"] },
+    { type: "experience-role", text: "UX Designer", subtitle: "Dank", duration: "2023", highlight: "Dank", description: "First step into product design.", focusLabel: "Worked on:", bullets: ["Messaging and core social features", "Onboarding improvements", "Building the product\u2019s first design system"] },
+    { type: "experience-role", text: "Graphic Designer", subtitle: "GreyToYellow", duration: "2022 \u2014 2023", highlight: "GreyToYellow", description: "The origin story.", bullets: [], focusLabel: "" },
+    { type: "break" },
+    { type: "paragraph", text: "Learned how visual storytelling, branding, and communication influence user perception." },
   ],
   resume: [
     { type: "paragraph", text: "Here you go \u2014 Chirag\u2019s resume is ready for view and download." },
@@ -184,7 +190,7 @@ function WordStreamingText({
 
   useEffect(() => {
     if (wordCount < allWords.current.length) {
-      const timer = setTimeout(() => setWordCount((c) => c + 1), 20);
+      const timer = setTimeout(() => setWordCount((c) => c + 1), 30);
       return () => clearTimeout(timer);
     } else if (!completedRef.current) {
       completedRef.current = true;
@@ -217,12 +223,16 @@ function WordStreamingText({
 function getBlockPlainText(block: ResponseBlock): string {
   if (block.type === "break") return "";
   if (block.type === "paragraph" || block.type === "heading") return stripHtml(block.text || "");
-  if (block.type === "numbered-item") return `${block.text || ""} ${block.description || ""}`.trim();
+  if (block.type === "numbered-item") {
+    const numPrefix = block.number ? `${block.number}. ` : "";
+    return `${numPrefix}${block.text || ""} ${block.description || ""}`.trim();
+  }
   if (block.type === "bullet") return block.text || "";
   if (block.type === "experience-role") {
     const parts = [
-      `${block.text} \u2014 ${block.subtitle} \u00B7 ${block.duration}`,
+      `${block.text} @ ${block.subtitle} ${block.duration}`,
       block.description || "",
+      ...(block.focusLabel ? [block.focusLabel] : []),
       ...(block.bullets || []),
     ];
     return parts.join(" ");
@@ -259,19 +269,21 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
     return <p className="font-semibold">{words.slice(0, visibleWords).join(" ")}</p>;
   }
   if (block.type === "numbered-item") {
-    const titleWords = (block.text || "").split(/\s+/).filter(Boolean);
+    const numPrefix = block.number ? `${block.number}. ` : "";
+    const fullTitle = `${numPrefix}${block.text || ""}`;
+    const titleWords = fullTitle.split(/\s+/).filter(Boolean);
     const descWords = (block.description || "").split(/\s+/).filter(Boolean);
     if (visibleWords <= titleWords.length) {
       return (
-        <div className="ml-6 mb-1">
+        <div className="mb-2">
           <span className="font-semibold">{titleWords.slice(0, visibleWords).join(" ")}</span>
         </div>
       );
     }
     const descVisible = visibleWords - titleWords.length;
     return (
-      <div className="ml-6 mb-1">
-        <span className="font-semibold">{block.text}</span>
+      <div className="mb-2">
+        <span className="font-semibold">{fullTitle}</span>
         {descWords.length > 0 && <br />}
         {descWords.slice(0, descVisible).join(" ")}
       </div>
@@ -288,9 +300,10 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
 }
 
 function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; visibleWords: number }) {
-  const headerText = `${block.text} \u2014 ${block.subtitle} \u00B7 ${block.duration}`;
+  const headerText = `${block.text} @ ${block.subtitle} ${block.duration}`;
   const headerWords = headerText.split(/\s+/).filter(Boolean);
   const descWords = (block.description || "").split(/\s+/).filter(Boolean);
+  const focusLabelWords = (block.focusLabel || "").split(/\s+/).filter(Boolean);
   const bulletTexts = block.bullets || [];
   const allBulletWords = bulletTexts.map(b => b.split(/\s+/).filter(Boolean));
 
@@ -301,6 +314,9 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
 
   const descVisible = Math.min(remaining, descWords.length);
   remaining -= descVisible;
+
+  const focusVisible = Math.min(remaining, focusLabelWords.length);
+  remaining -= focusVisible;
 
   const bulletVisibles: number[] = [];
   for (const bw of allBulletWords) {
@@ -313,27 +329,39 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
 
   return (
     <div className="mb-8">
-      <p className="font-semibold">
-        {headerVisible >= headerWords.length ? (
-          <>
-            {block.text} {"\u2014"} <span style={{ backgroundColor: "#e6f4f7", padding: "0 2px" }}>{block.subtitle}</span>{" "}
-            <span className="font-normal text-[#a1a1a1]">{"\u00B7"} {block.duration}</span>
-          </>
-        ) : (
-          headerShown
+      <div className="flex justify-between items-baseline">
+        <p className="font-semibold">
+          {headerVisible >= headerWords.length ? (
+            <>
+              {block.text} @ {block.subtitle}
+            </>
+          ) : (
+            headerShown
+          )}
+        </p>
+        {headerVisible >= headerWords.length && (
+          <span className="font-normal text-[#171717] text-base whitespace-nowrap ml-4">{block.duration}</span>
         )}
-      </p>
+      </div>
       {descVisible > 0 && (
         <p className="mt-1">{descWords.slice(0, descVisible).join(" ")}</p>
       )}
+      {focusVisible > 0 && block.focusLabel && (
+        <p className="mt-3 text-[#6b8cce]">{focusLabelWords.slice(0, focusVisible).join(" ")}</p>
+      )}
       {bulletVisibles.some(v => v > 0) && (
-        <ul className="list-disc pl-6 mt-2 space-y-1">
+        <div className="mt-1 space-y-0.5">
           {bulletTexts.map((bt, i) => {
             if (bulletVisibles[i] <= 0) return null;
             const words = bt.split(/\s+/).filter(Boolean);
-            return <li key={i}>{words.slice(0, bulletVisibles[i]).join(" ")}</li>;
+            return (
+              <p key={i} className="flex items-start gap-1.5">
+                <span className="mt-0.5 flex-shrink-0">{"\u2022"}</span>
+                <span>{words.slice(0, bulletVisibles[i]).join(" ")}</span>
+              </p>
+            );
           })}
-        </ul>
+        </div>
       )}
     </div>
   );
@@ -381,57 +409,14 @@ function ResumeCard() {
       <a
         href="#"
         onClick={(e) => e.preventDefault()}
-        className="block rounded-2xl bg-[#f9f9f9] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0px_4px_16px_rgba(0,0,0,0.08)]"
+        className="block rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0px_4px_16px_rgba(0,0,0,0.08)]"
         style={{ border: "0.5px solid #e8e8e8" }}
         data-testid="card-resume-preview"
       >
-        <div className="px-8 pt-8 pb-6 font-['Inter',sans-serif]">
-          <h2 className="text-[28px] font-semibold text-[#171717] leading-tight tracking-tight">
-            Chirag Chhajer
-          </h2>
-          <p className="text-sm text-[#6b8cce] mt-1.5 leading-5">
-            chhajerchirag@gmail.com
-            <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
-            <span className="text-[#a1a1a1]">+91 9038411547</span>
-            <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
-            chiragchhajer.designfolio.me
-            <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
-            linkedin.com/in/chirag-chhajer/
-          </p>
-
-          <div className="mt-5">
-            <p className="text-xs font-bold text-[#171717] tracking-wide uppercase">Summary</p>
-            <div className="h-px bg-[#d4d4d4] mt-1.5 mb-3" />
-            <p className="text-[13px] text-[#3a3a3a] leading-5">
-              Product Designer with 3+ years of experience designing end-to-end features for AI-powered B2B SaaS and consumer products. Strong in feature-level ownership, systems thinking, and rapid experimentation to drive adoption, engagement, and retention. Experienced partnering cross-functionally with product, engineering, and content from concept to launch. Focused on building simple, scalable, and trustworthy AI-native experiences.
-            </p>
-          </div>
-
-          <div className="mt-5">
-            <p className="text-xs font-bold text-[#171717] tracking-wide uppercase">Experience</p>
-            <div className="h-px bg-[#d4d4d4] mt-1.5 mb-3" />
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-[13px] font-semibold text-[#171717]">Product Designer</p>
-                <p className="text-[13px] text-[#a1a1a1]">Sense HQ | Talent Engagement Platform</p>
-              </div>
-              <div className="text-right flex-shrink-0 ml-4">
-                <p className="text-[13px] font-semibold text-[#171717]">May 2025 - Present</p>
-                <p className="text-[13px] text-[#a1a1a1]">Bengaluru, India, On-site</p>
-              </div>
-            </div>
-            <p className="text-[13px] text-[#3a3a3a] leading-5 mt-1.5 flex items-start gap-1.5">
-              <span className="text-[#a1a1a1] mt-0.5 flex-shrink-0">{"\u2022"}</span>
-              <span>Own feature-level design for a flagship AI product enabling recruiters to conversationally create chatbots and voice...</span>
-            </p>
-          </div>
-        </div>
-
-        <div
-          className="relative h-12"
-          style={{
-            background: "linear-gradient(to top, #f9f9f9 0%, transparent 100%)",
-          }}
+        <img
+          src={resumeImagePath}
+          alt="Chirag Chhajer's Resume"
+          className="w-full h-auto"
         />
       </a>
     </div>
@@ -609,7 +594,7 @@ function AnimatedClock({ time }: { time: string }) {
 
   return (
     <p
-      className="font-['JetBrains_Mono',monospace] font-medium text-[#b8b8b8] text-[14px] leading-5 whitespace-nowrap uppercase"
+      className="font-['JetBrains_Mono',monospace] font-normal text-[#b8b8b8] text-[14px] leading-5 whitespace-nowrap uppercase"
       style={{
         letterSpacing: "-0.02em",
         transition: "opacity 0.4s ease, transform 0.4s ease",
