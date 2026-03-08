@@ -2,8 +2,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import {
   BrainIcon,
   ChevronRightIcon,
-  RotateCcwIcon,
-  MonitorIcon,
   LoaderIcon,
 } from "lucide-react";
 
@@ -96,7 +94,8 @@ function NavPill({
     <button
       data-testid={`prompt-${item.id}`}
       onClick={onClick}
-      className="bg-white border border-[#e0e0e0] flex gap-1.5 items-center justify-center px-2 py-1 rounded-full shadow-[0px_2px_6px_rgba(0,0,0,0.06)] hover:bg-neutral-50 transition-colors cursor-pointer"
+      className="bg-white flex gap-1.5 items-center justify-center px-2 py-1 rounded-full shadow-[0px_2px_6px_rgba(0,0,0,0.06)] hover:bg-neutral-50 transition-colors cursor-pointer"
+      style={{ border: "0.5px solid #e0e0e0" }}
     >
       <img src={item.iconSrc} alt={item.label} className="w-[18px] h-[18px]" />
       <span className="font-['Inter',sans-serif] font-normal text-[#171717] text-sm leading-5 whitespace-nowrap">
@@ -108,7 +107,7 @@ function NavPill({
 
 function WorkResponse() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif]">
+    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       <p>
         <span className="font-semibold">
           Here's a compilation of Chirag's work.
@@ -159,12 +158,12 @@ function WorkResponse() {
       </ul>
       <br />
       <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className="border-2 border-[#f0f0f0] rounded-xl h-[220px] bg-white" />
-        <div className="border-2 border-[#f0f0f0] rounded-xl h-[220px] bg-white" />
-        <div className="border-2 border-[#f0f0f0] rounded-xl h-[220px] bg-white" />
-        <div className="border-2 border-[#f0f0f0] rounded-xl h-[220px] bg-white" />
-        <div className="border-2 border-[#f0f0f0] rounded-xl h-[70px] bg-white" />
-        <div className="border-2 border-[#f0f0f0] rounded-xl h-[70px] bg-white" />
+        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+        <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+        <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
       </div>
     </div>
   );
@@ -172,7 +171,7 @@ function WorkResponse() {
 
 function AboutResponse() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif]">
+    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       <p>
         <span className="font-semibold">
           Hey, I'm Chirag Chhajer — a Product Designer.
@@ -208,7 +207,7 @@ function AboutResponse() {
 
 function ExperienceResponse() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif]">
+    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       <p>
         <span className="font-semibold">
           Here's a summary of Chirag's professional experience.
@@ -258,7 +257,7 @@ function ExperienceResponse() {
 
 function ResumeResponse() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif]">
+    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       <p>
         <span className="font-semibold">
           Chirag's resume is ready for download.
@@ -271,7 +270,7 @@ function ResumeResponse() {
         works with.
       </p>
       <br />
-      <div className="border-2 border-[#f0f0f0] rounded-xl p-6 bg-white inline-flex flex-col gap-4 items-start">
+      <div className="rounded-xl p-6 bg-white inline-flex flex-col gap-4 items-start" style={{ border: "0.5px solid #f0f0f0" }}>
         <div>
           <p className="font-semibold text-[#171717]">
             Chirag Chhajer — Product Designer
@@ -298,7 +297,7 @@ function ResumeResponse() {
 
 function OutOfScopeResponse() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif]">
+    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       <p className="font-semibold">
         Sorry! That request is currently out of scope.
       </p>
@@ -334,7 +333,7 @@ function ReasoningDisplay({
   const stepsCompleted = isDone ? steps.length : currentStep;
 
   return (
-    <div className="mt-8">
+    <div style={{ marginTop: 20 }}>
       <div className="flex items-center gap-1.5 mb-4">
         <BrainIcon className="w-5 h-5 text-[#a1a1a1]" />
         <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-base leading-6">
@@ -403,23 +402,46 @@ function getResponseType(input: string): ResponseType {
   return "out-of-scope";
 }
 
+function AnimatedClock({ time }: { time: string }) {
+  const [displayTime, setDisplayTime] = useState(time);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const prevTimeRef = useRef(time);
+
+  useEffect(() => {
+    if (time !== prevTimeRef.current) {
+      prevTimeRef.current = time;
+      setIsAnimating(true);
+      const t = setTimeout(() => {
+        setDisplayTime(time);
+        setIsAnimating(false);
+      }, 200);
+      return () => clearTimeout(t);
+    }
+  }, [time]);
+
+  return (
+    <p
+      className="font-['JetBrains_Mono',monospace] font-medium text-[#b8b8b8] text-[14px] leading-5 whitespace-nowrap uppercase"
+      style={{
+        letterSpacing: "-0.02em",
+        transition: "opacity 0.4s ease, transform 0.4s ease",
+        opacity: isAnimating ? 0 : 1,
+        transform: isAnimating ? "translateY(-4px)" : "translateY(0)",
+      }}
+      data-testid="text-clock"
+    >
+      {displayTime}
+    </p>
+  );
+}
+
 function useLiveClock() {
   const formatTime = useCallback(() => {
     const now = new Date();
     const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const months = [
-      "JAN",
-      "FEB",
-      "MAR",
-      "APR",
-      "MAY",
-      "JUN",
-      "JUL",
-      "AUG",
-      "SEP",
-      "OCT",
-      "NOV",
-      "DEC",
+      "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+      "JUL", "AUG", "SEP", "OCT", "NOV", "DEC",
     ];
     const day = days[now.getDay()];
     const date = String(now.getDate()).padStart(2, "0");
@@ -432,7 +454,7 @@ function useLiveClock() {
   const [time, setTime] = useState(formatTime);
 
   useEffect(() => {
-    const id = setInterval(() => setTime(formatTime()), 30000);
+    const id = setInterval(() => setTime(formatTime()), 1000);
     return () => clearInterval(id);
   }, [formatTime]);
 
@@ -447,6 +469,7 @@ export const Desktop = (): JSX.Element => {
   const [pendingQuery, setPendingQuery] = useState("");
   const [pendingType, setPendingType] = useState<ResponseType>("work");
   const [inChatMode, setInChatMode] = useState(false);
+  const [isInputHovered, setIsInputHovered] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const time = useLiveClock();
@@ -533,7 +556,8 @@ export const Desktop = (): JSX.Element => {
   return (
     <div className="flex items-center justify-center h-screen bg-white">
       <div
-        className="w-full h-full relative overflow-hidden rounded-[20px] border-[0.5px] border-neutral-200"
+        className="w-full h-full relative overflow-hidden"
+        style={{ border: "0.5px solid #e5e5e5" }}
       >
         {isHomeScreen ? (
           <div className="relative w-full h-full">
@@ -547,26 +571,30 @@ export const Desktop = (): JSX.Element => {
               alt="Logo"
               src="/figmaAssets/vector-22.svg"
             />
-            <p
-              className="absolute top-4 right-5 z-10 font-['JetBrains_Mono',monospace] font-medium text-[#b8b8b8] text-[14px] leading-5 whitespace-nowrap uppercase"
-              style={{ letterSpacing: "-0.02em" }}
-              data-testid="text-clock"
-            >
-              {time}
-            </p>
+            <div className="absolute top-4 right-5 z-10">
+              <AnimatedClock time={time} />
+            </div>
 
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 w-full px-8"
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 w-full px-5"
               style={{ gap: 20 }}
             >
               <h1
-                className="font-['Inter',sans-serif] font-normal text-[#171717] text-[32px] leading-[40px] whitespace-nowrap text-center"
-                style={{ letterSpacing: "-0.02em" }}
+                className="font-['Inter',sans-serif] font-normal text-[#171717] text-[32px] leading-[40px] text-center animate-entrance-1 md:whitespace-nowrap"
+                style={{ letterSpacing: "-0.02em", fontSize: "clamp(24px, 4vw, 32px)", lineHeight: "clamp(32px, 5vw, 40px)" }}
                 data-testid="text-heading"
               >
                 Hey, Welcome to Chirag Chhajer&apos;s Portfolio
               </h1>
 
-              <div className="w-[720px] bg-white rounded-2xl border-[0.5px] border-neutral-200 shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
+              <div
+                className="w-full max-w-[720px] bg-white rounded-2xl transition-colors duration-200 animate-entrance-2"
+                style={{
+                  border: `0.5px solid ${isInputHovered ? "#CCCCCC" : "#E5E5E5"}`,
+                }}
+                onMouseEnter={() => setIsInputHovered(true)}
+                onMouseLeave={() => setIsInputHovered(false)}
+              >
                 <div className="p-3 flex flex-col gap-2" style={{ minHeight: 84 }}>
                   <div className="flex items-start gap-2.5 w-full flex-1">
                     <img
@@ -584,6 +612,7 @@ export const Desktop = (): JSX.Element => {
                       }
                       placeholder="Ask me anything about Chirag..."
                       className="flex-1 border-0 shadow-none p-0 h-auto font-['Inter',sans-serif] font-normal text-base leading-6 focus:outline-none bg-transparent text-[#171717] placeholder:text-[#a6a6a6]"
+                      style={{ letterSpacing: 0 }}
                     />
                   </div>
                   <div className="flex justify-end">
@@ -606,7 +635,10 @@ export const Desktop = (): JSX.Element => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 flex-wrap justify-center mt-3">
+              <div
+                className="flex items-center flex-wrap justify-center animate-entrance-3"
+                style={{ gap: 8 }}
+              >
                 {navItems.map((item) => (
                   <NavPill
                     key={item.id}
@@ -627,21 +659,22 @@ export const Desktop = (): JSX.Element => {
                   src="/figmaAssets/vector-22.svg"
                 />
               </button>
-              <p
-                className="font-['JetBrains_Mono',monospace] font-medium text-[#b8b8b8] text-[14px] leading-5 whitespace-nowrap uppercase"
-                style={{ letterSpacing: "-0.02em" }}
-                data-testid="text-clock-chat"
-              >
-                {time}
-              </p>
+              <AnimatedClock time={time} />
             </div>
 
             <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 pb-8">
               <div className="max-w-[720px] mx-auto">
                 <div className="flex justify-end mt-4">
-                  <div className="bg-[#f0f0f0] px-4 py-2 rounded-xl max-w-[600px]">
+                  <div
+                    className="bg-[#f0f0f0] max-w-[600px]"
+                    style={{
+                      borderRadius: 12,
+                      padding: "8px 16px 8px 16px",
+                    }}
+                  >
                     <p
-                      className="font-['Inter',sans-serif] text-[#171717] text-base leading-6"
+                      className="font-['Inter',sans-serif] font-medium text-[#171717] text-base leading-6"
+                      style={{ letterSpacing: 0 }}
                       data-testid="text-user-message"
                     >
                       {pendingQuery}
@@ -690,53 +723,6 @@ export const Desktop = (): JSX.Element => {
                     </div>
                   </>
                 )}
-              </div>
-            </div>
-
-            <div className="border-t border-neutral-100 px-5 py-4 flex-shrink-0 bg-white">
-              <div className="max-w-[720px] mx-auto">
-                <div className="bg-white rounded-2xl border-[0.5px] border-neutral-200 shadow-[0px_2px_8px_rgba(0,0,0,0.08)]">
-                  <div className="p-3 flex flex-col gap-2" style={{ minHeight: 84 }}>
-                    <div className="flex items-start gap-2.5 w-full flex-1">
-                      <img
-                        src="/figmaAssets/magnifyingglass.svg"
-                        alt="search"
-                        className="w-5 h-5 flex-shrink-0 mt-[2px]"
-                      />
-                      <input
-                        data-testid="input-followup"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onKeyDown={(e) =>
-                          e.key === "Enter" && handleManualSubmit(inputValue)
-                        }
-                        placeholder="Ask me anything about Chirag..."
-                        className="flex-1 border-0 shadow-none p-0 h-auto font-['Inter',sans-serif] font-normal text-base leading-6 focus:outline-none bg-transparent text-[#171717] placeholder:text-[#a6a6a6]"
-                      />
-                    </div>
-                    <div className="flex justify-end gap-2">
-                      <button
-                        data-testid="button-reset"
-                        onClick={handleReset}
-                        className="w-7 h-7 rounded-full bg-[#f5f5f5] flex items-center justify-center hover:bg-neutral-200 transition-colors"
-                        title="Start over"
-                      >
-                        <RotateCcwIcon className="w-4 h-4 text-neutral-500" />
-                      </button>
-                      <button
-                        data-testid="button-send"
-                        onClick={() => handleManualSubmit(inputValue)}
-                        className="w-7 h-7 rounded-full bg-[#f5f5f5] flex items-center justify-center hover:bg-neutral-200 transition-colors"
-                      >
-                        <img
-                          src="/figmaAssets/frame-103.svg"
-                          alt="send"
-                          className="w-5 h-5"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
