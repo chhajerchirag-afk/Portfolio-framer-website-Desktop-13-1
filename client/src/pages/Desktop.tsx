@@ -835,16 +835,15 @@ export const Desktop = (): JSX.Element => {
                     <button
                       data-testid="button-submit"
                       onClick={() => handleManualSubmit(inputValue)}
-                      className="w-7 h-7 rounded-full bg-[#f5f5f5] flex items-center justify-center hover:bg-neutral-200 transition-colors"
+                      className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${inputValue.trim() ? "bg-[#212121] hover:bg-[#333]" : "bg-[#f5f5f5] hover:bg-neutral-200"}`}
                     >
                       {showLoader ? (
-                        <LoaderIcon className="w-5 h-5 text-[#171717] animate-spin" />
+                        <LoaderIcon className={`w-5 h-5 animate-spin ${inputValue.trim() ? "text-white" : "text-[#171717]"}`} />
                       ) : (
-                        <img
-                          src="/figmaAssets/frame-103.svg"
-                          alt="send"
-                          className="w-5 h-5"
-                        />
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10 16.875V3.125" stroke={inputValue.trim() ? "white" : "#B3B3B3"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M4.375 8.75L10 3.125L15.625 8.75" stroke={inputValue.trim() ? "white" : "#B3B3B3"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       )}
                     </button>
                   </div>
