@@ -379,19 +379,63 @@ function WorkCards() {
 
 function ResumeCard() {
   return (
-    <div className="mt-4 animate-stream-line">
+    <div className="mt-6 animate-stream-line">
       <div
-        className="rounded-xl p-6 bg-white inline-flex flex-col gap-4 items-start"
-        style={{ border: "0.5px solid #f0f0f0" }}
+        className="rounded-2xl bg-[#f9f9f9] overflow-hidden"
+        style={{ border: "0.5px solid #e8e8e8" }}
+        data-testid="card-resume-preview"
       >
-        <div>
-          <p className="font-semibold text-[#171717] font-['Inter',sans-serif] text-base">
-            Chirag Chhajer {"\u2014"} Product Designer
+        <div className="px-8 pt-8 pb-6 font-['Inter',sans-serif]">
+          <h2 className="text-[28px] font-semibold text-[#171717] leading-tight tracking-tight">
+            Chirag Chhajer
+          </h2>
+          <p className="text-sm text-[#6b8cce] mt-1.5 leading-5">
+            <a href="mailto:chhajerchirag@gmail.com" className="hover:underline">chhajerchirag@gmail.com</a>
+            <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
+            <span className="text-[#a1a1a1]">+91 9038411547</span>
+            <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
+            <a href="https://chiragchhajer.designfolio.me" target="_blank" rel="noopener noreferrer" className="hover:underline">chiragchhajer.designfolio.me</a>
+            <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
+            <a href="https://linkedin.com/in/chirag-chhajer/" target="_blank" rel="noopener noreferrer" className="hover:underline">linkedin.com/in/chirag-chhajer/</a>
           </p>
-          <p className="text-[#a1a1a1] text-sm mt-0.5 font-['Inter',sans-serif]">
-            PDF {"\u00B7"} Updated 2025
-          </p>
+
+          <div className="mt-5">
+            <p className="text-xs font-bold text-[#171717] tracking-wide uppercase">Summary</p>
+            <div className="h-px bg-[#d4d4d4] mt-1.5 mb-3" />
+            <p className="text-[13px] text-[#3a3a3a] leading-5">
+              Product Designer with 3+ years of experience designing end-to-end features for AI-powered B2B SaaS and consumer products. Strong in feature-level ownership, systems thinking, and rapid experimentation to drive adoption, engagement, and retention. Experienced partnering cross-functionally with product, engineering, and content from concept to launch. Focused on building simple, scalable, and trustworthy AI-native experiences.
+            </p>
+          </div>
+
+          <div className="mt-5">
+            <p className="text-xs font-bold text-[#171717] tracking-wide uppercase">Experience</p>
+            <div className="h-px bg-[#d4d4d4] mt-1.5 mb-3" />
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-[13px] font-semibold text-[#171717]">Product Designer</p>
+                <p className="text-[13px] text-[#a1a1a1]">Sense HQ | Talent Engagement Platform</p>
+              </div>
+              <div className="text-right flex-shrink-0 ml-4">
+                <p className="text-[13px] font-semibold text-[#171717]">May 2025 - Present</p>
+                <p className="text-[13px] text-[#a1a1a1]">Bengaluru, India, On-site</p>
+              </div>
+            </div>
+            <p className="text-[13px] text-[#3a3a3a] leading-5 mt-1.5 flex items-start gap-1.5">
+              <span className="text-[#a1a1a1] mt-0.5 flex-shrink-0">{"\u2022"}</span>
+              <span>Own feature-level design for a flagship AI product enabling recruiters to conversationally create chatbots and voice...</span>
+            </p>
+          </div>
         </div>
+
+        <div
+          className="relative h-12"
+          style={{
+            background: "linear-gradient(to top, #f9f9f9 0%, transparent 100%)",
+          }}
+        />
+      </div>
+
+      <div className="mt-4 flex items-center gap-3">
         <a
           href="#"
           data-testid="button-download-resume"
@@ -400,6 +444,9 @@ function ResumeCard() {
         >
           Download Resume
         </a>
+        <span className="text-[#a1a1a1] text-sm font-['Inter',sans-serif]">
+          PDF {"\u00B7"} Updated 2025
+        </span>
       </div>
     </div>
   );
