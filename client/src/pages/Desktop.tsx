@@ -113,9 +113,7 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
     { type: "experience-role", text: "UX Designer", subtitle: "Nudge Lab", duration: "2020 \u2013 2021", highlight: "Nudge Lab", description: "Worked on an AI-powered cybersecurity platform, helping define the MVP and core user flows.", bullets: ["Designed dashboards and alert systems for security analysts", "Made complex cybersecurity data accessible to non-technical users", "Contributed to product-market fit explorations in early-stage startup environment"] },
   ],
   resume: [
-    { type: "paragraph", text: "\u003Cb\u003EChirag\u2019s resume is ready for download.\u003C/b\u003E" },
-    { type: "break" },
-    { type: "paragraph", text: "It covers his work across AI products, HR Tech, LegalTech, and Cybersecurity \u2014 including case studies, key outcomes, and the tools he works with." },
+    { type: "paragraph", text: "Here you go \u2014 Chirag\u2019s resume is ready for view and download." },
   ],
   "out-of-scope": [
     { type: "paragraph", text: "\u003Cb\u003ESorry! That request is currently out of scope.\u003C/b\u003E" },
@@ -380,8 +378,10 @@ function WorkCards() {
 function ResumeCard() {
   return (
     <div className="mt-6 animate-stream-line">
-      <div
-        className="rounded-2xl bg-[#f9f9f9] overflow-hidden"
+      <a
+        href="#"
+        onClick={(e) => e.preventDefault()}
+        className="block rounded-2xl bg-[#f9f9f9] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0px_4px_16px_rgba(0,0,0,0.08)]"
         style={{ border: "0.5px solid #e8e8e8" }}
         data-testid="card-resume-preview"
       >
@@ -390,13 +390,13 @@ function ResumeCard() {
             Chirag Chhajer
           </h2>
           <p className="text-sm text-[#6b8cce] mt-1.5 leading-5">
-            <a href="mailto:chhajerchirag@gmail.com" className="hover:underline">chhajerchirag@gmail.com</a>
+            chhajerchirag@gmail.com
             <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
             <span className="text-[#a1a1a1]">+91 9038411547</span>
             <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
-            <a href="https://chiragchhajer.designfolio.me" target="_blank" rel="noopener noreferrer" className="hover:underline">chiragchhajer.designfolio.me</a>
+            chiragchhajer.designfolio.me
             <span className="text-[#a1a1a1] mx-1.5">{"\u2022"}</span>
-            <a href="https://linkedin.com/in/chirag-chhajer/" target="_blank" rel="noopener noreferrer" className="hover:underline">linkedin.com/in/chirag-chhajer/</a>
+            linkedin.com/in/chirag-chhajer/
           </p>
 
           <div className="mt-5">
@@ -433,21 +433,7 @@ function ResumeCard() {
             background: "linear-gradient(to top, #f9f9f9 0%, transparent 100%)",
           }}
         />
-      </div>
-
-      <div className="mt-4 flex items-center gap-3">
-        <a
-          href="#"
-          data-testid="button-download-resume"
-          className="bg-[#171717] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#333] transition-colors font-['Inter',sans-serif]"
-          onClick={(e) => e.preventDefault()}
-        >
-          Download Resume
-        </a>
-        <span className="text-[#a1a1a1] text-sm font-['Inter',sans-serif]">
-          PDF {"\u00B7"} Updated 2025
-        </span>
-      </div>
+      </a>
     </div>
   );
 }
