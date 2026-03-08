@@ -531,13 +531,12 @@ export const Desktop = (): JSX.Element => {
   const isChatScreen = inChatMode || phase === "transitioning" || phase === "reasoning" || phase === "done";
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white p-5">
+    <div className="flex items-center justify-center h-screen bg-white">
       <div
-        className="w-full max-w-[1400px] relative overflow-hidden rounded-[20px] border-[0.5px] border-neutral-200 shadow-[0px_2px_8px_rgba(0,0,0,0.08)]"
-        style={{ minHeight: 984 }}
+        className="w-full h-full relative overflow-hidden rounded-[20px] border-[0.5px] border-neutral-200"
       >
         {isHomeScreen ? (
-          <div className="relative w-full h-full min-h-[984px]">
+          <div className="relative w-full h-full">
             <img
               className="absolute inset-0 w-full h-full object-cover"
               alt="Background gradient"
@@ -619,7 +618,7 @@ export const Desktop = (): JSX.Element => {
             </div>
           </div>
         ) : isChatScreen ? (
-          <div className="relative w-full flex flex-col min-h-[984px] bg-white rounded-[20px]">
+          <div className="relative w-full h-full flex flex-col bg-white">
             <div className="flex items-center justify-between px-5 py-4 flex-shrink-0">
               <button onClick={handleReset} data-testid="button-logo-home">
                 <img
