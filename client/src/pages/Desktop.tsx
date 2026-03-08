@@ -379,7 +379,7 @@ function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
 
 function WorkCards() {
   return (
-    <div className="grid grid-cols-2 gap-4 mt-6 animate-stream-line">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 animate-stream-line">
       {[220, 220, 220, 220, 70, 70].map((h, i) => (
         <div
           key={i}
@@ -433,7 +433,7 @@ function CollapsibleReasoning({
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
   return (
-    <div style={{ marginTop: 20 }} className="mt-[16px] mb-[16px]">
+    <div style={{ marginTop: 16, marginBottom: 8 }}>
       <button
         className="flex items-center gap-1.5 mb-3 cursor-pointer"
         onClick={() => setCollapsed((c) => !c)}
@@ -518,7 +518,7 @@ function ActiveReasoning({
 
 function UserBubble({ message }: { message: string }) {
   return (
-    <div className="flex justify-end mt-6">
+    <div className="flex justify-end" style={{ marginTop: 40 }}>
       <div
         className="bg-[#f0f0f0] max-w-[600px]"
         style={{ borderRadius: 12, padding: "8px 16px" }}
@@ -787,7 +787,7 @@ export const Desktop = (): JSX.Element => {
 
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 w-full px-5"
-              style={{ gap: 12 }}
+              style={{ gap: 0 }}
             >
               <h1
                 className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
@@ -795,6 +795,7 @@ export const Desktop = (): JSX.Element => {
                   letterSpacing: "-0.02em",
                   fontSize: "clamp(24px, 4vw, 32px)",
                   lineHeight: "clamp(32px, 5vw, 40px)",
+                  marginBottom: 24,
                 }}
                 data-testid="text-heading"
               >
@@ -852,7 +853,7 @@ export const Desktop = (): JSX.Element => {
 
               <div
                 className="flex items-center flex-wrap justify-center animate-entrance-3"
-                style={{ gap: 8 }}
+                style={{ gap: 8, marginTop: 12 }}
               >
                 {navItems.map((item) => (
                   <NavPill
@@ -866,7 +867,7 @@ export const Desktop = (): JSX.Element => {
           </div>
         ) : isChatScreen ? (
           <div className="relative w-full h-full flex flex-col bg-white">
-            <div className="flex items-center justify-between px-5 py-4 flex-shrink-0">
+            <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
               <button onClick={handleReset} data-testid="button-logo-home">
                 <img
                   className="w-[86px] h-[34px]"
@@ -877,7 +878,12 @@ export const Desktop = (): JSX.Element => {
               <AnimatedClock time={time} />
             </div>
 
-            <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 pb-8">
+            <div className="relative flex-1 overflow-hidden">
+              <div
+                className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
+                style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
+              />
+            <div ref={scrollRef} className="h-full overflow-y-auto px-5 pb-8 pt-2">
               <div className="max-w-[720px] mx-auto">
                 {history.map((entry, i) => (
                   <CompletedEntry key={i} entry={entry} />
@@ -925,9 +931,9 @@ export const Desktop = (): JSX.Element => {
                     )}
 
                     {streamComplete && suggestedItems.length > 0 && (
-                      <div className="animate-stream-line mt-[16px] mb-[16px]">
+                      <div className="animate-stream-line" style={{ marginTop: 40 }}>
                         <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
-                          More Options
+                          More Options:
                         </p>
                         <div className="flex items-center gap-2 flex-wrap mt-3">
                           {suggestedItems.map((item) => (
@@ -943,6 +949,7 @@ export const Desktop = (): JSX.Element => {
                   </>
                 )}
               </div>
+            </div>
             </div>
           </div>
         ) : null}
