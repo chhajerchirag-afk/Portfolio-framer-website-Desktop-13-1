@@ -8,16 +8,9 @@ import {
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
-type AppPhase =
-  | "home"
-  | "filling"
-  | "loading"
-  | "transitioning"
-  | "reasoning"
-  | "streaming"
-  | "done";
+type ActivePhase = "loading" | "reasoning" | "streaming" | "done";
 
-interface ChatState {
+interface ConversationEntry {
   userMessage: string;
   responseType: ResponseType;
 }
@@ -51,37 +44,37 @@ const navItems = [
 
 const reasoningSteps: Record<ResponseType, string[]> = {
   work: [
-    "Searching through Chirag's design vault...",
-    "Filtering for the most impactful work...",
-    "Analysing product decisions and outcomes...",
-    "Preparing the best case studies for you...",
+    "Searching through Chirag\u2019s design vault\u2026",
+    "Filtering for the most impactful work\u2026",
+    "Analysing product decisions and outcomes\u2026",
+    "Preparing the best case studies for you\u2026",
   ],
   about: [
-    "Opening Chirag's background file...",
-    "Reviewing his journey and design philosophy...",
-    "Preparing a quick introduction...",
+    "Opening Chirag\u2019s background file\u2026",
+    "Reviewing his journey and design philosophy\u2026",
+    "Preparing a quick introduction\u2026",
   ],
   experience: [
-    "Scanning Chirag's professional timeline...",
-    "Reviewing roles and responsibilities...",
-    "Analyzing product impact across companies...",
-    "Preparing the experience overview...",
+    "Scanning Chirag\u2019s professional timeline\u2026",
+    "Reviewing roles and responsibilities\u2026",
+    "Analyzing product impact across companies\u2026",
+    "Preparing the experience overview\u2026",
   ],
   resume: [
-    "Searching for Chirag's latest resume...",
-    "Verifying experience and highlights...",
-    "Preparing the download...",
+    "Searching for Chirag\u2019s latest resume\u2026",
+    "Verifying experience and highlights\u2026",
+    "Preparing the download\u2026",
   ],
   "out-of-scope": [
-    "Processing request through intent classifier...",
-    "No matching capability found in current scope...",
-    "Generating fallback response...",
+    "Processing request\u2026",
+    "Searching for matching capabilities\u2026",
+    "Generating response\u2026",
   ],
 };
 
 const responseTexts: Record<ResponseType, string[]> = {
   work: [
-    "Here's a compilation of Chirag's work.",
+    "Here\u2019s a compilation of Chirag\u2019s work.",
     "",
     "It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems. Some of his most impactful work includes:",
     "",
@@ -105,13 +98,13 @@ const responseTexts: Record<ResponseType, string[]> = {
     "",
     "He has worked on AI-driven products, recruiter tools, and emerging tech platforms across companies like Sense, Gistr, and Nudge Lab, focusing on building systems that scale rather than just shipping features.",
     "",
-    "Outside of design, Chirag enjoys cooking and swimming \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy.",
+    "Outside of design, Chirag enjoys cooking \uD83C\uDF73 and swimming \uD83C\uDFCA\u200D\u2642\uFE0F \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy.",
     "",
     "In short:",
-    "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense.",
+    "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense. \u2728",
   ],
   experience: [
-    "Here's a summary of Chirag's professional experience.",
+    "Here\u2019s a summary of Chirag\u2019s professional experience.",
     "",
     "Product Designer \u2014 Sense \u00B7 2022 \u2013 Present",
     "Leading design for AI-powered HR products including AI Agents, Interview Scheduling, and talent engagement platforms. Driving end-to-end design from research to high-fidelity delivery.",
@@ -123,14 +116,14 @@ const responseTexts: Record<ResponseType, string[]> = {
     "Worked on an AI-powered cybersecurity platform, helping define the MVP and core user flows. Focused on making complex security data accessible to non-technical users.",
   ],
   resume: [
-    "Chirag's resume is ready for download.",
+    "Chirag\u2019s resume is ready for download.",
     "",
     "It covers his work across AI products, HR Tech, LegalTech, and Cybersecurity \u2014 including case studies, key outcomes, and the tools he works with.",
   ],
   "out-of-scope": [
     "Sorry! That request is currently out of scope.",
     "",
-    "Chirag believes in phase-by-phase development, and this feature didn't make it into the initial PRD.",
+    "Chirag believes in phase-by-phase development, and this feature didn\u2019t make it into the initial PRD \uD83D\uDE05.",
     "",
     "For now, this AI can help you with a few things:",
     "\u2022 Learn about Chirag",
@@ -138,7 +131,7 @@ const responseTexts: Record<ResponseType, string[]> = {
     "\u2022 See his experience",
     "\u2022 Download his resume",
     "",
-    "Try one of those prompts \u2014 they're fully shipped.",
+    "Try one of those prompts \u2014 they\u2019re fully shipped. \uD83D\uDE80",
   ],
 };
 
@@ -172,20 +165,22 @@ function StreamingText({
   onComplete: () => void;
 }) {
   const [visibleLines, setVisibleLines] = useState(0);
+  const completedRef = useRef(false);
 
   useEffect(() => {
     if (visibleLines < lines.length) {
       const delay = lines[visibleLines] === "" ? 40 : 30 + Math.min(lines[visibleLines].length * 0.5, 60);
       const timer = setTimeout(() => setVisibleLines((v) => v + 1), delay);
       return () => clearTimeout(timer);
-    } else {
+    } else if (!completedRef.current) {
+      completedRef.current = true;
       onComplete();
     }
   }, [visibleLines, lines, onComplete]);
 
   return (
     <div
-      className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal"
+      className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal"
       style={{ letterSpacing: 0 }}
     >
       {lines.slice(0, visibleLines).map((line, i) => {
@@ -204,6 +199,33 @@ function StreamingText({
             key={i}
             className={`animate-stream-line ${isTitle ? "font-semibold" : ""}`}
           >
+            {line}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+function StaticText({ lines }: { lines: string[] }) {
+  return (
+    <div
+      className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal"
+      style={{ letterSpacing: 0 }}
+    >
+      {lines.map((line, i) => {
+        if (line === "") return <br key={i} />;
+        const isTitle =
+          i === 0 ||
+          line.startsWith("1.") ||
+          line.startsWith("2.") ||
+          line.startsWith("3.") ||
+          line.startsWith("4.") ||
+          line.match(/^Product Designer/) ||
+          line.match(/^UX Designer/) ||
+          line === "In short:";
+        return (
+          <p key={i} className={isTitle ? "font-semibold" : ""}>
             {line}
           </p>
         );
@@ -234,10 +256,10 @@ function ResumeCard() {
       >
         <div>
           <p className="font-semibold text-[#171717] font-['Inter',sans-serif] text-base">
-            Chirag Chhajer — Product Designer
+            Chirag Chhajer \u2014 Product Designer
           </p>
           <p className="text-[#a1a1a1] text-sm mt-0.5 font-['Inter',sans-serif]">
-            PDF · Updated 2025
+            PDF \u00B7 Updated 2025
           </p>
         </div>
         <a
@@ -255,16 +277,12 @@ function ResumeCard() {
 
 function CollapsibleReasoning({
   steps,
-  isCollapsed,
+  defaultCollapsed,
 }: {
   steps: string[];
-  isCollapsed: boolean;
+  defaultCollapsed: boolean;
 }) {
-  const [collapsed, setCollapsed] = useState(isCollapsed);
-
-  useEffect(() => {
-    if (isCollapsed) setCollapsed(true);
-  }, [isCollapsed]);
+  const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
   return (
     <div style={{ marginTop: 20 }}>
@@ -340,6 +358,40 @@ function ActiveReasoning({
         })}
       </div>
     </div>
+  );
+}
+
+function UserBubble({ message }: { message: string }) {
+  return (
+    <div className="flex justify-end mt-6">
+      <div
+        className="bg-[#f0f0f0] max-w-[600px]"
+        style={{ borderRadius: 12, padding: "8px 16px" }}
+      >
+        <p
+          className="font-['Inter',sans-serif] font-normal text-[#171717] text-base leading-6"
+          style={{ letterSpacing: 0 }}
+          data-testid="text-user-message"
+        >
+          {message}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function CompletedEntry({ entry }: { entry: ConversationEntry }) {
+  const steps = reasoningSteps[entry.responseType];
+  const lines = responseTexts[entry.responseType];
+
+  return (
+    <>
+      <UserBubble message={entry.userMessage} />
+      <CollapsibleReasoning steps={steps} defaultCollapsed={true} />
+      <StaticText lines={lines} />
+      {entry.responseType === "work" && <WorkCards />}
+      {entry.responseType === "resume" && <ResumeCard />}
+    </>
   );
 }
 
@@ -428,9 +480,10 @@ function useLiveClock() {
 }
 
 export const Desktop = (): JSX.Element => {
-  const [chat, setChat] = useState<ChatState | null>(null);
+  const [history, setHistory] = useState<ConversationEntry[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [phase, setPhase] = useState<AppPhase>("home");
+  const [homePhase, setHomePhase] = useState<"idle" | "filling" | "loading">("idle");
+  const [activePhase, setActivePhase] = useState<ActivePhase | null>(null);
   const [reasoningStep, setReasoningStep] = useState(0);
   const [pendingQuery, setPendingQuery] = useState("");
   const [pendingType, setPendingType] = useState<ResponseType>("work");
@@ -446,27 +499,37 @@ export const Desktop = (): JSX.Element => {
     setInputValue(item.query);
     setPendingQuery(item.query);
     setPendingType(item.id);
-    setPhase("filling");
+    setHomePhase("filling");
   }
 
   useEffect(() => {
-    if (phase === "filling") {
-      const timer = setTimeout(() => setPhase("loading"), 600);
+    if (homePhase === "filling") {
+      const timer = setTimeout(() => setHomePhase("loading"), 600);
       return () => clearTimeout(timer);
     }
-    if (phase === "loading") {
-      const timer = setTimeout(() => setPhase("transitioning"), 1500);
+    if (homePhase === "loading") {
+      const timer = setTimeout(() => {
+        setInChatMode(true);
+        setHomePhase("idle");
+        setActivePhase("reasoning");
+        setReasoningStep(0);
+      }, 1500);
       return () => clearTimeout(timer);
     }
-    if (phase === "transitioning") {
-      setInChatMode(true);
-      setPhase("reasoning");
-      setReasoningStep(0);
-    }
-  }, [phase]);
+  }, [homePhase]);
 
   useEffect(() => {
-    if (phase === "reasoning") {
+    if (activePhase === "loading") {
+      const timer = setTimeout(() => {
+        setActivePhase("reasoning");
+        setReasoningStep(0);
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [activePhase]);
+
+  useEffect(() => {
+    if (activePhase === "reasoning") {
       const steps = reasoningSteps[pendingType];
       if (reasoningStep < steps.length - 1) {
         const delay = 600 + Math.random() * 800;
@@ -474,29 +537,29 @@ export const Desktop = (): JSX.Element => {
         return () => clearTimeout(timer);
       } else {
         const timer = setTimeout(() => {
-          setChat({ userMessage: pendingQuery, responseType: pendingType });
-          setInputValue("");
           setStreamComplete(false);
           setStreamKey((k) => k + 1);
-          setPhase("streaming");
+          setActivePhase("streaming");
         }, 700);
         return () => clearTimeout(timer);
       }
     }
-  }, [phase, reasoningStep, pendingQuery, pendingType]);
+  }, [activePhase, reasoningStep, pendingType]);
 
   function handleManualSubmit(query: string) {
     if (!query.trim()) return;
     const responseType = getResponseType(query);
     setPendingQuery(query);
     setPendingType(responseType);
-    setPhase("loading");
+    setInputValue(query);
+    setHomePhase("loading");
   }
 
   function handleReset() {
-    setChat(null);
+    setHistory([]);
     setInputValue("");
-    setPhase("home");
+    setHomePhase("idle");
+    setActivePhase(null);
     setReasoningStep(0);
     setPendingQuery("");
     setInChatMode(false);
@@ -504,39 +567,43 @@ export const Desktop = (): JSX.Element => {
   }
 
   function startNewPrompt(item: (typeof navItems)[number]) {
-    setChat(null);
-    setStreamComplete(false);
-    setStreamKey((k) => k + 1);
+    const currentEntry: ConversationEntry = {
+      userMessage: pendingQuery,
+      responseType: pendingType,
+    };
+    setHistory((h) => [...h, currentEntry]);
+
     setPendingQuery(item.query);
     setPendingType(item.id);
-    setInputValue(item.query);
+    setStreamComplete(false);
+    setStreamKey((k) => k + 1);
     setReasoningStep(0);
-    setInChatMode(true);
-    setPhase("loading");
+    setActivePhase("loading");
   }
-
-  const currentStreamKey = useRef(streamKey);
-  currentStreamKey.current = streamKey;
 
   const handleStreamComplete = useCallback(() => {
     setStreamComplete(true);
-    setPhase("done");
+    setActivePhase("done");
   }, []);
 
   useEffect(() => {
-    if ((phase === "streaming" || phase === "done") && scrollRef.current) {
+    if (scrollRef.current) {
       const el = scrollRef.current;
       el.scrollTop = el.scrollHeight;
     }
-  }, [phase, streamComplete]);
+  }, [activePhase, reasoningStep, streamComplete, history]);
 
-  const suggestedItems = chat
-    ? navItems.filter((n) => n.id !== chat.responseType)
-    : navItems;
+  const allUsedTypes: ResponseType[] = [
+    ...history.map((e) => e.responseType),
+    ...(activePhase ? [pendingType] : []),
+  ];
+  const suggestedItems = navItems.filter(
+    (n) => !allUsedTypes.includes(n.id)
+  );
 
-  const showLoader = phase === "loading";
-  const isHomeScreen = !inChatMode && (phase === "home" || phase === "filling" || phase === "loading");
-  const isChatScreen = inChatMode || phase === "transitioning" || phase === "reasoning" || phase === "streaming" || phase === "done";
+  const showLoader = homePhase === "loading";
+  const isHomeScreen = !inChatMode;
+  const isChatScreen = inChatMode;
 
   return (
     <div className="flex items-center justify-center h-screen bg-white">
@@ -653,52 +720,54 @@ export const Desktop = (): JSX.Element => {
 
             <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 pb-8">
               <div className="max-w-[720px] mx-auto">
-                <div className="flex justify-end mt-4">
-                  <div
-                    className="bg-[#f0f0f0] max-w-[600px]"
-                    style={{ borderRadius: 12, padding: "8px 16px" }}
-                  >
-                    <p
-                      className="font-['Inter',sans-serif] font-normal text-[#171717] text-base leading-6"
-                      style={{ letterSpacing: 0 }}
-                      data-testid="text-user-message"
-                    >
-                      {pendingQuery}
-                    </p>
-                  </div>
-                </div>
+                {history.map((entry, i) => (
+                  <CompletedEntry key={i} entry={entry} />
+                ))}
 
-                {(phase === "reasoning" || phase === "transitioning") && (
+                <UserBubble message={pendingQuery} />
+
+                {activePhase === "loading" && (
+                  <div style={{ marginTop: 20 }}>
+                    <div className="flex items-center gap-2">
+                      <LoaderIcon className="w-4 h-4 text-[#a1a1a1] animate-spin flex-shrink-0" />
+                      <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
+                        Chirag's AI is thinking...
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {activePhase === "reasoning" && (
                   <ActiveReasoning
                     steps={reasoningSteps[pendingType]}
                     currentStep={reasoningStep}
                   />
                 )}
 
-                {(phase === "streaming" || phase === "done") && chat && (
+                {(activePhase === "streaming" || activePhase === "done") && (
                   <>
                     <CollapsibleReasoning
-                      steps={reasoningSteps[chat.responseType]}
-                      isCollapsed={true}
+                      steps={reasoningSteps[pendingType]}
+                      defaultCollapsed={true}
                     />
 
                     <StreamingText
                       key={streamKey}
-                      lines={responseTexts[chat.responseType]}
+                      lines={responseTexts[pendingType]}
                       onComplete={handleStreamComplete}
                     />
 
-                    {chat.responseType === "work" && streamComplete && (
+                    {pendingType === "work" && streamComplete && (
                       <WorkCards />
                     )}
 
-                    {chat.responseType === "resume" && streamComplete && (
+                    {pendingType === "resume" && streamComplete && (
                       <ResumeCard />
                     )}
 
-                    {streamComplete && (
+                    {streamComplete && suggestedItems.length > 0 && (
                       <div className="mt-10 animate-stream-line">
-                        <p className="font-['Inter',sans-serif] text-[#222] text-base leading-6 mb-3">
+                        <p className="font-['Inter',sans-serif] text-[#222222] text-base leading-6 mb-3">
                           Suggested Prompts:
                         </p>
                         <div className="flex items-center gap-2 flex-wrap">
