@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   BrainIcon,
+  ChevronDownIcon,
   ChevronRightIcon,
   LoaderIcon,
 } from "lucide-react";
@@ -13,6 +14,7 @@ type AppPhase =
   | "loading"
   | "transitioning"
   | "reasoning"
+  | "streaming"
   | "done";
 
 interface ChatState {
@@ -49,37 +51,94 @@ const navItems = [
 
 const reasoningSteps: Record<ResponseType, string[]> = {
   work: [
-    "Initializing portfolio agent...",
-    "Scanning project database for design work...",
-    "Retrieving case studies from Sense, Gistr, and Nudge Lab...",
-    "Ranking projects by impact and complexity...",
-    "Compiling visual artifacts and outcomes...",
-    "Generating response...",
+    "Searching through Chirag's design vault...",
+    "Filtering for the most impactful work...",
+    "Analysing product decisions and outcomes...",
+    "Preparing the best case studies for you...",
   ],
   about: [
-    "Activating context retrieval agent...",
-    "Pulling professional profile data...",
-    "Cross-referencing skills and expertise...",
-    "Synthesizing bio from multiple sources...",
-    "Generating response...",
+    "Opening Chirag's background file...",
+    "Reviewing his journey and design philosophy...",
+    "Preparing a quick introduction...",
   ],
   experience: [
-    "Launching career timeline agent...",
-    "Querying employment history records...",
-    "Mapping roles, responsibilities, and growth...",
-    "Ordering by relevance and recency...",
-    "Generating response...",
+    "Scanning Chirag's professional timeline...",
+    "Reviewing roles and responsibilities...",
+    "Analyzing product impact across companies...",
+    "Preparing the experience overview...",
   ],
   resume: [
-    "Spinning up document retrieval agent...",
-    "Locating latest resume version...",
-    "Verifying file integrity and format...",
-    "Generating response...",
+    "Searching for Chirag's latest resume...",
+    "Verifying experience and highlights...",
+    "Preparing the download...",
   ],
   "out-of-scope": [
     "Processing request through intent classifier...",
     "No matching capability found in current scope...",
     "Generating fallback response...",
+  ],
+};
+
+const responseTexts: Record<ResponseType, string[]> = {
+  work: [
+    "Here's a compilation of Chirag's work.",
+    "",
+    "It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems. Some of his most impactful work includes:",
+    "",
+    "1. AI Agents for HR Teams",
+    "Designing AI agents that help HR Admins and Recruiters configure talent engagement workflows with significantly less effort and time.",
+    "",
+    "2. Reimagining AI Experiences",
+    "Simplifying how users interact with AI systems, making learning, discovery, and adoption more intuitive.",
+    "",
+    "3. Interview Scheduling for Talent Acquisition",
+    "Streamlining the scheduling process for recruiters and hiring managers to reduce coordination friction.",
+    "",
+    "4. Visual Design Explorations",
+    "",
+    "Beyond this, Chirag has also worked on simplifying research for legal professionals and establishing the MVP for an AI-powered cybersecurity platform.",
+  ],
+  about: [
+    "About Chirag",
+    "",
+    "Chirag is a Product Designer who thinks beyond screens \u2014 working at the intersection of user experience, product thinking, and business impact. He enjoys turning complex problems (especially in AI and workflow-heavy products) into experiences that feel simple, intuitive, and actually useful.",
+    "",
+    "He has worked on AI-driven products, recruiter tools, and emerging tech platforms across companies like Sense, Gistr, and Nudge Lab, focusing on building systems that scale rather than just shipping features.",
+    "",
+    "Outside of design, Chirag enjoys cooking and swimming \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy.",
+    "",
+    "In short:",
+    "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense.",
+  ],
+  experience: [
+    "Here's a summary of Chirag's professional experience.",
+    "",
+    "Product Designer \u2014 Sense \u00B7 2022 \u2013 Present",
+    "Leading design for AI-powered HR products including AI Agents, Interview Scheduling, and talent engagement platforms. Driving end-to-end design from research to high-fidelity delivery.",
+    "",
+    "Product Designer \u2014 Gistr \u00B7 2021 \u2013 2022",
+    "Designed AI-assisted research tools for legal professionals. Established the visual language and UX patterns for the platform from the ground up.",
+    "",
+    "UX Designer \u2014 Nudge Lab \u00B7 2020 \u2013 2021",
+    "Worked on an AI-powered cybersecurity platform, helping define the MVP and core user flows. Focused on making complex security data accessible to non-technical users.",
+  ],
+  resume: [
+    "Chirag's resume is ready for download.",
+    "",
+    "It covers his work across AI products, HR Tech, LegalTech, and Cybersecurity \u2014 including case studies, key outcomes, and the tools he works with.",
+  ],
+  "out-of-scope": [
+    "Sorry! That request is currently out of scope.",
+    "",
+    "Chirag believes in phase-by-phase development, and this feature didn't make it into the initial PRD.",
+    "",
+    "For now, this AI can help you with a few things:",
+    "\u2022 Learn about Chirag",
+    "\u2022 Explore his work",
+    "\u2022 See his experience",
+    "\u2022 Download his resume",
+    "",
+    "Try one of those prompts \u2014 they're fully shipped.",
   ],
 };
 
@@ -95,7 +154,7 @@ function NavPill({
       data-testid={`prompt-${item.id}`}
       onClick={onClick}
       className="bg-white flex gap-1.5 items-center justify-center px-2 py-1 rounded-full shadow-[0px_2px_6px_rgba(0,0,0,0.06)] hover:bg-neutral-50 transition-colors cursor-pointer"
-      style={{ border: "0.5px solid #e0e0e0" }}
+      style={{ border: "0.5px solid #E0E0E0" }}
     >
       <img src={item.iconSrc} alt={item.label} className="w-[18px] h-[18px]" />
       <span className="font-['Inter',sans-serif] font-normal text-[#171717] text-sm leading-5 whitespace-nowrap">
@@ -105,268 +164,175 @@ function NavPill({
   );
 }
 
-function WorkResponse() {
+function StreamingText({
+  lines,
+  onComplete,
+}: {
+  lines: string[];
+  onComplete: () => void;
+}) {
+  const [visibleLines, setVisibleLines] = useState(0);
+
+  useEffect(() => {
+    if (visibleLines < lines.length) {
+      const delay = lines[visibleLines] === "" ? 40 : 30 + Math.min(lines[visibleLines].length * 0.5, 60);
+      const timer = setTimeout(() => setVisibleLines((v) => v + 1), delay);
+      return () => clearTimeout(timer);
+    } else {
+      onComplete();
+    }
+  }, [visibleLines, lines, onComplete]);
+
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
-      <p>
-        <span className="font-semibold">
-          Here's a compilation of Chirag's work.
-        </span>
-        {" "}It includes projects from Sense, Gistr, and Nudge Lab, focusing on
-        solving complex product problems. Some of his most impactful work
-        includes:
-      </p>
-      <br />
-      <ol className="list-decimal pl-6 space-y-3">
-        <li>
-          <span className="font-semibold">AI Agents for HR Teams</span>
-          <br />
-          Designing AI agents that help HR Admins and Recruiters configure talent
-          engagement workflows with significantly less effort and time.
-        </li>
-        <li>
-          <span className="font-semibold">Reimagining AI Experiences</span>
-          <br />
-          Simplifying how users interact with AI systems, making learning,
-          discovery, and adoption more intuitive.
-        </li>
-        <li>
-          <span className="font-semibold">
-            Interview Scheduling for Talent Acquisition
-          </span>
-          <br />
-          Streamlining the scheduling process for recruiters and hiring managers
-          to reduce coordination friction.
-        </li>
-        <li>
-          <span className="font-semibold">Visual Design Explorations</span>
-        </li>
-      </ol>
-      <br />
-      <p>Beyond this, Chirag has also worked on:</p>
-      <ul className="list-disc pl-6 mt-2">
-        <li>
-          Simplifying{" "}
-          <span className="font-semibold">
-            research for legal professionals
-          </span>{" "}
-          and establishing the MVP for an{" "}
-          <span className="font-semibold">
-            AI-powered cybersecurity platform.
-          </span>
-        </li>
-      </ul>
-      <br />
-      <div className="grid grid-cols-2 gap-4 mt-2">
-        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-        <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-        <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-        <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-      </div>
+    <div
+      className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal"
+      style={{ letterSpacing: 0 }}
+    >
+      {lines.slice(0, visibleLines).map((line, i) => {
+        if (line === "") return <br key={i} />;
+        const isTitle =
+          i === 0 ||
+          line.startsWith("1.") ||
+          line.startsWith("2.") ||
+          line.startsWith("3.") ||
+          line.startsWith("4.") ||
+          line.match(/^Product Designer/) ||
+          line.match(/^UX Designer/) ||
+          line === "In short:";
+        return (
+          <p
+            key={i}
+            className={`animate-stream-line ${isTitle ? "font-semibold" : ""}`}
+          >
+            {line}
+          </p>
+        );
+      })}
     </div>
   );
 }
 
-function AboutResponse() {
+function WorkCards() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
-      <p>
-        <span className="font-semibold">
-          Hey, I'm Chirag Chhajer — a Product Designer.
-        </span>
-      </p>
-      <br />
-      <p>
-        I specialize in designing AI-powered products that are intuitive,
-        impactful, and grounded in real user needs. I believe great design is
-        equal parts empathy, craft, and systems thinking.
-      </p>
-      <br />
-      <p>Over the past few years, I've worked on:</p>
-      <ul className="list-disc pl-6 mt-2 space-y-2">
-        <li>Building end-to-end AI product experiences from 0 to 1</li>
-        <li>
-          Designing for complex workflows in HR Tech, LegalTech, and
-          Cybersecurity
-        </li>
-        <li>Creating design systems that scale across teams and platforms</li>
-        <li>
-          Collaborating closely with PMs and engineers to ship high-quality work
-        </li>
-      </ul>
-      <br />
-      <p>
-        When I'm not designing, I'm usually exploring new AI tools, sketching
-        interfaces, or thinking about how to make complex things feel simple.
-      </p>
+    <div className="grid grid-cols-2 gap-4 mt-6 animate-stream-line">
+      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+      <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+      <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
     </div>
   );
 }
 
-function ExperienceResponse() {
+function ResumeCard() {
   return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
-      <p>
-        <span className="font-semibold">
-          Here's a summary of Chirag's professional experience.
-        </span>
-      </p>
-      <br />
-      <div className="space-y-6">
+    <div className="mt-4 animate-stream-line">
+      <div
+        className="rounded-xl p-6 bg-white inline-flex flex-col gap-4 items-start"
+        style={{ border: "0.5px solid #f0f0f0" }}
+      >
         <div>
-          <p className="font-semibold">
-            Product Designer — Sense{" "}
-            <span className="font-normal text-[#a1a1a1]">
-              · 2022 – Present
-            </span>
-          </p>
-          <p className="mt-1">
-            Leading design for AI-powered HR products including AI Agents,
-            Interview Scheduling, and talent engagement platforms. Driving
-            end-to-end design from research to high-fidelity delivery.
-          </p>
-        </div>
-        <div>
-          <p className="font-semibold">
-            Product Designer — Gistr{" "}
-            <span className="font-normal text-[#a1a1a1]">· 2021 – 2022</span>
-          </p>
-          <p className="mt-1">
-            Designed AI-assisted research tools for legal professionals.
-            Established the visual language and UX patterns for the platform from
-            the ground up.
-          </p>
-        </div>
-        <div>
-          <p className="font-semibold">
-            UX Designer — Nudge Lab{" "}
-            <span className="font-normal text-[#a1a1a1]">· 2020 – 2021</span>
-          </p>
-          <p className="mt-1">
-            Worked on an AI-powered cybersecurity platform, helping define the
-            MVP and core user flows. Focused on making complex security data
-            accessible to non-technical users.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ResumeResponse() {
-  return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
-      <p>
-        <span className="font-semibold">
-          Chirag's resume is ready for download.
-        </span>
-      </p>
-      <br />
-      <p>
-        It covers his work across AI products, HR Tech, LegalTech, and
-        Cybersecurity — including case studies, key outcomes, and the tools he
-        works with.
-      </p>
-      <br />
-      <div className="rounded-xl p-6 bg-white inline-flex flex-col gap-4 items-start" style={{ border: "0.5px solid #f0f0f0" }}>
-        <div>
-          <p className="font-semibold text-[#171717]">
+          <p className="font-semibold text-[#171717] font-['Inter',sans-serif] text-base">
             Chirag Chhajer — Product Designer
           </p>
-          <p className="text-[#a1a1a1] text-sm mt-0.5">PDF · Updated 2025</p>
+          <p className="text-[#a1a1a1] text-sm mt-0.5 font-['Inter',sans-serif]">
+            PDF · Updated 2025
+          </p>
         </div>
         <a
           href="#"
           data-testid="button-download-resume"
-          className="bg-[#171717] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#333] transition-colors"
+          className="bg-[#171717] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#333] transition-colors font-['Inter',sans-serif]"
           onClick={(e) => e.preventDefault()}
         >
           Download Resume
         </a>
       </div>
-      <br />
-      <br />
-      <p className="text-[#a1a1a1] text-sm">
-        Want a specific format? Feel free to reach out directly.
-      </p>
     </div>
   );
 }
 
-function OutOfScopeResponse() {
-  return (
-    <div className="text-[#222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
-      <p className="font-semibold">
-        Sorry! That request is currently out of scope.
-      </p>
-      <br />
-      <p>
-        Chirag believes in phase-by-phase development, and this feature didn't
-        make it into the initial PRD.
-      </p>
-      <br />
-      <p>For now, this AI can help you with a few things:</p>
-      <ul className="list-disc pl-6 mt-2 space-y-1">
-        <li>Learn about Chirag</li>
-        <li>Explore his work</li>
-        <li>See his experience</li>
-        <li>Download his resume</li>
-      </ul>
-      <br />
-      <p>Try one of those prompts — they're fully shipped.</p>
-    </div>
-  );
-}
-
-function ReasoningDisplay({
+function CollapsibleReasoning({
   steps,
-  currentStep,
-  isDone,
+  isCollapsed,
 }: {
   steps: string[];
-  currentStep: number;
-  isDone: boolean;
+  isCollapsed: boolean;
 }) {
-  const visibleSteps = isDone ? steps : steps.slice(0, currentStep + 1);
-  const stepsCompleted = isDone ? steps.length : currentStep;
+  const [collapsed, setCollapsed] = useState(isCollapsed);
+
+  useEffect(() => {
+    if (isCollapsed) setCollapsed(true);
+  }, [isCollapsed]);
 
   return (
     <div style={{ marginTop: 20 }}>
-      <div className="flex items-center gap-1.5 mb-4">
+      <button
+        className="flex items-center gap-1.5 mb-3 cursor-pointer"
+        onClick={() => setCollapsed((c) => !c)}
+        data-testid="button-toggle-reasoning"
+      >
         <BrainIcon className="w-5 h-5 text-[#a1a1a1]" />
-        <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-base leading-6">
-          {isDone
-            ? `${steps.length} steps completed`
-            : `${stepsCompleted} of ${steps.length} steps...`}
+        <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
+          {steps.length} steps completed
         </span>
-        <ChevronRightIcon className="w-4 h-4 text-[#a1a1a1]" />
-      </div>
-      <div className="space-y-2 mb-6">
-        {visibleSteps.map((step, i) => {
-          const isActive = !isDone && i === currentStep;
-          return (
+        {collapsed ? (
+          <ChevronRightIcon className="w-4 h-4 text-[#a1a1a1]" />
+        ) : (
+          <ChevronDownIcon className="w-4 h-4 text-[#a1a1a1]" />
+        )}
+      </button>
+      {!collapsed && (
+        <div className="space-y-1.5 mb-4 ml-1">
+          {steps.map((step, i) => (
             <div
               key={i}
               className="flex items-center gap-2 font-['Inter',sans-serif] text-sm"
             >
+              <div className="w-3 h-3 rounded-full bg-[#e0e0e0] flex items-center justify-center flex-shrink-0">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#a1a1a1]" />
+              </div>
+              <span className="text-[#a1a1a1]">{step}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ActiveReasoning({
+  steps,
+  currentStep,
+}: {
+  steps: string[];
+  currentStep: number;
+}) {
+  return (
+    <div style={{ marginTop: 20 }}>
+      <div className="flex items-center gap-2 mb-4">
+        <LoaderIcon className="w-4 h-4 text-[#a1a1a1] animate-spin flex-shrink-0" />
+        <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
+          Chirag's AI is thinking...
+        </span>
+      </div>
+      <div className="space-y-1.5 mb-4 ml-1">
+        {steps.slice(0, currentStep + 1).map((step, i) => {
+          const isActive = i === currentStep;
+          return (
+            <div
+              key={i}
+              className="flex items-center gap-2 font-['Inter',sans-serif] text-sm animate-stream-line"
+            >
               {isActive ? (
-                <LoaderIcon className="w-3.5 h-3.5 text-[#a1a1a1] animate-spin flex-shrink-0" />
+                <LoaderIcon className="w-3 h-3 text-[#a1a1a1] animate-spin flex-shrink-0" />
               ) : (
-                <div className="w-3.5 h-3.5 rounded-full bg-[#e0e0e0] flex items-center justify-center flex-shrink-0">
+                <div className="w-3 h-3 rounded-full bg-[#e0e0e0] flex items-center justify-center flex-shrink-0">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#a1a1a1]" />
                 </div>
               )}
-              <span
-                className={
-                  isActive
-                    ? "text-[#171717]"
-                    : i < currentStep || isDone
-                      ? "text-[#a1a1a1]"
-                      : "text-[#171717]"
-                }
-              >
+              <span className={isActive ? "text-[#171717]" : "text-[#a1a1a1]"}>
                 {step}
               </span>
             </div>
@@ -470,6 +436,8 @@ export const Desktop = (): JSX.Element => {
   const [pendingType, setPendingType] = useState<ResponseType>("work");
   const [inChatMode, setInChatMode] = useState(false);
   const [isInputHovered, setIsInputHovered] = useState(false);
+  const [streamComplete, setStreamComplete] = useState(false);
+  const [streamKey, setStreamKey] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const time = useLiveClock();
@@ -483,15 +451,11 @@ export const Desktop = (): JSX.Element => {
 
   useEffect(() => {
     if (phase === "filling") {
-      const timer = setTimeout(() => {
-        setPhase("loading");
-      }, 600);
+      const timer = setTimeout(() => setPhase("loading"), 600);
       return () => clearTimeout(timer);
     }
     if (phase === "loading") {
-      const timer = setTimeout(() => {
-        setPhase("transitioning");
-      }, 1500);
+      const timer = setTimeout(() => setPhase("transitioning"), 1500);
       return () => clearTimeout(timer);
     }
     if (phase === "transitioning") {
@@ -506,16 +470,15 @@ export const Desktop = (): JSX.Element => {
       const steps = reasoningSteps[pendingType];
       if (reasoningStep < steps.length - 1) {
         const delay = 600 + Math.random() * 800;
-        const timer = setTimeout(
-          () => setReasoningStep((s) => s + 1),
-          delay,
-        );
+        const timer = setTimeout(() => setReasoningStep((s) => s + 1), delay);
         return () => clearTimeout(timer);
       } else {
         const timer = setTimeout(() => {
           setChat({ userMessage: pendingQuery, responseType: pendingType });
           setInputValue("");
-          setPhase("done");
+          setStreamComplete(false);
+          setStreamKey((k) => k + 1);
+          setPhase("streaming");
         }, 700);
         return () => clearTimeout(timer);
       }
@@ -537,13 +500,35 @@ export const Desktop = (): JSX.Element => {
     setReasoningStep(0);
     setPendingQuery("");
     setInChatMode(false);
+    setStreamComplete(false);
   }
 
+  function startNewPrompt(item: (typeof navItems)[number]) {
+    setChat(null);
+    setStreamComplete(false);
+    setStreamKey((k) => k + 1);
+    setPendingQuery(item.query);
+    setPendingType(item.id);
+    setInputValue(item.query);
+    setReasoningStep(0);
+    setInChatMode(true);
+    setPhase("loading");
+  }
+
+  const currentStreamKey = useRef(streamKey);
+  currentStreamKey.current = streamKey;
+
+  const handleStreamComplete = useCallback(() => {
+    setStreamComplete(true);
+    setPhase("done");
+  }, []);
+
   useEffect(() => {
-    if (phase === "done" && scrollRef.current) {
-      scrollRef.current.scrollTop = 0;
+    if ((phase === "streaming" || phase === "done") && scrollRef.current) {
+      const el = scrollRef.current;
+      el.scrollTop = el.scrollHeight;
     }
-  }, [phase]);
+  }, [phase, streamComplete]);
 
   const suggestedItems = chat
     ? navItems.filter((n) => n.id !== chat.responseType)
@@ -551,7 +536,7 @@ export const Desktop = (): JSX.Element => {
 
   const showLoader = phase === "loading";
   const isHomeScreen = !inChatMode && (phase === "home" || phase === "filling" || phase === "loading");
-  const isChatScreen = inChatMode || phase === "transitioning" || phase === "reasoning" || phase === "done";
+  const isChatScreen = inChatMode || phase === "transitioning" || phase === "reasoning" || phase === "streaming" || phase === "done";
 
   return (
     <div className="flex items-center justify-center h-screen bg-white">
@@ -580,11 +565,15 @@ export const Desktop = (): JSX.Element => {
               style={{ gap: 20 }}
             >
               <h1
-                className="font-['Inter',sans-serif] font-normal text-[#171717] text-[32px] leading-[40px] text-center animate-entrance-1 md:whitespace-nowrap"
-                style={{ letterSpacing: "-0.02em", fontSize: "clamp(24px, 4vw, 32px)", lineHeight: "clamp(32px, 5vw, 40px)" }}
+                className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
+                style={{
+                  letterSpacing: "-0.02em",
+                  fontSize: "clamp(24px, 4vw, 32px)",
+                  lineHeight: "clamp(32px, 5vw, 40px)",
+                }}
                 data-testid="text-heading"
               >
-                Hey, Welcome to Chirag Chhajer&apos;s Portfolio
+                Hola! I&apos;m Chirag&apos;s portfolio AI.
               </h1>
 
               <div
@@ -637,7 +626,7 @@ export const Desktop = (): JSX.Element => {
 
               <div
                 className="flex items-center flex-wrap justify-center animate-entrance-3"
-                style={{ gap: 8 }}
+                style={{ gap: 8, marginTop: -8 }}
               >
                 {navItems.map((item) => (
                   <NavPill
@@ -667,13 +656,10 @@ export const Desktop = (): JSX.Element => {
                 <div className="flex justify-end mt-4">
                   <div
                     className="bg-[#f0f0f0] max-w-[600px]"
-                    style={{
-                      borderRadius: 12,
-                      padding: "8px 16px 8px 16px",
-                    }}
+                    style={{ borderRadius: 12, padding: "8px 16px" }}
                   >
                     <p
-                      className="font-['Inter',sans-serif] font-medium text-[#171717] text-base leading-6"
+                      className="font-['Inter',sans-serif] font-normal text-[#171717] text-base leading-6"
                       style={{ letterSpacing: 0 }}
                       data-testid="text-user-message"
                     >
@@ -682,45 +668,50 @@ export const Desktop = (): JSX.Element => {
                   </div>
                 </div>
 
-                <ReasoningDisplay
-                  steps={reasoningSteps[pendingType]}
-                  currentStep={reasoningStep}
-                  isDone={phase === "done"}
-                />
+                {(phase === "reasoning" || phase === "transitioning") && (
+                  <ActiveReasoning
+                    steps={reasoningSteps[pendingType]}
+                    currentStep={reasoningStep}
+                  />
+                )}
 
-                {phase === "done" && chat && (
+                {(phase === "streaming" || phase === "done") && chat && (
                   <>
-                    {chat.responseType === "work" && <WorkResponse />}
-                    {chat.responseType === "about" && <AboutResponse />}
-                    {chat.responseType === "experience" && (
-                      <ExperienceResponse />
-                    )}
-                    {chat.responseType === "resume" && <ResumeResponse />}
-                    {chat.responseType === "out-of-scope" && (
-                      <OutOfScopeResponse />
+                    <CollapsibleReasoning
+                      steps={reasoningSteps[chat.responseType]}
+                      isCollapsed={true}
+                    />
+
+                    <StreamingText
+                      key={streamKey}
+                      lines={responseTexts[chat.responseType]}
+                      onComplete={handleStreamComplete}
+                    />
+
+                    {chat.responseType === "work" && streamComplete && (
+                      <WorkCards />
                     )}
 
-                    <div className="mt-10">
-                      <p className="font-['Inter',sans-serif] text-[#222] text-base leading-6 mb-3">
-                        Suggested Prompts:
-                      </p>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {suggestedItems.map((item) => (
-                          <NavPill
-                            key={item.id}
-                            item={item}
-                            onClick={() => {
-                              setPendingQuery(item.query);
-                              setPendingType(item.id);
-                              setChat(null);
-                              setInputValue(item.query);
-                              setReasoningStep(0);
-                              setPhase("loading");
-                            }}
-                          />
-                        ))}
+                    {chat.responseType === "resume" && streamComplete && (
+                      <ResumeCard />
+                    )}
+
+                    {streamComplete && (
+                      <div className="mt-10 animate-stream-line">
+                        <p className="font-['Inter',sans-serif] text-[#222] text-base leading-6 mb-3">
+                          Suggested Prompts:
+                        </p>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {suggestedItems.map((item) => (
+                            <NavPill
+                              key={item.id}
+                              item={item}
+                              onClick={() => startNewPrompt(item)}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </>
                 )}
               </div>
