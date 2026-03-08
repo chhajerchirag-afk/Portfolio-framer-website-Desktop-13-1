@@ -940,7 +940,7 @@ export const Desktop = (): JSX.Element => {
                     )}
 
                     {streamComplete && suggestedItems.length > 0 && (
-                      <div className="mt-10 animate-stream-line">
+                      <div className="animate-stream-line mt-[16px] mb-[16px]">
                         <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
                           More Options
                         </p>
