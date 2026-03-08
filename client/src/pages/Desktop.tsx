@@ -72,82 +72,82 @@ const reasoningSteps: Record<ResponseType, string[]> = {
   ],
 };
 
-const responseTexts: Record<ResponseType, string[]> = {
+interface ResponseBlock {
+  type: "paragraph" | "heading" | "numbered-item" | "bullet" | "break" | "experience-role";
+  text?: string;
+  subtitle?: string;
+  description?: string;
+  highlight?: string;
+  duration?: string;
+  bullets?: string[];
+}
+
+const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
   work: [
-    "Here\u2019s a compilation of Chirag\u2019s work.",
-    "",
-    "It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems. Some of his most impactful work includes:",
-    "",
-    "1. AI Agents for HR Teams",
-    "Designing AI agents that help HR Admins and Recruiters configure talent engagement workflows with significantly less effort and time.",
-    "",
-    "2. Reimagining AI Experiences",
-    "Simplifying how users interact with AI systems, making learning, discovery, and adoption more intuitive.",
-    "",
-    "3. Interview Scheduling for Talent Acquisition",
-    "Streamlining the scheduling process for recruiters and hiring managers to reduce coordination friction.",
-    "",
-    "4. Visual Design Explorations",
-    "",
-    "Beyond this, Chirag has also worked on simplifying research for legal professionals and establishing the MVP for an AI-powered cybersecurity platform.",
+    { type: "paragraph", text: "\u003Cb\u003EHere\u2019s a compilation of Chirag\u2019s work.\u003C/b\u003E It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems. Some of his most impactful work includes:" },
+    { type: "break" },
+    { type: "numbered-item", text: "AI Agents for HR Teams", description: "Designing AI agents that help HR Admins and Recruiters configure talent engagement workflows with significantly less effort and time." },
+    { type: "numbered-item", text: "Reimagining AI Experiences", description: "Simplifying how users interact with AI systems, making learning, discovery, and adoption more intuitive." },
+    { type: "numbered-item", text: "Interview Scheduling for Talent Acquisition", description: "Streamlining the scheduling process for recruiters and hiring managers to reduce coordination friction." },
+    { type: "numbered-item", text: "Visual Design Explorations", description: "" },
+    { type: "break" },
+    { type: "paragraph", text: "Beyond this, Chirag has also worked on simplifying research for legal professionals and establishing the MVP for an AI-powered cybersecurity platform." },
   ],
   about: [
-    "About Chirag",
-    "",
-    "Chirag is a Product Designer who thinks beyond screens \u2014 working at the intersection of user experience, product thinking, and business impact. He enjoys turning complex problems (especially in AI and workflow-heavy products) into experiences that feel simple, intuitive, and actually useful.",
-    "",
-    "He has worked on AI-driven products, recruiter tools, and emerging tech platforms across companies like Sense, Gistr, and Nudge Lab, focusing on building systems that scale rather than just shipping features.",
-    "",
-    "Outside of design, Chirag enjoys cooking \uD83C\uDF73 and swimming \uD83C\uDFCA\u200D\u2642\uFE0F \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy.",
-    "",
-    "In short:",
-    "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense. \u2728",
+    { type: "heading", text: "About Chirag" },
+    { type: "break" },
+    { type: "paragraph", text: "Chirag is a Product Designer who thinks beyond screens \u2014 working at the intersection of user experience, product thinking, and business impact. He enjoys turning complex problems (especially in AI and workflow-heavy products) into experiences that feel simple, intuitive, and actually useful." },
+    { type: "break" },
+    { type: "paragraph", text: "He has worked on AI-driven products, recruiter tools, and emerging tech platforms across companies like Sense, Gistr, and Nudge Lab, focusing on building systems that scale rather than just shipping features." },
+    { type: "break" },
+    { type: "paragraph", text: "Outside of design, Chirag enjoys cooking \uD83C\uDF73 and swimming \uD83C\uDFCA\u200D\u2642\uFE0F \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy." },
+    { type: "break" },
+    { type: "paragraph", text: "\u003Cb\u003EIn short:\u003C/b\u003E" },
+    { type: "paragraph", text: "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense. \u2728" },
   ],
   experience: [
-    "Here\u2019s a summary of Chirag\u2019s professional experience.",
-    "",
-    "Product Designer \u2014 Sense \u00B7 2022 \u2013 Present",
-    "Leading design for AI-powered HR products including AI Agents, Interview Scheduling, and talent engagement platforms. Driving end-to-end design from research to high-fidelity delivery.",
-    "",
-    "Product Designer \u2014 Gistr \u00B7 2021 \u2013 2022",
-    "Designed AI-assisted research tools for legal professionals. Established the visual language and UX patterns for the platform from the ground up.",
-    "",
-    "UX Designer \u2014 Nudge Lab \u00B7 2020 \u2013 2021",
-    "Worked on an AI-powered cybersecurity platform, helping define the MVP and core user flows. Focused on making complex security data accessible to non-technical users.",
+    { type: "heading", text: "Here\u2019s Chirag\u2019s career progression so far." },
+    { type: "break" },
+    { type: "experience-role", text: "Product Designer", subtitle: "Sense", duration: "2022 \u2013 Present", highlight: "Sense", description: "Working on AI-powered HR products, leading design for features like AI Agents, Interview Scheduling, and talent engagement platforms.", bullets: ["Designed end-to-end AI agent workflows for HR Admins and Recruiters", "Led the redesign of Sense\u2019s AI experience to improve usability and adoption", "Shipped Interview Scheduling module used by enterprise recruiting teams", "Collaborated with PMs and Engineers to define product strategy and ship fast"] },
+    { type: "experience-role", text: "Product Designer", subtitle: "Gistr", duration: "2021 \u2013 2022", highlight: "Gistr", description: "Designed AI-assisted research tools for legal professionals, establishing the product\u2019s visual language and core UX patterns from the ground up.", bullets: ["Built the MVP design system and interaction patterns for the platform", "Simplified complex legal research workflows into intuitive experiences", "Worked closely with founders to define product direction and user flows"] },
+    { type: "experience-role", text: "UX Designer", subtitle: "Nudge Lab", duration: "2020 \u2013 2021", highlight: "Nudge Lab", description: "Worked on an AI-powered cybersecurity platform, helping define the MVP and core user flows.", bullets: ["Designed dashboards and alert systems for security analysts", "Made complex cybersecurity data accessible to non-technical users", "Contributed to product-market fit explorations in early-stage startup environment"] },
   ],
   resume: [
-    "Chirag\u2019s resume is ready for download.",
-    "",
-    "It covers his work across AI products, HR Tech, LegalTech, and Cybersecurity \u2014 including case studies, key outcomes, and the tools he works with.",
+    { type: "paragraph", text: "\u003Cb\u003EChirag\u2019s resume is ready for download.\u003C/b\u003E" },
+    { type: "break" },
+    { type: "paragraph", text: "It covers his work across AI products, HR Tech, LegalTech, and Cybersecurity \u2014 including case studies, key outcomes, and the tools he works with." },
   ],
   "out-of-scope": [
-    "Sorry! That request is currently out of scope.",
-    "",
-    "Chirag believes in phase-by-phase development, and this feature didn\u2019t make it into the initial PRD \uD83D\uDE05.",
-    "",
-    "For now, this AI can help you with a few things:",
-    "\u2022 Learn about Chirag",
-    "\u2022 Explore his work",
-    "\u2022 See his experience",
-    "\u2022 Download his resume",
-    "",
-    "Try one of those prompts \u2014 they\u2019re fully shipped. \uD83D\uDE80",
+    { type: "paragraph", text: "\u003Cb\u003ESorry! That request is currently out of scope.\u003C/b\u003E" },
+    { type: "break" },
+    { type: "paragraph", text: "Chirag believes in phase-by-phase development, and this feature didn\u2019t make it into the initial PRD \uD83D\uDE05." },
+    { type: "break" },
+    { type: "paragraph", text: "For now, this AI can help you with a few things:" },
+    { type: "bullet", text: "Learn about Chirag" },
+    { type: "bullet", text: "Explore his work" },
+    { type: "bullet", text: "See his experience" },
+    { type: "bullet", text: "Download his resume" },
+    { type: "break" },
+    { type: "paragraph", text: "Try one of those prompts \u2014 they\u2019re fully shipped. \uD83D\uDE80" },
   ],
 };
 
 function NavPill({
   item,
   onClick,
+  disabled,
 }: {
   item: (typeof navItems)[number];
   onClick: () => void;
+  disabled?: boolean;
 }) {
   return (
     <button
       data-testid={`prompt-${item.id}`}
-      onClick={onClick}
-      className="bg-white flex gap-1.5 items-center justify-center px-2 py-1 rounded-full shadow-[0px_2px_6px_rgba(0,0,0,0.06)] hover:bg-neutral-50 transition-colors cursor-pointer"
+      onClick={disabled ? undefined : onClick}
+      className={`bg-white flex gap-1.5 items-center justify-center px-2 py-1 rounded-full shadow-[0px_2px_6px_rgba(0,0,0,0.06)] transition-colors ${disabled ? "opacity-40 cursor-default" : "hover:bg-neutral-50 cursor-pointer"}`}
       style={{ border: "0.5px solid #E0E0E0" }}
+      disabled={disabled}
     >
       <img src={item.iconSrc} alt={item.label} className="w-[18px] h-[18px]" />
       <span className="font-['Inter',sans-serif] font-normal text-[#171717] text-sm leading-5 whitespace-nowrap">
@@ -157,79 +157,196 @@ function NavPill({
   );
 }
 
-function StreamingText({
-  lines,
+function WordStreamingText({
+  blocks,
   onComplete,
 }: {
-  lines: string[];
+  blocks: ResponseBlock[];
   onComplete: () => void;
 }) {
-  const [visibleLines, setVisibleLines] = useState(0);
+  const allWords = useRef<{ word: string; blockIdx: number; wordIdx: number; isFirst: boolean }[]>([]);
+  const [wordCount, setWordCount] = useState(0);
   const completedRef = useRef(false);
 
+  if (allWords.current.length === 0) {
+    const words: typeof allWords.current = [];
+    blocks.forEach((block, bIdx) => {
+      if (block.type === "break") {
+        words.push({ word: "__BREAK__", blockIdx: bIdx, wordIdx: 0, isFirst: true });
+        return;
+      }
+      const textContent = getBlockPlainText(block);
+      const blockWords = textContent.split(/\s+/).filter(Boolean);
+      blockWords.forEach((w, wIdx) => {
+        words.push({ word: w, blockIdx: bIdx, wordIdx: wIdx, isFirst: wIdx === 0 });
+      });
+    });
+    allWords.current = words;
+  }
+
   useEffect(() => {
-    if (visibleLines < lines.length) {
-      const delay = lines[visibleLines] === "" ? 40 : 30 + Math.min(lines[visibleLines].length * 0.5, 60);
-      const timer = setTimeout(() => setVisibleLines((v) => v + 1), delay);
+    if (wordCount < allWords.current.length) {
+      const timer = setTimeout(() => setWordCount((c) => c + 1), 20);
       return () => clearTimeout(timer);
     } else if (!completedRef.current) {
       completedRef.current = true;
       onComplete();
     }
-  }, [visibleLines, lines, onComplete]);
+  }, [wordCount, onComplete]);
+
+  const visibleWordsByBlock = new Map<number, number>();
+  const reachedBlocks = new Set<number>();
+  for (let i = 0; i < wordCount && i < allWords.current.length; i++) {
+    const w = allWords.current[i];
+    reachedBlocks.add(w.blockIdx);
+    if (w.word !== "__BREAK__") {
+      visibleWordsByBlock.set(w.blockIdx, (visibleWordsByBlock.get(w.blockIdx) || 0) + 1);
+    }
+  }
 
   return (
-    <div
-      className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal"
-      style={{ letterSpacing: 0 }}
-    >
-      {lines.slice(0, visibleLines).map((line, i) => {
-        if (line === "") return <br key={i} />;
-        const isTitle =
-          i === 0 ||
-          line.startsWith("1.") ||
-          line.startsWith("2.") ||
-          line.startsWith("3.") ||
-          line.startsWith("4.") ||
-          line.match(/^Product Designer/) ||
-          line.match(/^UX Designer/) ||
-          line === "In short:";
-        return (
-          <p
-            key={i}
-            className={`animate-stream-line ${isTitle ? "font-semibold" : ""}`}
-          >
-            {line}
-          </p>
-        );
+    <div className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
+      {blocks.map((block, bIdx) => {
+        if (!reachedBlocks.has(bIdx)) return null;
+        const visibleWords = visibleWordsByBlock.get(bIdx) || 0;
+        if (block.type === "break") return <br key={bIdx} />;
+        return <RenderBlock key={bIdx} block={block} visibleWords={visibleWords} />;
       })}
     </div>
   );
 }
 
-function StaticText({ lines }: { lines: string[] }) {
+function getBlockPlainText(block: ResponseBlock): string {
+  if (block.type === "break") return "";
+  if (block.type === "paragraph" || block.type === "heading") return stripHtml(block.text || "");
+  if (block.type === "numbered-item") return `${block.text || ""} ${block.description || ""}`.trim();
+  if (block.type === "bullet") return block.text || "";
+  if (block.type === "experience-role") {
+    const parts = [
+      `${block.text} \u2014 ${block.subtitle} \u00B7 ${block.duration}`,
+      block.description || "",
+      ...(block.bullets || []),
+    ];
+    return parts.join(" ");
+  }
+  return "";
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "");
+}
+
+function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWords: number }) {
+  if (block.type === "paragraph") {
+    const raw = block.text || "";
+    const plainWords = stripHtml(raw).split(/\s+/).filter(Boolean);
+    const shown = plainWords.slice(0, visibleWords).join(" ");
+    const hasBold = raw.includes("<b>");
+    if (hasBold) {
+      const boldMatch = raw.match(/<b>(.*?)<\/b>/);
+      const boldText = boldMatch ? boldMatch[1] : "";
+      const afterBold = raw.replace(/<b>.*?<\/b>\s*/, "");
+      const boldWords = boldText.split(/\s+/).filter(Boolean);
+      if (visibleWords <= boldWords.length) {
+        return <p><span className="font-semibold">{boldWords.slice(0, visibleWords).join(" ")}</span></p>;
+      }
+      const remainingWords = afterBold.split(/\s+/).filter(Boolean);
+      const remainingVisible = visibleWords - boldWords.length;
+      return <p><span className="font-semibold">{boldText}</span> {remainingWords.slice(0, remainingVisible).join(" ")}</p>;
+    }
+    return <p>{shown}</p>;
+  }
+  if (block.type === "heading") {
+    const words = (block.text || "").split(/\s+/).filter(Boolean);
+    return <p className="font-semibold">{words.slice(0, visibleWords).join(" ")}</p>;
+  }
+  if (block.type === "numbered-item") {
+    const titleWords = (block.text || "").split(/\s+/).filter(Boolean);
+    const descWords = (block.description || "").split(/\s+/).filter(Boolean);
+    if (visibleWords <= titleWords.length) {
+      return (
+        <div className="ml-6 mb-1">
+          <span className="font-semibold">{titleWords.slice(0, visibleWords).join(" ")}</span>
+        </div>
+      );
+    }
+    const descVisible = visibleWords - titleWords.length;
+    return (
+      <div className="ml-6 mb-1">
+        <span className="font-semibold">{block.text}</span>
+        {descWords.length > 0 && <br />}
+        {descWords.slice(0, descVisible).join(" ")}
+      </div>
+    );
+  }
+  if (block.type === "bullet") {
+    const words = (block.text || "").split(/\s+/).filter(Boolean);
+    return <p className="ml-4">{"\u2022 "}{words.slice(0, visibleWords).join(" ")}</p>;
+  }
+  if (block.type === "experience-role") {
+    return <ExperienceRoleBlock block={block} visibleWords={visibleWords} />;
+  }
+  return null;
+}
+
+function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; visibleWords: number }) {
+  const headerText = `${block.text} \u2014 ${block.subtitle} \u00B7 ${block.duration}`;
+  const headerWords = headerText.split(/\s+/).filter(Boolean);
+  const descWords = (block.description || "").split(/\s+/).filter(Boolean);
+  const bulletTexts = block.bullets || [];
+  const allBulletWords = bulletTexts.map(b => b.split(/\s+/).filter(Boolean));
+
+  let remaining = visibleWords;
+
+  const headerVisible = Math.min(remaining, headerWords.length);
+  remaining -= headerVisible;
+
+  const descVisible = Math.min(remaining, descWords.length);
+  remaining -= descVisible;
+
+  const bulletVisibles: number[] = [];
+  for (const bw of allBulletWords) {
+    const bv = Math.min(remaining, bw.length);
+    bulletVisibles.push(bv);
+    remaining -= bv;
+  }
+
+  const headerShown = headerWords.slice(0, headerVisible).join(" ");
+
   return (
-    <div
-      className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal"
-      style={{ letterSpacing: 0 }}
-    >
-      {lines.map((line, i) => {
-        if (line === "") return <br key={i} />;
-        const isTitle =
-          i === 0 ||
-          line.startsWith("1.") ||
-          line.startsWith("2.") ||
-          line.startsWith("3.") ||
-          line.startsWith("4.") ||
-          line.match(/^Product Designer/) ||
-          line.match(/^UX Designer/) ||
-          line === "In short:";
-        return (
-          <p key={i} className={isTitle ? "font-semibold" : ""}>
-            {line}
-          </p>
-        );
-      })}
+    <div className="mb-8">
+      <p className="font-semibold">
+        {headerVisible >= headerWords.length ? (
+          <>
+            {block.text} {"\u2014"} <span style={{ backgroundColor: "#e6f4f7", padding: "0 2px" }}>{block.subtitle}</span>{" "}
+            <span className="font-normal text-[#a1a1a1]">{"\u00B7"} {block.duration}</span>
+          </>
+        ) : (
+          headerShown
+        )}
+      </p>
+      {descVisible > 0 && (
+        <p className="mt-1">{descWords.slice(0, descVisible).join(" ")}</p>
+      )}
+      {bulletVisibles.some(v => v > 0) && (
+        <ul className="list-disc pl-6 mt-2 space-y-1">
+          {bulletTexts.map((bt, i) => {
+            if (bulletVisibles[i] <= 0) return null;
+            const words = bt.split(/\s+/).filter(Boolean);
+            return <li key={i}>{words.slice(0, bulletVisibles[i]).join(" ")}</li>;
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
+  return (
+    <div className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
+      {blocks.map((block, i) => (
+        <RenderBlock key={i} block={block} visibleWords={999} />
+      ))}
     </div>
   );
 }
@@ -237,12 +354,25 @@ function StaticText({ lines }: { lines: string[] }) {
 function WorkCards() {
   return (
     <div className="grid grid-cols-2 gap-4 mt-6 animate-stream-line">
-      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-      <div className="rounded-xl h-[220px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-      <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
-      <div className="rounded-xl h-[70px] bg-white" style={{ border: "0.5px solid #f0f0f0" }} />
+      {[220, 220, 220, 220, 70, 70].map((h, i) => (
+        <div
+          key={i}
+          className="rounded-xl bg-white transition-all duration-200 cursor-pointer"
+          style={{
+            height: h,
+            border: "0.5px solid #f0f0f0",
+          }}
+          data-testid={`card-work-${i}`}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.border = "0.5px solid #d0d0d0";
+            e.currentTarget.style.boxShadow = "0px 4px 16px rgba(0,0,0,0.08)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.border = "0.5px solid #f0f0f0";
+            e.currentTarget.style.boxShadow = "none";
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -256,10 +386,10 @@ function ResumeCard() {
       >
         <div>
           <p className="font-semibold text-[#171717] font-['Inter',sans-serif] text-base">
-            Chirag Chhajer \u2014 Product Designer
+            Chirag Chhajer {"\u2014"} Product Designer
           </p>
           <p className="text-[#a1a1a1] text-sm mt-0.5 font-['Inter',sans-serif]">
-            PDF \u00B7 Updated 2025
+            PDF {"\u00B7"} Updated 2025
           </p>
         </div>
         <a
@@ -291,7 +421,7 @@ function CollapsibleReasoning({
         onClick={() => setCollapsed((c) => !c)}
         data-testid="button-toggle-reasoning"
       >
-        <BrainIcon className="w-5 h-5 text-[#a1a1a1]" />
+        <BrainIcon className="w-5 h-5 text-[#a1a1a1]" strokeWidth={1.5} />
         <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
           {steps.length} steps completed
         </span>
@@ -301,7 +431,14 @@ function CollapsibleReasoning({
           <ChevronDownIcon className="w-4 h-4 text-[#a1a1a1]" />
         )}
       </button>
-      {!collapsed && (
+      <div
+        className="overflow-hidden"
+        style={{
+          maxHeight: collapsed ? 0 : 500,
+          opacity: collapsed ? 0 : 1,
+          transition: "max-height 0.3s ease, opacity 0.2s ease",
+        }}
+      >
         <div className="space-y-1.5 mb-4 ml-1">
           {steps.map((step, i) => (
             <div
@@ -315,7 +452,7 @@ function CollapsibleReasoning({
             </div>
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -382,13 +519,13 @@ function UserBubble({ message }: { message: string }) {
 
 function CompletedEntry({ entry }: { entry: ConversationEntry }) {
   const steps = reasoningSteps[entry.responseType];
-  const lines = responseTexts[entry.responseType];
+  const blocks = responseBlocks[entry.responseType];
 
   return (
     <>
       <UserBubble message={entry.userMessage} />
       <CollapsibleReasoning steps={steps} defaultCollapsed={true} />
-      <StaticText lines={lines} />
+      <StaticBlockText blocks={blocks} />
       {entry.responseType === "work" && <WorkCards />}
       {entry.responseType === "resume" && <ResumeCard />}
     </>
@@ -612,11 +749,14 @@ export const Desktop = (): JSX.Element => {
         style={{ border: "0.5px solid #e5e5e5" }}
       >
         {isHomeScreen ? (
-          <div className="relative w-full h-full">
-            <img
-              className="absolute inset-0 w-full h-full object-cover"
-              alt="Background gradient"
-              src="/figmaAssets/image-51.png"
+          <div className="relative w-full h-full overflow-hidden">
+            <div
+              className="absolute inset-0 animate-gradient-drift"
+              style={{
+                backgroundImage: "url(/figmaAssets/image-51.png)",
+                backgroundSize: "120% 120%",
+                backgroundPosition: "center",
+              }}
             />
             <img
               className="absolute top-[19px] left-[19px] w-[86px] h-[34px] z-10"
@@ -644,9 +784,10 @@ export const Desktop = (): JSX.Element => {
               </h1>
 
               <div
-                className="w-full max-w-[720px] bg-white rounded-2xl transition-colors duration-200 animate-entrance-2"
+                className="w-full max-w-[720px] bg-white rounded-2xl transition-all duration-200 animate-entrance-2"
                 style={{
                   border: `0.5px solid ${isInputHovered ? "#CCCCCC" : "#E5E5E5"}`,
+                  boxShadow: "0px 2px 8px rgba(0,0,0,0.08)",
                 }}
                 onMouseEnter={() => setIsInputHovered(true)}
                 onMouseLeave={() => setIsInputHovered(false)}
@@ -751,9 +892,9 @@ export const Desktop = (): JSX.Element => {
                       defaultCollapsed={true}
                     />
 
-                    <StreamingText
+                    <WordStreamingText
                       key={streamKey}
-                      lines={responseTexts[pendingType]}
+                      blocks={responseBlocks[pendingType]}
                       onComplete={handleStreamComplete}
                     />
 
@@ -767,10 +908,10 @@ export const Desktop = (): JSX.Element => {
 
                     {streamComplete && suggestedItems.length > 0 && (
                       <div className="mt-10 animate-stream-line">
-                        <p className="font-['Inter',sans-serif] text-[#222222] text-base leading-6 mb-3">
-                          Suggested Prompts:
+                        <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
+                          More Options
                         </p>
-                        <div className="flex items-center gap-2 flex-wrap">
+                        <div className="flex items-center gap-2 flex-wrap mt-3">
                           {suggestedItems.map((item) => (
                             <NavPill
                               key={item.id}
