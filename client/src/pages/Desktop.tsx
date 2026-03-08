@@ -448,7 +448,7 @@ function CollapsibleReasoning({
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
   return (
-    <div style={{ marginTop: 20 }}>
+    <div style={{ marginTop: 20 }} className="mt-[16px] mb-[16px]">
       <button
         className="flex items-center gap-1.5 mb-3 cursor-pointer"
         onClick={() => setCollapsed((c) => !c)}
