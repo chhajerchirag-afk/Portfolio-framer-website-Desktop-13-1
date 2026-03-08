@@ -562,7 +562,7 @@ export const Desktop = (): JSX.Element => {
 
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10 w-full px-5"
-              style={{ gap: 20 }}
+              style={{ gap: 12 }}
             >
               <h1
                 className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
@@ -626,7 +626,7 @@ export const Desktop = (): JSX.Element => {
 
               <div
                 className="flex items-center flex-wrap justify-center animate-entrance-3"
-                style={{ gap: 8, marginTop: -8 }}
+                style={{ gap: 8 }}
               >
                 {navItems.map((item) => (
                   <NavPill
