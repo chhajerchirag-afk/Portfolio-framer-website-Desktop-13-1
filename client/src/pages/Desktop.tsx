@@ -4,9 +4,13 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   LoaderIcon,
+  MailIcon,
+  LinkedinIcon,
+  FileTextIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
@@ -377,27 +381,303 @@ function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
   );
 }
 
+const menuItems = [
+  {
+    label: "Reach out",
+    icon: MailIcon,
+    href: "mailto:chhajerchirag@gmail.com",
+    action: "mailto",
+  },
+  {
+    label: "Download CV",
+    icon: FileTextIcon,
+    href: null,
+    action: "none",
+  },
+  {
+    label: "LinkedIn",
+    icon: LinkedinIcon,
+    href: "https://www.linkedin.com/in/chirag-chhajer/",
+    action: "link",
+  },
+];
+
+function ThreeDotsMenu() {
+  const [open, setOpen] = useState(false);
+  const [menuKey, setMenuKey] = useState(0);
+  const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (!isMobile) return;
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [isMobile]);
+
+  const handleMouseEnter = () => {
+    if (isMobile) return;
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setMenuKey((k) => k + 1);
+    setOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (isMobile) return;
+    closeTimer.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  const handleClick = () => {
+    if (!isMobile) return;
+    setMenuKey((k) => k + 1);
+    setOpen((o) => !o);
+  };
+
+  const handleItemClick = (item: (typeof menuItems)[number]) => {
+    if (!item.href) return;
+    window.open(item.href, "_blank", "noopener,noreferrer");
+    setOpen(false);
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <button
+        data-testid="button-three-dots-menu"
+        onClick={handleClick}
+        className="flex items-center justify-center gap-[4px] rounded-full transition-all duration-150 cursor-pointer"
+        style={{
+          padding: "8px 10px",
+          background: "#f5f5f5",
+          border: "0.5px solid #e5e5e5",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.background = "#ebebeb";
+          (e.currentTarget as HTMLElement).style.borderColor = "#d8d8d8";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.background = "#f5f5f5";
+          (e.currentTarget as HTMLElement).style.borderColor = "#e5e5e5";
+        }}
+        aria-label="Open menu"
+      >
+        <span className="rounded-full bg-[#171717]" style={{ width: 4, height: 4 }} />
+        <span className="rounded-full bg-[#171717]" style={{ width: 4, height: 4 }} />
+        <span className="rounded-full bg-[#171717]" style={{ width: 4, height: 4 }} />
+      </button>
+
+      {open && (
+        <div
+          key={menuKey}
+          className="absolute right-0 z-50 animate-menu-pop-in"
+          style={{ top: "calc(100% + 8px)", minWidth: 180 }}
+          onMouseEnter={() => {
+            if (!isMobile && closeTimer.current) clearTimeout(closeTimer.current);
+          }}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div
+            className="flex flex-col overflow-hidden"
+            style={{
+              background: "#ffffff",
+              border: "0.5px solid #e5e5e5",
+              borderRadius: 14,
+              boxShadow: "0px 8px 24px rgba(0,0,0,0.10), 0px 2px 6px rgba(0,0,0,0.06)",
+              padding: "6px",
+            }}
+          >
+            {menuItems.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={i}
+                  data-testid={`menu-item-${i}`}
+                  onClick={() => handleItemClick(item)}
+                  disabled={!item.href}
+                  className="flex items-center gap-2.5 w-full text-left transition-all duration-150 rounded-[10px] group"
+                  style={{
+                    padding: "9px 12px",
+                    opacity: item.href ? 1 : 0.4,
+                    cursor: item.href ? "pointer" : "default",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!item.href) return;
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = "#f5f5f5";
+                    el.style.transform = "scale(1.02)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!item.href) return;
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.background = "transparent";
+                    el.style.transform = "scale(1)";
+                  }}
+                >
+                  <span
+                    className="flex items-center justify-center flex-shrink-0"
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 8,
+                      background: "#f0f0f0",
+                    }}
+                  >
+                    <Icon size={14} strokeWidth={1.8} className="text-[#444]" />
+                  </span>
+                  <span
+                    className="font-['SequelSansBookBody',sans-serif] text-[#171717]"
+                    style={{ fontSize: 14, lineHeight: "20px" }}
+                  >
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const caseStudies = [
+  {
+    title: "AI Agents for HR Teams",
+    company: "Sense",
+    tags: ["AI/ML", "Enterprise", "Workflow"],
+    description: "Designing AI agents that help HR Admins configure talent engagement workflows.",
+    bg: "#0f0f0f",
+    textColor: "#ffffff",
+    tagColor: "rgba(255,255,255,0.12)",
+    tagTextColor: "rgba(255,255,255,0.6)",
+  },
+  {
+    title: "Reimagining AI Experiences",
+    company: "Sense",
+    tags: ["AI/ML", "UX Research", "Design Systems"],
+    description: "Simplifying how users interact with AI systems for intuitive discovery and adoption.",
+    bg: "#f5f5f5",
+    textColor: "#171717",
+    tagColor: "rgba(0,0,0,0.07)",
+    tagTextColor: "#555",
+  },
+  {
+    title: "Interview Scheduling",
+    company: "Sense",
+    tags: ["SaaS", "Productivity", "Calendar"],
+    description: "Streamlining scheduling for recruiters and hiring managers to reduce friction.",
+    bg: "#f5f5f5",
+    textColor: "#171717",
+    tagColor: "rgba(0,0,0,0.07)",
+    tagTextColor: "#555",
+  },
+  {
+    title: "Visual Design Explorations",
+    company: "Personal",
+    tags: ["Branding", "Motion", "Visual"],
+    description: "A collection of visual design experiments across motion, branding, and UI.",
+    bg: "#0f0f0f",
+    textColor: "#ffffff",
+    tagColor: "rgba(255,255,255,0.12)",
+    tagTextColor: "rgba(255,255,255,0.6)",
+  },
+];
+
 function WorkCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 animate-stream-line">
-      {[220, 220, 220, 220, 70, 70].map((h, i) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6 animate-stream-line">
+      {caseStudies.map((study, i) => (
         <div
           key={i}
-          className="rounded-xl bg-white transition-all duration-200 cursor-pointer"
-          style={{
-            height: h,
-            border: "0.5px solid #f0f0f0",
-          }}
           data-testid={`card-work-${i}`}
+          className="rounded-2xl cursor-pointer select-none"
+          style={{
+            background: study.bg,
+            border: study.bg === "#f5f5f5" ? "0.5px solid #e8e8e8" : "none",
+            padding: "24px",
+            minHeight: 200,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            transition: "transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease",
+          }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.border = "0.5px solid #d0d0d0";
-            e.currentTarget.style.boxShadow = "0px 4px 16px rgba(0,0,0,0.08)";
+            (e.currentTarget as HTMLElement).style.transform = "scale(1.025)";
+            (e.currentTarget as HTMLElement).style.boxShadow =
+              study.bg === "#f5f5f5"
+                ? "0px 8px 24px rgba(0,0,0,0.10)"
+                : "0px 8px 24px rgba(0,0,0,0.28)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.border = "0.5px solid #f0f0f0";
-            e.currentTarget.style.boxShadow = "none";
+            (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+            (e.currentTarget as HTMLElement).style.boxShadow = "none";
           }}
-        />
+        >
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex flex-wrap gap-1.5">
+              {study.tags.map((tag, ti) => (
+                <span
+                  key={ti}
+                  className="font-['SequelSansBookBody',sans-serif]"
+                  style={{
+                    fontSize: 11,
+                    lineHeight: "16px",
+                    padding: "3px 9px",
+                    borderRadius: 100,
+                    background: study.tagColor,
+                    color: study.tagTextColor,
+                    letterSpacing: "0.01em",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <span
+              className="font-['SequelSansBookBody',sans-serif] flex-shrink-0"
+              style={{
+                fontSize: 11,
+                color: study.textColor === "#ffffff" ? "rgba(255,255,255,0.38)" : "#b0b0b0",
+              }}
+            >
+              {study.company}
+            </span>
+          </div>
+
+          <div style={{ marginTop: 32 }}>
+            <h3
+              className="font-['SequelSansMediumBody',sans-serif]"
+              style={{
+                fontSize: 18,
+                lineHeight: "24px",
+                color: study.textColor,
+                marginBottom: 8,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {study.title}
+            </h3>
+            <p
+              className="font-['SequelSansBookBody',sans-serif]"
+              style={{
+                fontSize: 13,
+                lineHeight: "19px",
+                color: study.textColor === "#ffffff" ? "rgba(255,255,255,0.5)" : "#888",
+              }}
+            >
+              {study.description}
+            </p>
+          </div>
+        </div>
       ))}
     </div>
   );
@@ -814,7 +1094,8 @@ export const Desktop = (): JSX.Element => {
               alt="Logo"
               src="/figmaAssets/vector-22.svg"
             />
-            <div className="absolute top-4 right-5 z-10">
+            <div className="absolute top-4 right-5 z-10 flex items-center gap-3">
+              <ThreeDotsMenu />
               <AnimatedClock time={time} />
             </div>
 
@@ -907,7 +1188,10 @@ export const Desktop = (): JSX.Element => {
                   src="/figmaAssets/vector-22.svg"
                 />
               </button>
-              <AnimatedClock time={time} />
+              <div className="flex items-center gap-3">
+                <ThreeDotsMenu />
+                <AnimatedClock time={time} />
+              </div>
             </div>
 
             <div className="relative flex-1 overflow-hidden">
