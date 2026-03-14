@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'SequelSansBookBody';
+  src: url('/fonts/SequelSans-BookBody.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SequelSansMediumBody';
+  src: url('/fonts/SequelSans-MediumBody.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SequelSansBookHead';
+  src: url('/fonts/SequelSans-BookHead.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer components {
   .all-\[unset\] {
     all: unset;

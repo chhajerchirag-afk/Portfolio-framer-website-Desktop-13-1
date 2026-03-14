@@ -154,7 +154,7 @@ function NavPill({
       disabled={disabled}
     >
       <img src={item.iconSrc} alt={item.label} className="w-[18px] h-[18px]" />
-      <span className="font-['Inter',sans-serif] font-normal text-[#171717] text-sm leading-5 whitespace-nowrap">
+      <span className="font-['SequelSansBookBody',sans-serif] font-normal text-[#171717] text-sm leading-5 whitespace-nowrap">
         {item.label}
       </span>
     </button>
@@ -209,7 +209,7 @@ function WordStreamingText({
   }
 
   return (
-    <div className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
+    <div className="text-[#222222] text-base leading-6 font-['SequelSansBookBody',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       {blocks.map((block, bIdx) => {
         if (!reachedBlocks.has(bIdx)) return null;
         const visibleWords = visibleWordsByBlock.get(bIdx) || 0;
@@ -256,17 +256,17 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
       const afterBold = raw.replace(/<b>.*?<\/b>\s*/, "");
       const boldWords = boldText.split(/\s+/).filter(Boolean);
       if (visibleWords <= boldWords.length) {
-        return <p><span className="font-semibold">{boldWords.slice(0, visibleWords).join(" ")}</span></p>;
+        return <p><span className="font-['SequelSansMediumBody',sans-serif] font-normal">{boldWords.slice(0, visibleWords).join(" ")}</span></p>;
       }
       const remainingWords = afterBold.split(/\s+/).filter(Boolean);
       const remainingVisible = visibleWords - boldWords.length;
-      return <p><span className="font-semibold">{boldText}</span> {remainingWords.slice(0, remainingVisible).join(" ")}</p>;
+      return <p><span className="font-['SequelSansMediumBody',sans-serif] font-normal">{boldText}</span> {remainingWords.slice(0, remainingVisible).join(" ")}</p>;
     }
     return <p>{shown}</p>;
   }
   if (block.type === "heading") {
     const words = (block.text || "").split(/\s+/).filter(Boolean);
-    return <p className="font-semibold">{words.slice(0, visibleWords).join(" ")}</p>;
+    return <p className="font-['SequelSansMediumBody',sans-serif] font-normal">{words.slice(0, visibleWords).join(" ")}</p>;
   }
   if (block.type === "numbered-item") {
     const numPrefix = block.number ? `${block.number}. ` : "";
@@ -276,14 +276,14 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
     if (visibleWords <= titleWords.length) {
       return (
         <div className="mb-2">
-          <span className="font-semibold">{titleWords.slice(0, visibleWords).join(" ")}</span>
+          <span className="font-['SequelSansMediumBody',sans-serif] font-normal">{titleWords.slice(0, visibleWords).join(" ")}</span>
         </div>
       );
     }
     const descVisible = visibleWords - titleWords.length;
     return (
       <div className="mb-2">
-        <span className="font-semibold">{fullTitle}</span>
+        <span className="font-['SequelSansMediumBody',sans-serif] font-normal">{fullTitle}</span>
         {descWords.length > 0 && <br />}
         {descWords.slice(0, descVisible).join(" ")}
       </div>
@@ -330,7 +330,7 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
   return (
     <div className="mb-8">
       <div className="flex justify-between items-baseline">
-        <p className="font-semibold">
+        <p className="font-['SequelSansMediumBody',sans-serif] font-normal">
           {headerVisible >= headerWords.length ? (
             <>
               {block.text} @ {block.subtitle}
@@ -340,7 +340,7 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
           )}
         </p>
         {headerVisible >= headerWords.length && (
-          <span className="font-normal text-[#171717] text-base whitespace-nowrap ml-4">{block.duration}</span>
+          <span className="font-['SequelSansBookBody',sans-serif] font-normal text-[#171717] text-base whitespace-nowrap ml-4">{block.duration}</span>
         )}
       </div>
       {descVisible > 0 && (
@@ -369,7 +369,7 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
 
 function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
   return (
-    <div className="text-[#222222] text-base leading-6 font-['Inter',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
+    <div className="text-[#222222] text-base leading-6 font-['SequelSansBookBody',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
       {blocks.map((block, i) => (
         <RenderBlock key={i} block={block} visibleWords={999} />
       ))}
@@ -452,7 +452,7 @@ function CollapsibleReasoning({
         data-testid="button-toggle-reasoning"
       >
         <BrainIcon className="w-5 h-5 text-[#a1a1a1]" strokeWidth={1.5} />
-        <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
+        <span className="font-['SequelSansBookBody',sans-serif] text-[#a1a1a1] text-sm leading-5">
           {steps.length} steps completed
         </span>
         {collapsed ? (
@@ -472,7 +472,7 @@ function CollapsibleReasoning({
           {steps.map((step, i) => (
             <div
               key={`${expandKey}-${i}`}
-              className="flex items-center gap-2 font-['Inter',sans-serif] text-sm"
+              className="flex items-center gap-2 font-['SequelSansBookBody',sans-serif] text-sm"
               style={{
                 animation: collapsed ? 'none' : `stepIn 0.3s ease both`,
                 animationDelay: `${i * 60}ms`,
@@ -501,7 +501,7 @@ function ActiveReasoning({
     <div style={{ marginTop: 20 }}>
       <div className="flex items-center gap-2 mb-4">
         <LoaderIcon className="w-4 h-4 text-[#a1a1a1] animate-spin flex-shrink-0" />
-        <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
+        <span className="font-['SequelSansBookBody',sans-serif] text-[#a1a1a1] text-sm leading-5">
           Chirag's AI is thinking...
         </span>
       </div>
@@ -511,7 +511,7 @@ function ActiveReasoning({
           return (
             <div
               key={i}
-              className="flex items-center gap-2 font-['Inter',sans-serif] text-sm animate-stream-line"
+              className="flex items-center gap-2 font-['SequelSansBookBody',sans-serif] text-sm animate-stream-line"
             >
               {isActive ? (
                 <LoaderIcon className="w-3 h-3 text-[#a1a1a1] animate-spin flex-shrink-0" />
@@ -539,7 +539,7 @@ function UserBubble({ message }: { message: string }) {
         style={{ borderRadius: 12, padding: "8px 16px" }}
       >
         <p
-          className="font-['Inter',sans-serif] font-normal text-[#171717] text-base leading-6"
+          className="font-['SequelSansBookBody',sans-serif] font-normal text-[#171717] text-base leading-6"
           style={{ letterSpacing: 0 }}
           data-testid="text-user-message"
         >
@@ -823,7 +823,7 @@ export const Desktop = (): JSX.Element => {
               style={{ gap: 0 }}
             >
               <h1
-                className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
+                className="font-['SequelSansBookHead',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
                 style={{
                   letterSpacing: "-0.02em",
                   fontSize: "clamp(24px, 4vw, 32px)",
@@ -860,7 +860,7 @@ export const Desktop = (): JSX.Element => {
                         e.key === "Enter" && handleManualSubmit(inputValue)
                       }
                       placeholder="Ask me anything about Chirag..."
-                      className="flex-1 border-0 shadow-none p-0 h-auto font-['Inter',sans-serif] font-normal text-base leading-6 focus:outline-none bg-transparent text-[#171717] placeholder:text-[#a6a6a6]"
+                      className="flex-1 border-0 shadow-none p-0 h-auto font-['SequelSansBookBody',sans-serif] font-normal text-base leading-6 focus:outline-none bg-transparent text-[#171717] placeholder:text-[#a6a6a6]"
                       style={{ letterSpacing: 0 }}
                     />
                   </div>
@@ -927,7 +927,7 @@ export const Desktop = (): JSX.Element => {
                   <div style={{ marginTop: 20 }}>
                     <div className="flex items-center gap-2">
                       <LoaderIcon className="w-4 h-4 text-[#a1a1a1] animate-spin flex-shrink-0" />
-                      <span className="font-['Inter',sans-serif] text-[#a1a1a1] text-sm leading-5">
+                      <span className="font-['SequelSansBookBody',sans-serif] text-[#a1a1a1] text-sm leading-5">
                         Chirag's AI is thinking...
                       </span>
                     </div>
@@ -964,7 +964,7 @@ export const Desktop = (): JSX.Element => {
 
                     {streamComplete && suggestedItems.length > 0 && (
                       <div className="animate-stream-line" style={{ marginTop: 40 }}>
-                        <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
+                        <p className="font-['SequelSansBookBody',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
                           More Options:
                         </p>
                         <div className="flex items-center gap-2 flex-wrap mt-3">
