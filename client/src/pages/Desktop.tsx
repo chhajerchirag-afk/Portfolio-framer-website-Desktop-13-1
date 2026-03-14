@@ -609,7 +609,7 @@ function AnimatedClock({ time }: { time: string }) {
 
   return (
     <p
-      className="font-['JetBrains_Mono',monospace] font-normal text-[#b8b8b8] text-[14px] leading-5 whitespace-nowrap uppercase"
+      className="font-['JetBrains_Mono',monospace] font-normal text-[#b8b8b8] text-[12px] md:text-[14px] leading-5 whitespace-nowrap uppercase"
       style={{
         letterSpacing: "-0.02em",
         transition: "opacity 0.4s ease, transform 0.4s ease",
