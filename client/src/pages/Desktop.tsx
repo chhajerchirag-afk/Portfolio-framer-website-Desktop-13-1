@@ -431,12 +431,24 @@ function CollapsibleReasoning({
   defaultCollapsed: boolean;
 }) {
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
+  const [expandKey, setExpandKey] = useState(0);
+
+  const handleToggle = () => {
+    if (collapsed) setExpandKey((k) => k + 1);
+    setCollapsed((c) => !c);
+  };
 
   return (
     <div style={{ marginTop: 16, marginBottom: 8 }}>
+      <style>{`
+        @keyframes stepIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0);   }
+        }
+      `}</style>
       <button
         className="flex items-center gap-1.5 mb-3 cursor-pointer"
-        onClick={() => setCollapsed((c) => !c)}
+        onClick={handleToggle}
         data-testid="button-toggle-reasoning"
       >
         <BrainIcon className="w-5 h-5 text-[#a1a1a1]" strokeWidth={1.5} />
@@ -452,16 +464,19 @@ function CollapsibleReasoning({
       <div
         className="overflow-hidden"
         style={{
-          maxHeight: collapsed ? 0 : 500,
-          opacity: collapsed ? 0 : 1,
-          transition: "max-height 0.3s ease, opacity 0.2s ease",
+          maxHeight: collapsed ? 0 : steps.length * 60,
+          transition: "max-height 0.35s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
         <div className="space-y-1.5 mb-4 ml-1">
           {steps.map((step, i) => (
             <div
-              key={i}
+              key={`${expandKey}-${i}`}
               className="flex items-center gap-2 font-['Inter',sans-serif] text-sm"
+              style={{
+                animation: collapsed ? 'none' : `stepIn 0.3s ease both`,
+                animationDelay: `${i * 60}ms`,
+              }}
             >
               <div className="w-3 h-3 rounded-full bg-[#e0e0e0] flex items-center justify-center flex-shrink-0">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#a1a1a1]" />
@@ -647,8 +662,29 @@ export const Desktop = (): JSX.Element => {
   const [streamComplete, setStreamComplete] = useState(false);
   const [streamKey, setStreamKey] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollContentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const time = useLiveClock();
+
+  const smoothScrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    const content = scrollContentRef.current;
+    if (!el || !content) return;
+    const observer = new ResizeObserver(() => {
+      const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+      if (distFromBottom < 120) {
+        el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+      }
+    });
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, [inChatMode]);
 
   function handlePromptChipClick(item: (typeof navItems)[number]) {
     setInputValue(item.query);
@@ -742,10 +778,7 @@ export const Desktop = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      const el = scrollRef.current;
-      el.scrollTop = el.scrollHeight;
-    }
+    smoothScrollToBottom();
   }, [activePhase, reasoningStep, streamComplete, history]);
 
   const allUsedTypes: ResponseType[] = [
@@ -883,7 +916,7 @@ export const Desktop = (): JSX.Element => {
                 style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
               />
             <div ref={scrollRef} className="h-full overflow-y-auto px-5 pb-8 pt-2">
-              <div className="max-w-[720px] mx-auto">
+              <div ref={scrollContentRef} className="max-w-[720px] mx-auto">
                 {history.map((entry, i) => (
                   <CompletedEntry key={i} entry={entry} />
                 ))}
