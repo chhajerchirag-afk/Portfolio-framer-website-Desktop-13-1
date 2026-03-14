@@ -673,10 +673,10 @@ function WorkCards() {
             />
             <div
               className="absolute inset-0 flex items-center justify-center"
-              style={{ padding: "16px 20px" }}
+              style={{ padding: "20px" }}
               onMouseEnter={(e) => {
                 const img = e.currentTarget.querySelector("img") as HTMLElement;
-                if (img) img.style.transform = "scale(1.06)";
+                if (img) img.style.transform = "scale(1.15)";
               }}
               onMouseLeave={(e) => {
                 const img = e.currentTarget.querySelector("img") as HTMLElement;
@@ -686,10 +686,9 @@ function WorkCards() {
               <img
                 src={study.ui}
                 alt={study.title}
-                className="relative z-10 rounded-xl object-cover object-top w-full"
+                className="relative z-10 rounded-xl object-cover object-top w-full h-full"
                 style={{
-                  maxHeight: 195,
-                  transition: "transform 0.28s cubic-bezier(0.34,1.56,0.64,1)",
+                  transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
                 draggable={false}
               />
@@ -1231,7 +1230,7 @@ export const Desktop = (): JSX.Element => {
               />
             <div
               ref={scrollRef}
-              className="h-full overflow-y-auto pb-8 pt-2"
+              className="h-full overflow-y-auto pb-8 pt-2 hide-scrollbar"
               style={{
                 width: "100%",
                 maxWidth: "min(720px, calc(100% - 40px))",
