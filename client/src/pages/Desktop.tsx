@@ -4,13 +4,19 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   LoaderIcon,
-  MailIcon,
-  LinkedinIcon,
-  FileTextIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useIsMobile } from "@/hooks/use-mobile";
+
+import bgTile1 from "@assets/image_98_1773516807733.png";
+import bgTile2 from "@assets/image_102_1773516807734.png";
+import bgTile3 from "@assets/image_103_1773516807734.png";
+import bgTile4 from "@assets/image_104_1773516807734.png";
+import uiTile1 from "@assets/image_63_1773516807733.png";
+import uiTile2 from "@assets/Screenshot_2026-03-07_at_00.12.22_1_1773516807734.png";
+import uiTile3 from "@assets/image_77_1773516807733.png";
+import uiTile4 from "@assets/image_66_1773516807733.png";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
@@ -381,26 +387,53 @@ function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
   );
 }
 
-const menuItems = [
+const menuLinks = [
   {
-    label: "Reach out",
-    icon: MailIcon,
+    label: "Reach Out",
     href: "mailto:chhajerchirag@gmail.com",
-    action: "mailto",
+    bg: "#111111",
+    iconType: "mail",
   },
   {
-    label: "Download CV",
-    icon: FileTextIcon,
+    label: "Say Hello!",
     href: null,
-    action: "none",
+    bg: "#3d2a6e",
+    iconType: "person",
   },
   {
     label: "LinkedIn",
-    icon: LinkedinIcon,
     href: "https://www.linkedin.com/in/chirag-chhajer/",
-    action: "link",
+    bg: "#0A66C2",
+    iconType: "linkedin",
   },
 ];
+
+function MenuIcon({ type }: { type: string }) {
+  if (type === "mail") {
+    return (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <rect x="2" y="4" width="16" height="12" rx="2" stroke="white" strokeWidth="1.5"/>
+        <path d="M2 7L10 12L18 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    );
+  }
+  if (type === "person") {
+    return (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <circle cx="10" cy="7" r="3.5" stroke="white" strokeWidth="1.5"/>
+        <path d="M3 17c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    );
+  }
+  if (type === "linkedin") {
+    return (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+        <path d="M5.077 3C3.929 3 3 3.93 3 5.077c0 1.148.929 2.077 2.077 2.077 1.148 0 2.077-.929 2.077-2.077C7.154 3.93 6.225 3 5.077 3zM3.231 8.154h3.692V17H3.231V8.154zM11.385 8.154H7.692V17h3.693v-4.615c0-2.462 3.077-2.693 3.077 0V17H18v-5.539c0-4.923-5.538-4.769-6.615-2.307v-1z"/>
+      </svg>
+    );
+  }
+  return null;
+}
 
 function ThreeDotsMenu() {
   const [open, setOpen] = useState(false);
@@ -429,7 +462,7 @@ function ThreeDotsMenu() {
 
   const handleMouseLeave = () => {
     if (isMobile) return;
-    closeTimer.current = setTimeout(() => setOpen(false), 120);
+    closeTimer.current = setTimeout(() => setOpen(false), 160);
   };
 
   const handleClick = () => {
@@ -438,7 +471,7 @@ function ThreeDotsMenu() {
     setOpen((o) => !o);
   };
 
-  const handleItemClick = (item: (typeof menuItems)[number]) => {
+  const handleItemClick = (item: (typeof menuLinks)[number]) => {
     if (!item.href) return;
     window.open(item.href, "_blank", "noopener,noreferrer");
     setOpen(false);
@@ -447,7 +480,7 @@ function ThreeDotsMenu() {
   return (
     <div
       ref={containerRef}
-      className="relative"
+      className="relative flex items-center justify-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -478,70 +511,76 @@ function ThreeDotsMenu() {
       {open && (
         <div
           key={menuKey}
-          className="absolute right-0 z-50 animate-menu-pop-in"
-          style={{ top: "calc(100% + 8px)", minWidth: 180 }}
+          className="absolute z-50 animate-menu-pop-in"
+          style={{
+            bottom: "calc(100% + 10px)",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
           onMouseEnter={() => {
             if (!isMobile && closeTimer.current) clearTimeout(closeTimer.current);
           }}
           onMouseLeave={handleMouseLeave}
         >
           <div
-            className="flex flex-col overflow-hidden"
+            className="flex flex-col items-center"
             style={{
-              background: "#ffffff",
-              border: "0.5px solid #e5e5e5",
-              borderRadius: 14,
-              boxShadow: "0px 8px 24px rgba(0,0,0,0.10), 0px 2px 6px rgba(0,0,0,0.06)",
-              padding: "6px",
+              background: "rgba(255,255,255,0.96)",
+              backdropFilter: "blur(12px)",
+              border: "0.5px solid #e8e8e8",
+              borderRadius: 20,
+              boxShadow: "0px 12px 32px rgba(0,0,0,0.14), 0px 2px 8px rgba(0,0,0,0.07)",
+              padding: "16px 20px 12px",
             }}
           >
-            {menuItems.map((item, i) => {
-              const Icon = item.icon;
-              return (
+            <div className="flex items-start gap-5">
+              {menuLinks.map((item, i) => (
                 <button
                   key={i}
                   data-testid={`menu-item-${i}`}
                   onClick={() => handleItemClick(item)}
                   disabled={!item.href}
-                  className="flex items-center gap-2.5 w-full text-left transition-all duration-150 rounded-[10px] group"
+                  className="flex flex-col items-center gap-2 transition-all duration-180"
                   style={{
-                    padding: "9px 12px",
-                    opacity: item.href ? 1 : 0.4,
                     cursor: item.href ? "pointer" : "default",
+                    opacity: item.href ? 1 : 0.55,
+                    minWidth: 56,
                   }}
                   onMouseEnter={(e) => {
                     if (!item.href) return;
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = "#f5f5f5";
-                    el.style.transform = "scale(1.02)";
+                    (e.currentTarget as HTMLElement).style.transform = "scale(1.08) translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     if (!item.href) return;
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = "transparent";
-                    el.style.transform = "scale(1)";
+                    (e.currentTarget as HTMLElement).style.transform = "scale(1) translateY(0)";
                   }}
                 >
                   <span
                     className="flex items-center justify-center flex-shrink-0"
                     style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: 8,
-                      background: "#f0f0f0",
+                      width: 48,
+                      height: 48,
+                      borderRadius: "50%",
+                      background: item.bg,
                     }}
                   >
-                    <Icon size={14} strokeWidth={1.8} className="text-[#444]" />
+                    <MenuIcon type={item.iconType} />
                   </span>
                   <span
-                    className="font-['SequelSansBookBody',sans-serif] text-[#171717]"
-                    style={{ fontSize: 14, lineHeight: "20px" }}
+                    className="font-['SequelSansBookBody',sans-serif] text-[#171717] text-center whitespace-nowrap"
+                    style={{ fontSize: 12, lineHeight: "16px" }}
                   >
                     {item.label}
                   </span>
                 </button>
-              );
-            })}
+              ))}
+            </div>
+            <p
+              className="font-['SequelSansBookBody',sans-serif] text-center mt-3"
+              style={{ fontSize: 10, color: "#b0b0b0", lineHeight: "14px" }}
+            >
+              This Website is Made Using Vibe Coding
+            </p>
           </div>
         </div>
       )}
@@ -552,131 +591,78 @@ function ThreeDotsMenu() {
 const caseStudies = [
   {
     title: "AI Agents for HR Teams",
-    company: "Sense",
-    tags: ["AI/ML", "Enterprise", "Workflow"],
-    description: "Designing AI agents that help HR Admins configure talent engagement workflows.",
-    bg: "#0f0f0f",
-    textColor: "#ffffff",
-    tagColor: "rgba(255,255,255,0.12)",
-    tagTextColor: "rgba(255,255,255,0.6)",
+    bg: bgTile1,
+    ui: uiTile1,
   },
   {
-    title: "Reimagining AI Experiences",
-    company: "Sense",
-    tags: ["AI/ML", "UX Research", "Design Systems"],
-    description: "Simplifying how users interact with AI systems for intuitive discovery and adoption.",
-    bg: "#f5f5f5",
-    textColor: "#171717",
-    tagColor: "rgba(0,0,0,0.07)",
-    tagTextColor: "#555",
+    title: "Reimagining AI Experiences for Users",
+    bg: bgTile2,
+    ui: uiTile2,
   },
   {
-    title: "Interview Scheduling",
-    company: "Sense",
-    tags: ["SaaS", "Productivity", "Calendar"],
-    description: "Streamlining scheduling for recruiters and hiring managers to reduce friction.",
-    bg: "#f5f5f5",
-    textColor: "#171717",
-    tagColor: "rgba(0,0,0,0.07)",
-    tagTextColor: "#555",
+    title: "Establishing MVP for Video AI",
+    bg: bgTile3,
+    ui: uiTile3,
   },
   {
-    title: "Visual Design Explorations",
-    company: "Personal",
-    tags: ["Branding", "Motion", "Visual"],
-    description: "A collection of visual design experiments across motion, branding, and UI.",
-    bg: "#0f0f0f",
-    textColor: "#ffffff",
-    tagColor: "rgba(255,255,255,0.12)",
-    tagTextColor: "rgba(255,255,255,0.6)",
+    title: "Streamlining Interview Scheduling",
+    bg: bgTile4,
+    ui: uiTile4,
   },
 ];
 
 function WorkCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6 animate-stream-line">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 animate-stream-line">
       {caseStudies.map((study, i) => (
         <div
           key={i}
           data-testid={`card-work-${i}`}
-          className="rounded-2xl cursor-pointer select-none"
-          style={{
-            background: study.bg,
-            border: study.bg === "#f5f5f5" ? "0.5px solid #e8e8e8" : "none",
-            padding: "24px",
-            minHeight: 200,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            transition: "transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = "scale(1.025)";
-            (e.currentTarget as HTMLElement).style.boxShadow =
-              study.bg === "#f5f5f5"
-                ? "0px 8px 24px rgba(0,0,0,0.10)"
-                : "0px 8px 24px rgba(0,0,0,0.28)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-            (e.currentTarget as HTMLElement).style.boxShadow = "none";
-          }}
+          className="flex flex-col cursor-pointer select-none group"
+          style={{ gap: 10 }}
         >
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex flex-wrap gap-1.5">
-              {study.tags.map((tag, ti) => (
-                <span
-                  key={ti}
-                  className="font-['SequelSansBookBody',sans-serif]"
-                  style={{
-                    fontSize: 11,
-                    lineHeight: "16px",
-                    padding: "3px 9px",
-                    borderRadius: 100,
-                    background: study.tagColor,
-                    color: study.tagTextColor,
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
+          <div
+            className="relative overflow-hidden rounded-2xl flex-shrink-0"
+            style={{
+              width: "100%",
+              maxWidth: 350,
+              height: 240,
+              transition: "transform 0.24s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.24s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "scale(1.03)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0px 12px 32px rgba(0,0,0,0.22)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "scale(1)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "none";
+            }}
+          >
+            <img
+              src={study.bg}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable={false}
+            />
+            <div className="absolute inset-0 flex items-center justify-center" style={{ padding: "16px 20px" }}>
+              <img
+                src={study.ui}
+                alt={study.title}
+                className="relative z-10 rounded-xl object-cover object-top w-full"
+                style={{
+                  maxHeight: 195,
+                  boxShadow: "0px 8px 32px rgba(0,0,0,0.35)",
+                }}
+                draggable={false}
+              />
             </div>
-            <span
-              className="font-['SequelSansBookBody',sans-serif] flex-shrink-0"
-              style={{
-                fontSize: 11,
-                color: study.textColor === "#ffffff" ? "rgba(255,255,255,0.38)" : "#b0b0b0",
-              }}
-            >
-              {study.company}
-            </span>
           </div>
-
-          <div style={{ marginTop: 32 }}>
-            <h3
-              className="font-['SequelSansMediumBody',sans-serif]"
-              style={{
-                fontSize: 18,
-                lineHeight: "24px",
-                color: study.textColor,
-                marginBottom: 8,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {study.title}
-            </h3>
-            <p
-              className="font-['SequelSansBookBody',sans-serif]"
-              style={{
-                fontSize: 13,
-                lineHeight: "19px",
-                color: study.textColor === "#ffffff" ? "rgba(255,255,255,0.5)" : "#888",
-              }}
-            >
-              {study.description}
-            </p>
-          </div>
+          <p
+            className="font-['SequelSansBookBody',sans-serif] text-[#222222]"
+            style={{ fontSize: 14, lineHeight: "20px" }}
+          >
+            {study.title}
+          </p>
         </div>
       ))}
     </div>
