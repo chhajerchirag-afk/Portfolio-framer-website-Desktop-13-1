@@ -213,16 +213,16 @@
 @keyframes menu-pop-in {
   0% {
     opacity: 0;
-    transform: translateX(-50%) scale(0.94) translateY(-4px);
+    transform: translateX(-50%) scale(0.68);
   }
   100% {
     opacity: 1;
-    transform: translateX(-50%) scale(1) translateY(0);
+    transform: translateX(-50%) scale(1);
   }
 }
 
 .animate-menu-pop-in {
-  animation: menu-pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: menu-pop-in 0.26s cubic-bezier(0.16, 1.1, 0.3, 1) forwards;
 }
 
 @keyframes card-scale-in {

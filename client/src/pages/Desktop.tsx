@@ -508,7 +508,7 @@ function ThreeDotsMenu() {
           className="animate-menu-pop-in"
           style={{
             position: "fixed",
-            top: 12,
+            top: 16,
             left: "50%",
             zIndex: 9999,
           }}
@@ -543,11 +543,10 @@ function ThreeDotsMenu() {
                   key={i}
                   data-testid={`menu-item-${i}`}
                   onClick={() => handleItemClick(item)}
-                  disabled={!item.href}
                   className="flex flex-col items-center transition-all duration-200"
                   style={{
-                    cursor: item.href ? "pointer" : "default",
-                    opacity: item.href ? 1 : 0.55,
+                    cursor: "pointer",
+                    opacity: 1,
                     width: 72,
                     gap: 4,
                     transform: "scale(1) translateY(0)",
@@ -629,7 +628,7 @@ const caseStudies = [
 
 function WorkCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 animate-stream-line">
+    <div className="grid grid-cols-1 md:grid-cols-2 mt-6 animate-stream-line" style={{ gap: 20 }}>
       {caseStudies.map((study, i) => (
         <div
           key={i}
@@ -1205,8 +1204,17 @@ export const Desktop = (): JSX.Element => {
                 className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
                 style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
               />
-            <div ref={scrollRef} className="h-full overflow-y-auto px-5 pb-8 pt-2">
-              <div ref={scrollContentRef} className="max-w-[720px] mx-auto">
+            <div
+              ref={scrollRef}
+              className="h-full overflow-y-auto pb-8 pt-2"
+              style={{
+                width: "100%",
+                maxWidth: "min(720px, calc(100% - 40px))",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              <div ref={scrollContentRef}>
                 {history.map((entry, i) => (
                   <CompletedEntry key={i} entry={entry} />
                 ))}
