@@ -439,7 +439,7 @@ function CollapsibleReasoning({
   };
 
   return (
-    <div style={{ marginTop: 16, marginBottom: 8 }}>
+    <div style={{ marginTop: 16, marginBottom: 8 }} className="mt-[24px]">
       <style>{`
         @keyframes stepIn {
           from { opacity: 0; transform: translateY(6px); }
