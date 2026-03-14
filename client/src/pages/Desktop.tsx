@@ -438,44 +438,61 @@ function MenuIcon({ type }: { type: string }) {
 
 function ThreeDotsMenu() {
   const [open, setOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [menuKey, setMenuKey] = useState(0);
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeAnimTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startClosing = useCallback(() => {
+    if (closeAnimTimer.current) clearTimeout(closeAnimTimer.current);
+    setIsClosing(true);
+    closeAnimTimer.current = setTimeout(() => {
+      setOpen(false);
+      setIsClosing(false);
+    }, 180);
+  }, []);
 
   useEffect(() => {
     if (!isMobile) return;
     const handler = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
+        startClosing();
       }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [isMobile]);
+  }, [isMobile, startClosing]);
 
   const handleMouseEnter = () => {
     if (isMobile) return;
     if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (closeAnimTimer.current) clearTimeout(closeAnimTimer.current);
+    setIsClosing(false);
     setMenuKey((k) => k + 1);
     setOpen(true);
   };
 
   const handleMouseLeave = () => {
     if (isMobile) return;
-    closeTimer.current = setTimeout(() => setOpen(false), 160);
+    closeTimer.current = setTimeout(() => startClosing(), 120);
   };
 
   const handleClick = () => {
     if (!isMobile) return;
-    setMenuKey((k) => k + 1);
-    setOpen((o) => !o);
+    if (open) {
+      startClosing();
+    } else {
+      setMenuKey((k) => k + 1);
+      setOpen(true);
+    }
   };
 
   const handleItemClick = (item: (typeof menuLinks)[number]) => {
     if (!item.href) return;
     window.open(item.href, "_blank", "noopener,noreferrer");
-    setOpen(false);
+    startClosing();
   };
 
   return (
@@ -505,18 +522,25 @@ function ThreeDotsMenu() {
       {open && (
         <div
           key={menuKey}
-          className="animate-menu-pop-in"
           style={{
             position: "fixed",
-            top: 16,
+            top: 20,
             left: "50%",
+            transform: "translateX(-50%)",
             zIndex: 9999,
           }}
           onMouseEnter={() => {
-            if (!isMobile && closeTimer.current) clearTimeout(closeTimer.current);
+            if (!isMobile) {
+              if (closeTimer.current) clearTimeout(closeTimer.current);
+              if (closeAnimTimer.current) clearTimeout(closeAnimTimer.current);
+              setIsClosing(false);
+            }
           }}
           onMouseLeave={handleMouseLeave}
         >
+          <div
+            className={isClosing ? "animate-menu-close" : "animate-menu-open"}
+          >
           <div
             className="flex flex-col items-center"
             style={{
@@ -596,6 +620,7 @@ function ThreeDotsMenu() {
             >
               Made Using Vibe Coding
             </p>
+          </div>
           </div>
         </div>
       )}
