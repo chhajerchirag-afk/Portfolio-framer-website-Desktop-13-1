@@ -6,6 +6,7 @@ import {
   LoaderIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
+import { TextShimmer } from "@/components/ui/text-shimmer";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
@@ -114,9 +115,7 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
     { type: "experience-role", text: "Product Designer", subtitle: "Sense Hq", duration: "2025 \u2014 Present", highlight: "Sense Hq", description: "Currently designing AI-powered recruiter tools that help HR teams create conversational talent workflows and automate engagement.", focusLabel: "Focus areas:", bullets: ["AI agents for recruiters", "Simplifying complex AI workflows", "Scaling interaction patterns for enterprise hiring tools"] },
     { type: "experience-role", text: "Product Designer", subtitle: "Nudge Lab", duration: "2023 \u2014 2025", highlight: "Nudge Lab", description: "Worked across early-stage AI and SaaS products, helping founders turn rough ideas into usable products.", focusLabel: "Focus areas:", bullets: ["Designed AI-powered tools for legal research and cybersecurity", "Improved onboarding and conversion for multiple products", "Built scalable design systems across 100+ screens"] },
     { type: "experience-role", text: "UX Designer", subtitle: "Dank", duration: "2023", highlight: "Dank", description: "First step into product design.", focusLabel: "Worked on:", bullets: ["Messaging and core social features", "Onboarding improvements", "Building the product\u2019s first design system"] },
-    { type: "experience-role", text: "Graphic Designer", subtitle: "GreyToYellow", duration: "2022 \u2014 2023", highlight: "GreyToYellow", description: "The origin story.", bullets: [], focusLabel: "" },
-    { type: "break" },
-    { type: "paragraph", text: "Learned how visual storytelling, branding, and communication influence user perception." },
+    { type: "experience-role", text: "Graphic Designer", subtitle: "GreyToYellow", duration: "2022 \u2014 2023", highlight: "GreyToYellow", description: "The origin story. Learned how visual storytelling, branding, and communication influence user perception.", bullets: [], focusLabel: "" },
   ],
   resume: [
     { type: "paragraph", text: "Here you go \u2014 Chirag\u2019s resume is ready for view and download." },
@@ -340,14 +339,14 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
           )}
         </p>
         {headerVisible >= headerWords.length && (
-          <span className="font-['SequelSansBookBody',sans-serif] font-normal text-[#171717] text-base whitespace-nowrap ml-4">{block.duration}</span>
+          <span className="font-['SequelSansBookBody',sans-serif] font-normal text-[#7A7A7A] text-base whitespace-nowrap ml-4">{block.duration}</span>
         )}
       </div>
       {descVisible > 0 && (
         <p className="mt-1">{descWords.slice(0, descVisible).join(" ")}</p>
       )}
       {focusVisible > 0 && block.focusLabel && (
-        <p className="mt-3 text-[#6b8cce]">{focusLabelWords.slice(0, focusVisible).join(" ")}</p>
+        <p className="mt-3 text-[#222222]">{focusLabelWords.slice(0, focusVisible).join(" ")}</p>
       )}
       {bulletVisibles.some(v => v > 0) && (
         <div className="mt-1 space-y-0.5">
@@ -370,9 +369,10 @@ function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; vi
 function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
   return (
     <div className="text-[#222222] text-base leading-6 font-['SequelSansBookBody',sans-serif] font-normal" style={{ letterSpacing: 0 }}>
-      {blocks.map((block, i) => (
-        <RenderBlock key={i} block={block} visibleWords={999} />
-      ))}
+      {blocks.map((block, i) => {
+        if (block.type === "break") return <br key={i} />;
+        return <RenderBlock key={i} block={block} visibleWords={999} />;
+      })}
     </div>
   );
 }
@@ -825,14 +825,14 @@ export const Desktop = (): JSX.Element => {
               <h1
                 className="font-['SequelSansBookHead',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
                 style={{
-                  letterSpacing: "-0.02em",
+                  letterSpacing: 0,
                   fontSize: "clamp(24px, 4vw, 32px)",
                   lineHeight: "clamp(32px, 5vw, 40px)",
                   marginBottom: 24,
                 }}
                 data-testid="text-heading"
               >
-                Hola! I&apos;m Chirag&apos;s portfolio AI.
+                Hello! I&apos;m Chirag&apos;s portfolio AI.
               </h1>
 
               <div
@@ -927,9 +927,13 @@ export const Desktop = (): JSX.Element => {
                   <div style={{ marginTop: 20 }}>
                     <div className="flex items-center gap-2">
                       <LoaderIcon className="w-4 h-4 text-[#a1a1a1] animate-spin flex-shrink-0" />
-                      <span className="font-['SequelSansBookBody',sans-serif] text-[#a1a1a1] text-sm leading-5">
-                        Chirag's AI is thinking...
-                      </span>
+                      <TextShimmer
+                        className="font-['SequelSansBookBody',sans-serif] text-sm leading-5"
+                        duration={1.6}
+                        spread={3}
+                      >
+                        Chirag&apos;s AI is thinking...
+                      </TextShimmer>
                     </div>
                   </div>
                 )}
