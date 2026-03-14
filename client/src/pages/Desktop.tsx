@@ -490,22 +490,14 @@ function ThreeDotsMenu() {
         className="flex items-center justify-center gap-[4px] rounded-full transition-all duration-150 cursor-pointer"
         style={{
           padding: "8px 10px",
-          background: "#f5f5f5",
-          border: "0.5px solid #e5e5e5",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.background = "#ebebeb";
-          (e.currentTarget as HTMLElement).style.borderColor = "#d8d8d8";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.background = "#f5f5f5";
-          (e.currentTarget as HTMLElement).style.borderColor = "#e5e5e5";
+          background: "#F5F5F5",
+          border: "none",
         }}
         aria-label="Open menu"
       >
-        <span className="rounded-full bg-[#171717]" style={{ width: 4, height: 4 }} />
-        <span className="rounded-full bg-[#171717]" style={{ width: 4, height: 4 }} />
-        <span className="rounded-full bg-[#171717]" style={{ width: 4, height: 4 }} />
+        <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
+        <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
+        <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
       </button>
 
       {open && (
@@ -513,7 +505,7 @@ function ThreeDotsMenu() {
           key={menuKey}
           className="absolute z-50 animate-menu-pop-in"
           style={{
-            bottom: "calc(100% + 10px)",
+            top: 0,
             left: "50%",
             transform: "translateX(-50%)",
           }}
@@ -1080,8 +1072,10 @@ export const Desktop = (): JSX.Element => {
               alt="Logo"
               src="/figmaAssets/vector-22.svg"
             />
-            <div className="absolute top-4 right-5 z-10 flex items-center gap-3">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
               <ThreeDotsMenu />
+            </div>
+            <div className="absolute top-4 right-5 z-10">
               <AnimatedClock time={time} />
             </div>
 
@@ -1174,10 +1168,10 @@ export const Desktop = (): JSX.Element => {
                   src="/figmaAssets/vector-22.svg"
                 />
               </button>
-              <div className="flex items-center gap-3">
+              <div className="absolute left-1/2 -translate-x-1/2 top-4">
                 <ThreeDotsMenu />
-                <AnimatedClock time={time} />
               </div>
+              <AnimatedClock time={time} />
             </div>
 
             <div className="relative flex-1 overflow-hidden">
