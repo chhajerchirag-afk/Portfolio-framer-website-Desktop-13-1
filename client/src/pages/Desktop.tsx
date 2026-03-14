@@ -505,11 +505,12 @@ function ThreeDotsMenu() {
       {open && (
         <div
           key={menuKey}
-          className="absolute z-50 animate-menu-pop-in"
+          className="animate-menu-pop-in"
           style={{
-            top: 0,
+            position: "fixed",
+            top: 12,
             left: "50%",
-            transform: "translateX(-50%)",
+            zIndex: 9999,
           }}
           onMouseEnter={() => {
             if (!isMobile && closeTimer.current) clearTimeout(closeTimer.current);
@@ -519,42 +520,41 @@ function ThreeDotsMenu() {
           <div
             className="flex flex-col items-center"
             style={{
-              background: "rgba(245,245,245,0.98)",
-              backdropFilter: "blur(16px)",
-              borderRadius: 24,
-              boxShadow: "0px 8px 28px rgba(0,0,0,0.12), 0px 2px 6px rgba(0,0,0,0.06)",
-              paddingTop: 8,
-              paddingBottom: 14,
-              paddingLeft: 20,
-              paddingRight: 20,
+              width: 351,
+              height: 130,
+              background: "#F5F5F5",
+              borderRadius: 999,
+              paddingTop: 20,
+              paddingBottom: 12,
+              paddingLeft: 48,
+              paddingRight: 48,
+              justifyContent: "center",
+              gap: 10,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <div
-              className="flex items-center justify-center gap-[4px] cursor-default"
-              style={{ marginBottom: 14 }}
+              className="flex items-start"
+              style={{ gap: 20 }}
             >
-              <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
-              <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
-              <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
-            </div>
-
-            <div className="flex items-start gap-5">
               {menuLinks.map((item, i) => (
                 <button
                   key={i}
                   data-testid={`menu-item-${i}`}
                   onClick={() => handleItemClick(item)}
                   disabled={!item.href}
-                  className="flex flex-col items-center gap-2 transition-all duration-200"
+                  className="flex flex-col items-center transition-all duration-200"
                   style={{
                     cursor: item.href ? "pointer" : "default",
                     opacity: item.href ? 1 : 0.55,
-                    minWidth: 60,
+                    width: 72,
+                    gap: 4,
                     transform: "scale(1) translateY(0)",
                   }}
                   onMouseEnter={(e) => {
                     if (!item.href) return;
-                    (e.currentTarget as HTMLElement).style.transform = "scale(1.1) translateY(-2px)";
+                    (e.currentTarget as HTMLElement).style.transform = "scale(1.08) translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     if (!item.href) return;
@@ -564,8 +564,8 @@ function ThreeDotsMenu() {
                   <span
                     className="flex items-center justify-center flex-shrink-0 overflow-hidden"
                     style={{
-                      width: 52,
-                      height: 52,
+                      width: 48,
+                      height: 48,
                       borderRadius: "50%",
                       background: item.iconType === "person" ? "transparent" : item.bg,
                     }}
@@ -575,14 +575,15 @@ function ThreeDotsMenu() {
                         src={sayHelloImg}
                         alt="Say Hello"
                         className="w-full h-full object-cover"
+                        style={{ borderRadius: "50%" }}
                       />
                     ) : (
                       <MenuIcon type={item.iconType} />
                     )}
                   </span>
                   <span
-                    className="font-['SequelSansBookBody',sans-serif] text-[#171717] text-center whitespace-nowrap"
-                    style={{ fontSize: 12, lineHeight: "16px" }}
+                    className="font-['SequelSansBookBody',sans-serif] text-center whitespace-nowrap"
+                    style={{ fontSize: 14, lineHeight: "20px", color: "#212121" }}
                   >
                     {item.label}
                   </span>
@@ -592,9 +593,9 @@ function ThreeDotsMenu() {
 
             <p
               className="font-['SequelSansBookBody',sans-serif] text-center"
-              style={{ fontSize: 10, color: "#b0b0b0", lineHeight: "14px", marginTop: 12 }}
+              style={{ fontSize: 11, color: "#8D8D8D", lineHeight: "14px" }}
             >
-              This Website is Made Using Vibe Coding
+              Made Using Vibe Coding
             </p>
           </div>
         </div>
