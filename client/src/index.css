@@ -26,6 +26,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'SequelSansRomanBody';
+  src: url('/fonts/SequelSans-RomanBody.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer components {
   .all-\[unset\] {
     all: unset;

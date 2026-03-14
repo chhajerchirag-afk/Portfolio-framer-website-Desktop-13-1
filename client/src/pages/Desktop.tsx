@@ -9,6 +9,7 @@ import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+import sayHelloImg from "@assets/Image_1773518148939.png";
 import bgTile1 from "@assets/image_98_1773516807733.png";
 import bgTile2 from "@assets/image_102_1773516807734.png";
 import bgTile3 from "@assets/image_103_1773516807734.png";
@@ -492,6 +493,7 @@ function ThreeDotsMenu() {
           padding: "8px 10px",
           background: "#F5F5F5",
           border: "none",
+          visibility: open ? "hidden" : "visible",
         }}
         aria-label="Open menu"
       >
@@ -517,14 +519,25 @@ function ThreeDotsMenu() {
           <div
             className="flex flex-col items-center"
             style={{
-              background: "rgba(255,255,255,0.96)",
-              backdropFilter: "blur(12px)",
-              border: "0.5px solid #e8e8e8",
-              borderRadius: 20,
-              boxShadow: "0px 12px 32px rgba(0,0,0,0.14), 0px 2px 8px rgba(0,0,0,0.07)",
-              padding: "16px 20px 12px",
+              background: "rgba(245,245,245,0.98)",
+              backdropFilter: "blur(16px)",
+              borderRadius: 24,
+              boxShadow: "0px 8px 28px rgba(0,0,0,0.12), 0px 2px 6px rgba(0,0,0,0.06)",
+              paddingTop: 8,
+              paddingBottom: 14,
+              paddingLeft: 20,
+              paddingRight: 20,
             }}
           >
+            <div
+              className="flex items-center justify-center gap-[4px] cursor-default"
+              style={{ marginBottom: 14 }}
+            >
+              <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
+              <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
+              <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
+            </div>
+
             <div className="flex items-start gap-5">
               {menuLinks.map((item, i) => (
                 <button
@@ -532,15 +545,16 @@ function ThreeDotsMenu() {
                   data-testid={`menu-item-${i}`}
                   onClick={() => handleItemClick(item)}
                   disabled={!item.href}
-                  className="flex flex-col items-center gap-2 transition-all duration-180"
+                  className="flex flex-col items-center gap-2 transition-all duration-200"
                   style={{
                     cursor: item.href ? "pointer" : "default",
                     opacity: item.href ? 1 : 0.55,
-                    minWidth: 56,
+                    minWidth: 60,
+                    transform: "scale(1) translateY(0)",
                   }}
                   onMouseEnter={(e) => {
                     if (!item.href) return;
-                    (e.currentTarget as HTMLElement).style.transform = "scale(1.08) translateY(-2px)";
+                    (e.currentTarget as HTMLElement).style.transform = "scale(1.1) translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
                     if (!item.href) return;
@@ -548,15 +562,23 @@ function ThreeDotsMenu() {
                   }}
                 >
                   <span
-                    className="flex items-center justify-center flex-shrink-0"
+                    className="flex items-center justify-center flex-shrink-0 overflow-hidden"
                     style={{
-                      width: 48,
-                      height: 48,
+                      width: 52,
+                      height: 52,
                       borderRadius: "50%",
-                      background: item.bg,
+                      background: item.iconType === "person" ? "transparent" : item.bg,
                     }}
                   >
-                    <MenuIcon type={item.iconType} />
+                    {item.iconType === "person" ? (
+                      <img
+                        src={sayHelloImg}
+                        alt="Say Hello"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <MenuIcon type={item.iconType} />
+                    )}
                   </span>
                   <span
                     className="font-['SequelSansBookBody',sans-serif] text-[#171717] text-center whitespace-nowrap"
@@ -567,9 +589,10 @@ function ThreeDotsMenu() {
                 </button>
               ))}
             </div>
+
             <p
-              className="font-['SequelSansBookBody',sans-serif] text-center mt-3"
-              style={{ fontSize: 10, color: "#b0b0b0", lineHeight: "14px" }}
+              className="font-['SequelSansBookBody',sans-serif] text-center"
+              style={{ fontSize: 10, color: "#b0b0b0", lineHeight: "14px", marginTop: 12 }}
             >
               This Website is Made Using Vibe Coding
             </p>
@@ -610,25 +633,12 @@ function WorkCards() {
         <div
           key={i}
           data-testid={`card-work-${i}`}
-          className="flex flex-col cursor-pointer select-none group"
+          className="flex flex-col cursor-pointer select-none"
           style={{ gap: 10 }}
         >
           <div
             className="relative overflow-hidden rounded-2xl flex-shrink-0"
-            style={{
-              width: "100%",
-              maxWidth: 350,
-              height: 240,
-              transition: "transform 0.24s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.24s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "scale(1.03)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "0px 12px 32px rgba(0,0,0,0.22)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "none";
-            }}
+            style={{ width: "100%", maxWidth: 350, height: 240 }}
           >
             <img
               src={study.bg}
@@ -636,22 +646,37 @@ function WorkCards() {
               className="absolute inset-0 w-full h-full object-cover"
               draggable={false}
             />
-            <div className="absolute inset-0 flex items-center justify-center" style={{ padding: "16px 20px" }}>
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ padding: "16px 20px" }}
+              onMouseEnter={(e) => {
+                const img = e.currentTarget.querySelector("img") as HTMLElement;
+                if (img) img.style.transform = "scale(1.06)";
+              }}
+              onMouseLeave={(e) => {
+                const img = e.currentTarget.querySelector("img") as HTMLElement;
+                if (img) img.style.transform = "scale(1)";
+              }}
+            >
               <img
                 src={study.ui}
                 alt={study.title}
                 className="relative z-10 rounded-xl object-cover object-top w-full"
                 style={{
                   maxHeight: 195,
-                  boxShadow: "0px 8px 32px rgba(0,0,0,0.35)",
+                  transition: "transform 0.28s cubic-bezier(0.34,1.56,0.64,1)",
                 }}
                 draggable={false}
               />
             </div>
           </div>
           <p
-            className="font-['SequelSansBookBody',sans-serif] text-[#222222]"
-            style={{ fontSize: 14, lineHeight: "20px" }}
+            className="font-['SequelSansRomanBody',sans-serif] text-[#222222]"
+            style={{
+              fontSize: 16,
+              lineHeight: "24px",
+              letterSpacing: "-0.01em",
+            }}
           >
             {study.title}
           </p>
