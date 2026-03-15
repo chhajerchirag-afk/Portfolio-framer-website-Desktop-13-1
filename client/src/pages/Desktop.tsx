@@ -13,14 +13,7 @@ import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import sayHelloImg from "@assets/Image_1773518148939.png";
-import bgTile1 from "@assets/image_98_1773516807733.png";
-import bgTile2 from "@assets/image_102_1773516807734.png";
-import bgTile3 from "@assets/image_103_1773516807734.png";
-import bgTile4 from "@assets/image_104_1773516807734.png";
 import uiTile1 from "@assets/image_63_1773516807733.png";
-import uiTile2 from "@assets/Screenshot_2026-03-07_at_00.12.22_1_1773516807734.png";
-import uiTile3 from "@assets/image_77_1773516807733.png";
-import uiTile4 from "@assets/image_66_1773516807733.png";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
@@ -596,29 +589,25 @@ const caseStudies = [
     id: "ai-agents-hr",
     title: "AI Agents for HR Teams",
     fullTitle: "Redefining Hiring at Scale with AI Agents",
-    bg: bgTile1,
-    ui: uiTile1,
+    thumbnail: "/project1.png",
   },
   {
     id: "reimagining-ai",
     title: "Reimagining AI Experiences for Users",
     fullTitle: "Reimagining AI Experiences for Users",
-    bg: bgTile2,
-    ui: uiTile2,
+    thumbnail: "/project2.png",
   },
   {
     id: "mvp-video-ai",
     title: "Establishing MVP for Video AI",
     fullTitle: "Defining MVP for Video AI",
-    bg: bgTile3,
-    ui: uiTile3,
+    thumbnail: "/project3.png",
   },
   {
     id: "interview-scheduling",
     title: "Streamlining Interview Scheduling",
     fullTitle: "Streamlining Interview Scheduling",
-    bg: bgTile4,
-    ui: uiTile4,
+    thumbnail: "/project4.png",
   },
 ];
 
@@ -698,25 +687,12 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
               }}
             >
               <img
-                src={study.bg}
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover"
+                src={study.thumbnail}
+                alt={study.title}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06]"
+                style={{ transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)" }}
                 draggable={false}
               />
-              <div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ padding: "20px" }}
-              >
-                <img
-                  src={study.ui}
-                  alt={study.title}
-                  className="relative z-10 rounded-xl object-contain w-full h-full group-hover:scale-[1.15]"
-                  style={{
-                    transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
-                  }}
-                  draggable={false}
-                />
-              </div>
             </div>
             <p
               className="font-['Inter',sans-serif] text-[#222222]"
