@@ -630,66 +630,102 @@ const caseStudies = [
 ];
 
 function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
+  const chipRef = useRef<HTMLDivElement>(null);
+  const [chipVisible, setChipVisible] = useState(false);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (chipRef.current) {
+      chipRef.current.style.left = `${e.clientX}px`;
+      chipRef.current.style.top = `${e.clientY}px`;
+    }
+  }, []);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 mt-6 animate-stream-line" style={{ gap: 20 }}>
-      {caseStudies.map((study, i) => (
-        <div
-          key={i}
-          data-testid={`card-work-${i}`}
-          className="flex flex-col cursor-pointer select-none"
-          onClick={() => onOpen?.(study.id)}
-          style={{
-            gap: 10,
-            opacity: 0,
-            animation: "fadeInTile 0.45s ease forwards",
-            animationDelay: `${i * 0.12}s`,
-          }}
-        >
+    <>
+      {/* Custom cursor chip — follows mouse, portal-style via fixed positioning */}
+      <div
+        ref={chipRef}
+        style={{
+          position: "fixed",
+          pointerEvents: "none",
+          zIndex: 99999,
+          transform: chipVisible
+            ? "translate(-50%, -50%) scale(1)"
+            : "translate(-50%, -50%) scale(0.72)",
+          opacity: chipVisible ? 1 : 0,
+          transition: "opacity 0.18s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1)",
+          background: "#171717",
+          color: "white",
+          borderRadius: 999,
+          padding: "7px 18px",
+          fontSize: 13,
+          fontFamily: "Inter, sans-serif",
+          fontWeight: 500,
+          letterSpacing: "-0.01em",
+          whiteSpace: "nowrap",
+          left: 0,
+          top: 0,
+        }}
+      >
+        View Project
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-6 animate-stream-line" style={{ gap: 20 }}>
+        {caseStudies.map((study, i) => (
           <div
-            className="relative overflow-hidden rounded-2xl flex-shrink-0"
-            style={{ width: "100%", maxWidth: 350, height: 240 }}
+            key={i}
+            data-testid={`card-work-${i}`}
+            className="flex flex-col select-none"
+            onClick={() => onOpen?.(study.id)}
+            style={{
+              gap: 10,
+              opacity: 0,
+              cursor: "none",
+              animation: "fadeInTile 0.45s ease forwards",
+              animationDelay: `${i * 0.12}s`,
+            }}
+            onMouseEnter={() => setChipVisible(true)}
+            onMouseLeave={() => setChipVisible(false)}
+            onMouseMove={handleMouseMove}
           >
-            <img
-              src={study.bg}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover"
-              draggable={false}
-            />
             <div
-              className="absolute inset-0 flex items-center justify-center"
-              style={{ padding: "20px" }}
-              onMouseEnter={(e) => {
-                const img = e.currentTarget.querySelector("img") as HTMLElement;
-                if (img) img.style.transform = "scale(1.15)";
-              }}
-              onMouseLeave={(e) => {
-                const img = e.currentTarget.querySelector("img") as HTMLElement;
-                if (img) img.style.transform = "scale(1)";
-              }}
+              className="relative overflow-hidden rounded-2xl flex-shrink-0"
+              style={{ width: "100%", maxWidth: 350, height: 240 }}
             >
               <img
-                src={study.ui}
-                alt={study.title}
-                className="relative z-10 rounded-xl object-contain w-full h-full"
-                style={{
-                  transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
-                }}
+                src={study.bg}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover"
                 draggable={false}
               />
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ padding: "20px" }}
+              >
+                <img
+                  src={study.ui}
+                  alt={study.title}
+                  className="relative z-10 rounded-xl object-contain w-full h-full"
+                  style={{
+                    transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
+                  }}
+                  draggable={false}
+                />
+              </div>
             </div>
+            <p
+              className="font-['Inter',sans-serif] text-[#222222]"
+              style={{
+                fontSize: 16,
+                lineHeight: "24px",
+              }}
+            >
+              {study.title}
+            </p>
           </div>
-          <p
-            className="font-['Inter',sans-serif] text-[#222222]"
-            style={{
-              fontSize: 16,
-              lineHeight: "24px",
-            }}
-          >
-            {study.title}
-          </p>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
 
