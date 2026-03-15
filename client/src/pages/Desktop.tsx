@@ -622,7 +622,7 @@ const caseStudies = [
   },
 ];
 
-function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
+function WorkCards({ onOpen, singleColumn }: { onOpen?: (id: string) => void; singleColumn?: boolean }) {
   const chipRef = useRef<HTMLDivElement>(null);
   const [chipVisible, setChipVisible] = useState(false);
 
@@ -663,7 +663,7 @@ function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
         View Project
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 mt-6 animate-stream-line" style={{ gap: 20 }}>
+      <div className={`grid grid-cols-1 ${singleColumn ? "" : "md:grid-cols-2"} mt-6 animate-stream-line`} style={{ gap: 20 }}>
         {caseStudies.map((study, i) => (
           <div
             key={i}
@@ -1854,7 +1854,7 @@ export const Desktop = (): JSX.Element => {
                       <CollapsibleReasoning steps={reasoningSteps[pendingType]} defaultCollapsed={true} />
                       <WordStreamingText key={streamKey} blocks={responseBlocks[pendingType]} onComplete={handleStreamComplete} />
                       {pendingType === "work" && streamComplete && (
-                        <WorkCards onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
+                        <WorkCards singleColumn onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
                       )}
                       {pendingType === "resume" && streamComplete && <ResumeCard />}
                     </>
