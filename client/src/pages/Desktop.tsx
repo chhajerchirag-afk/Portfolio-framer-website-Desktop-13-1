@@ -675,7 +675,7 @@ function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
           <div
             key={i}
             data-testid={`card-work-${i}`}
-            className="flex flex-col select-none"
+            className="group flex flex-col select-none"
             onClick={() => onOpen?.(study.id)}
             style={{
               gap: 10,
@@ -705,7 +705,7 @@ function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
                 <img
                   src={study.ui}
                   alt={study.title}
-                  className="relative z-10 rounded-xl object-contain w-full h-full"
+                  className="relative z-10 rounded-xl object-contain w-full h-full group-hover:scale-[1.15]"
                   style={{
                     transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)",
                   }}
