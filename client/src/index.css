@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -240,6 +242,11 @@
 .animate-menu-close {
   animation: menu-close 0.18s cubic-bezier(0.4, 0, 1, 1) forwards;
   transform-origin: top center;
+}
+
+@keyframes fadeInTile {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes card-scale-in {
