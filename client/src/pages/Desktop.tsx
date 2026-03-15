@@ -441,15 +441,14 @@ function MenuIcon({ type }: { type: string }) {
 
 function ThreeDotsMenu() {
   const [open, setOpen] = useState(false);
-  const [menuKey, setMenuKey] = useState(0);
   const isMobile = useIsMobile();
-  const containerRef = useRef<HTMLDivElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!isMobile) return;
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (pillRef.current && !pillRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
@@ -460,23 +459,12 @@ function ThreeDotsMenu() {
   const handleMouseEnter = () => {
     if (isMobile) return;
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    setMenuKey((k) => k + 1);
     setOpen(true);
   };
 
   const handleMouseLeave = () => {
     if (isMobile) return;
     closeTimer.current = setTimeout(() => setOpen(false), 160);
-  };
-
-  const handleClick = () => {
-    if (!isMobile) return;
-    if (open) {
-      setOpen(false);
-    } else {
-      setMenuKey((k) => k + 1);
-      setOpen(true);
-    }
   };
 
   const handleItemClick = (item: (typeof menuLinks)[number]) => {
@@ -487,131 +475,125 @@ function ThreeDotsMenu() {
 
   return (
     <div
-      ref={containerRef}
-      className="relative flex items-center justify-center"
+      ref={pillRef}
+      data-testid="button-three-dots-menu"
+      aria-label="Open menu"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => { if (isMobile) setOpen((o) => !o); }}
+      style={{
+        position: "fixed",
+        top: 16,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 9999,
+        width: open ? 351 : 54,
+        height: open ? 130 : 34,
+        background: "#F5F5F5",
+        borderRadius: 999,
+        overflow: "hidden",
+        cursor: open ? "default" : "pointer",
+        transition: [
+          "width 0.42s cubic-bezier(0.22,1,0.36,1)",
+          "height 0.38s cubic-bezier(0.22,1,0.36,1)",
+        ].join(", "),
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
-      <button
-        data-testid="button-three-dots-menu"
-        onClick={handleClick}
-        className="flex items-center justify-center gap-[4px] rounded-full transition-all duration-150 cursor-pointer"
+      {/* Three dots — visible when closed */}
+      <div
         style={{
-          padding: "8px 10px",
-          background: "#F5F5F5",
-          border: "none",
-          visibility: open ? "hidden" : "visible",
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          gap: 4,
+          opacity: open ? 0 : 1,
+          transition: open ? "opacity 0.08s ease" : "opacity 0.12s ease 0.18s",
+          pointerEvents: "none",
         }}
-        aria-label="Open menu"
       >
         <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
         <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
         <span className="rounded-full" style={{ width: 4, height: 4, background: "#8D8D8D" }} />
-      </button>
+      </div>
 
-      {open && (
-        <div
-          key={menuKey}
-          style={{
-            position: "fixed",
-            top: 16,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 9999,
-          }}
-          onMouseEnter={() => {
-            if (!isMobile) {
-              if (closeTimer.current) clearTimeout(closeTimer.current);
-            }
-          }}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div
-            className="animate-menu-open"
-          >
-          <div
-            className="flex flex-col items-center"
-            style={{
-              width: 351,
-              height: 130,
-              background: "#F5F5F5",
-              borderRadius: 999,
-              paddingTop: 20,
-              paddingBottom: 12,
-              paddingLeft: 48,
-              paddingRight: 48,
-              justifyContent: "center",
-              gap: 10,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <div
-              className="flex items-start"
-              style={{ gap: 20 }}
+      {/* Expanded menu content — visible when open */}
+      <div
+        style={{
+          position: "absolute",
+          opacity: open ? 1 : 0,
+          transition: open ? "opacity 0.18s ease 0.18s" : "opacity 0.08s ease",
+          pointerEvents: open ? "auto" : "none",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 10,
+          padding: "20px 48px 12px",
+          width: 351,
+        }}
+      >
+        <div className="flex items-start" style={{ gap: 20 }}>
+          {menuLinks.map((item, i) => (
+            <button
+              key={i}
+              data-testid={`menu-item-${i}`}
+              onClick={(e) => { e.stopPropagation(); handleItemClick(item); }}
+              className="flex flex-col items-center transition-all duration-200"
+              style={{
+                cursor: "pointer",
+                width: 72,
+                gap: 4,
+                background: "none",
+                border: "none",
+                transform: "scale(1) translateY(0)",
+              }}
+              onMouseEnter={(e) => {
+                if (!item.href) return;
+                (e.currentTarget as HTMLElement).style.transform = "scale(1.08) translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                if (!item.href) return;
+                (e.currentTarget as HTMLElement).style.transform = "scale(1) translateY(0)";
+              }}
             >
-              {menuLinks.map((item, i) => (
-                <button
-                  key={i}
-                  data-testid={`menu-item-${i}`}
-                  onClick={() => handleItemClick(item)}
-                  className="flex flex-col items-center transition-all duration-200"
-                  style={{
-                    cursor: "pointer",
-                    opacity: 1,
-                    width: 72,
-                    gap: 4,
-                    transform: "scale(1) translateY(0)",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!item.href) return;
-                    (e.currentTarget as HTMLElement).style.transform = "scale(1.08) translateY(-2px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!item.href) return;
-                    (e.currentTarget as HTMLElement).style.transform = "scale(1) translateY(0)";
-                  }}
-                >
-                  <span
-                    className="flex items-center justify-center flex-shrink-0 overflow-hidden"
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: "50%",
-                      background: item.iconType === "person" ? "transparent" : item.bg,
-                    }}
-                  >
-                    {item.iconType === "person" ? (
-                      <img
-                        src={sayHelloImg}
-                        alt="Say Hello"
-                        className="w-full h-full object-cover"
-                        style={{ borderRadius: "50%" }}
-                      />
-                    ) : (
-                      <MenuIcon type={item.iconType} />
-                    )}
-                  </span>
-                  <span
-                    className="font-['Inter',sans-serif] text-center whitespace-nowrap"
-                    style={{ fontSize: 14, lineHeight: "20px", color: "#212121" }}
-                  >
-                    {item.label}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <p
-              className="font-['Inter',sans-serif] text-center"
-              style={{ fontSize: 11, color: "#8D8D8D", lineHeight: "14px" }}
-            >
-              Made Using Vibe Coding
-            </p>
-          </div>
-          </div>
+              <span
+                className="flex items-center justify-center flex-shrink-0 overflow-hidden"
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  background: item.iconType === "person" ? "transparent" : item.bg,
+                }}
+              >
+                {item.iconType === "person" ? (
+                  <img
+                    src={sayHelloImg}
+                    alt="Say Hello"
+                    className="w-full h-full object-cover"
+                    style={{ borderRadius: "50%" }}
+                  />
+                ) : (
+                  <MenuIcon type={item.iconType} />
+                )}
+              </span>
+              <span
+                className="font-['Inter',sans-serif] text-center whitespace-nowrap"
+                style={{ fontSize: 14, lineHeight: "20px", color: "#212121" }}
+              >
+                {item.label}
+              </span>
+            </button>
+          ))}
         </div>
-      )}
+        <p
+          className="font-['Inter',sans-serif] text-center"
+          style={{ fontSize: 11, color: "#8D8D8D", lineHeight: "14px" }}
+        >
+          Made Using Vibe Coding
+        </p>
+      </div>
     </div>
   );
 }
