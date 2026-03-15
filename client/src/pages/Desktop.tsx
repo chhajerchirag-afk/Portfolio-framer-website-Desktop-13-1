@@ -1510,7 +1510,7 @@ function CaseStudyBrowser({
         style={{
           flex: 1,
           overflowY: "auto",
-          background: "#FAFAFA",
+          background: "#F2F3F4",
         }}
         className="hide-scrollbar"
       >
