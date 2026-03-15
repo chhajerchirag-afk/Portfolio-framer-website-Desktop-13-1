@@ -1269,21 +1269,6 @@ export const Desktop = (): JSX.Element => {
                       onComplete={handleStreamComplete}
                     />
 
-                    {!streamComplete && (
-                      <div style={{ marginTop: 12 }}>
-                        <div className="flex items-center gap-2">
-                          <LoaderIcon className="w-4 h-4 text-[#a1a1a1] animate-spin flex-shrink-0" />
-                          <TextShimmer
-                            className="font-['Inter',sans-serif] text-sm leading-5"
-                            duration={1.6}
-                            spread={3}
-                          >
-                            Chirag&apos;s AI is thinking...
-                          </TextShimmer>
-                        </div>
-                      </div>
-                    )}
-
                     {pendingType === "work" && streamComplete && (
                       <WorkCards />
                     )}
