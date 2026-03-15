@@ -622,7 +622,7 @@ const caseStudies = [
   },
 ];
 
-function WorkCards({ onOpen, singleColumn }: { onOpen?: (id: string) => void; singleColumn?: boolean }) {
+function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string) => void; singleColumn?: boolean; selectedId?: string | null }) {
   const chipRef = useRef<HTMLDivElement>(null);
   const [chipVisible, setChipVisible] = useState(false);
 
@@ -664,7 +664,10 @@ function WorkCards({ onOpen, singleColumn }: { onOpen?: (id: string) => void; si
       </div>
 
       <div className={`grid grid-cols-1 ${singleColumn ? "" : "md:grid-cols-2"} mt-6 animate-stream-line`} style={{ gap: 20 }}>
-        {caseStudies.map((study, i) => (
+        {caseStudies.map((study, i) => {
+          const isSelected = selectedId === study.id;
+          const isDimmed = selectedId != null && !isSelected;
+          return (
           <div
             key={i}
             data-testid={`card-work-${i}`}
@@ -676,6 +679,7 @@ function WorkCards({ onOpen, singleColumn }: { onOpen?: (id: string) => void; si
               cursor: "none",
               animation: "fadeInTile 0.45s ease forwards",
               animationDelay: `${i * 0.12}s`,
+              transition: "opacity 0.2s ease",
             }}
             onMouseEnter={() => setChipVisible(true)}
             onMouseLeave={() => setChipVisible(false)}
@@ -683,7 +687,15 @@ function WorkCards({ onOpen, singleColumn }: { onOpen?: (id: string) => void; si
           >
             <div
               className="relative overflow-hidden rounded-2xl flex-shrink-0"
-              style={{ width: "100%", maxWidth: 350, height: 240 }}
+              style={{
+                width: "100%",
+                maxWidth: 350,
+                height: 240,
+                outline: isSelected ? "2px solid #171717" : "2px solid transparent",
+                outlineOffset: 2,
+                transition: "outline-color 0.2s ease, opacity 0.2s ease",
+                opacity: isDimmed ? 0.4 : 1,
+              }}
             >
               <img
                 src={study.bg}
@@ -716,7 +728,7 @@ function WorkCards({ onOpen, singleColumn }: { onOpen?: (id: string) => void; si
               {study.title}
             </p>
           </div>
-        ))}
+        ); })}
       </div>
     </>
   );
@@ -1854,7 +1866,7 @@ export const Desktop = (): JSX.Element => {
                       <CollapsibleReasoning steps={reasoningSteps[pendingType]} defaultCollapsed={true} />
                       <WordStreamingText key={streamKey} blocks={responseBlocks[pendingType]} onComplete={handleStreamComplete} />
                       {pendingType === "work" && streamComplete && (
-                        <WorkCards singleColumn onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
+                        <WorkCards singleColumn selectedId={activeCaseStudy} onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
                       )}
                       {pendingType === "resume" && streamComplete && <ResumeCard />}
                     </>
