@@ -977,7 +977,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           textAlign: "center",
           marginBottom: 20,
         }}
-      >
+        className="font-medium text-[40px] text-center">
         Redefining Hiring at Scale with AI Agents
       </h1>
       <p
@@ -992,7 +992,6 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       >
         Designed a Conversational AI recruiting co-pilot that automates talent engagement at every stage of the recruiting funnel.
       </p>
-
       <div
         style={{
           borderRadius: 16,
@@ -1012,7 +1011,6 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           style={{ width: "100%", maxWidth: 500, borderRadius: 12, display: "block" }}
         />
       </div>
-
       <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>
         Context
       </h2>
@@ -1022,7 +1020,6 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 40 }}>
         As communication volume increased across chat, SMS, and voice, automation complexity grew. Admins struggled to configure and scale agents efficiently. AI was intended to reduce recruiter effort — instead, it increased operational overhead.
       </p>
-
       <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>
         What Actually Happened?
       </h3>
@@ -1048,11 +1045,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
         ))}
       </div>
-
       <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
         Automation increased system capability, but decreased usability and trust, resulting in stagnating adoption and declining hiring momentum.
       </p>
-
       {view === "intense" && (
         <>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 48 }}>
@@ -1168,7 +1163,6 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           ))}
         </>
       )}
-
       <div style={{ marginTop: 48, marginBottom: 48 }}>
         <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Solution</h2>
         <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
@@ -1180,7 +1174,6 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           Admins define the outcome. The system orchestrates execution across reusable modules. Conversations move seamlessly across chat, SMS, and voice while preserving context.
         </div>
       </div>
-
       <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>Achieved Goals</h3>
       <div
         style={{
@@ -1204,7 +1197,6 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
         ))}
       </div>
-
       {view === "intense" && (
         <>
           <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What Changed Strategically?</h2>
@@ -1794,7 +1786,7 @@ export const Desktop = (): JSX.Element => {
         ) : isChatScreen ? (
           activeCaseStudy && caseStudyFullscreen ? (
             /* ── Full-screen case study ── */
-            <div className="relative w-full h-full flex flex-col bg-white">
+            (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home">
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
@@ -1812,10 +1804,10 @@ export const Desktop = (): JSX.Element => {
                   onNavigate={setActiveCaseStudy}
                 />
               </div>
-            </div>
+            </div>)
           ) : activeCaseStudy ? (
             /* ── Split view: 30% chat + 70% browser ── */
-            <div className="relative w-full h-full flex flex-col bg-white">
+            (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home">
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
@@ -1867,10 +1859,10 @@ export const Desktop = (): JSX.Element => {
                   onNavigate={setActiveCaseStudy}
                 />
               </div>
-            </div>
+            </div>)
           ) : (
             /* ── Normal chat view ── */
-            <div className="relative w-full h-full flex flex-col bg-white">
+            (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home">
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
@@ -1878,7 +1870,6 @@ export const Desktop = (): JSX.Element => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
               </div>
-
               <div className="relative flex-1 overflow-hidden">
                 <div
                   className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
@@ -1950,7 +1941,7 @@ export const Desktop = (): JSX.Element => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>)
           )
         ) : null}
       </div>
