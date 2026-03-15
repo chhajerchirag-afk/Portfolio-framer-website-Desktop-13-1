@@ -1290,63 +1290,50 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
         </>
       )}
-      <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>Achieved Goals</h3>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 20,
-          padding: "28px",
-          background: "#F7F7F7",
-          borderRadius: 14,
-          marginBottom: 48,
-        }}
-      >
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em", marginTop: 48 }}>Achieved Goals</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 56 }}>
         {[
-          { number: "75–85%", label: "Reduction in average setup time" },
-          { number: "1.4×", label: "Increase in setup completion rate" },
-          { number: "↓ Dependency", label: "Dependency on external support has been reduced" },
+          { number: "75% - 85%", label: "reduction in average setup time" },
+          { number: "1.4X", label: "increase in setup completion rate" },
+          { number: "Reduced Dependency", label: "Dependency on external support has been reduced" },
         ].map((stat, i) => (
-          <div key={i}>
-            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 8 }}>{stat.number}</div>
-            <div style={{ fontSize: 13, lineHeight: "1.5", color: "#555" }}>{stat.label}</div>
+          <div key={i} style={{ background: "white", borderRadius: 12, padding: "20px 16px" }}>
+            <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.01em", marginBottom: 10, color: "#171717" }}>{stat.number}</div>
+            <div style={{ fontSize: 13, lineHeight: "1.5", color: "#666" }}>{stat.label}</div>
           </div>
         ))}
       </div>
       {view === "intense" && (
         <>
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What Changed Strategically?</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 48 }}>
-            {[
-              { from: "Flow-based automation", to: "Outcome-driven orchestration" },
-              { from: "System-first thinking", to: "Recruiter mental-model alignment" },
-            ].map((c, i) => (
-              <div key={i} style={{ border: "1px solid #e5e5e5", borderRadius: 12, padding: 20 }}>
-                <div style={{ fontSize: 13, color: "#999", marginBottom: 4 }}>From</div>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>{c.from}</div>
-                <div style={{ fontSize: 13, color: "#999", marginBottom: 4 }}>To</div>
-                <div style={{ fontSize: 14, fontWeight: 600 }}>{c.to}</div>
-              </div>
-            ))}
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What Changed Strategically?</h2>
+          <div style={{ marginBottom: 48 }}>
+            <p style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>The product moved from:</p>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+              Flow-based automation <strong>to</strong> Outcome-driven orchestration
+            </p>
+            <p style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>From</p>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333" }}>
+              System-first thinking <strong>to</strong> Recruiter mental-model alignment
+            </p>
           </div>
 
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What I'd Evolve Next</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em" }}>What I'd Evolve Next</h2>
           {[
-            { n: "#1", title: "Measuring Trust, Not Just Adoption", body: "We tracked setup completion and time savings, but didn't measure long-term trust signals like: How often do recruiters override AI decisions? Where do they intervene most? I'd design a trust dashboard to surface these patterns." },
+            { n: "#1", title: "Measuring Trust, Not Just Adoption", body: "We tracked setup completion and time savings, but didn't measure long-term trust signals like: How often do recruiters override AI decisions? Where do they intervene most? I'd design a trust dashboard to surface these patterns and inform future iterations." },
             { n: "#2", title: "Designing for Exception Handling at Scale", body: "As automation grows, edge cases multiply. I would invest in better visibility into failure states and AI recovery patterns." },
             { n: "#3", title: "Making Autonomy Configurable by Maturity Level", body: "Different customers require different levels of control. Future iterations should adapt autonomy dynamically based on user confidence and usage patterns." },
           ].map((point, i) => (
-            <div key={i} style={{ marginBottom: 16, paddingLeft: 16, borderLeft: "3px solid #e5e5e5" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.06em", marginBottom: 4 }}>{point.n}</div>
-              <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{point.title}</div>
-              <div style={{ fontSize: 14, lineHeight: "1.7", color: "#444" }}>{point.body}</div>
+            <div key={i} style={{ marginBottom: 24 }}>
+              <p style={{ fontSize: 15, fontWeight: 700, marginBottom: 6, color: "#171717" }}>{point.n} {point.title}</p>
+              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#555" }}>{point.body}</p>
             </div>
           ))}
 
-          <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 28, marginTop: 48 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.01em" }}>Closing Reflection</h2>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 12 }}>
-              The core challenge wasn't building better automation. It was designing the right balance between AI autonomy and human control in a high-stakes domain.
+          <div style={{ marginTop: 48, paddingBottom: 16 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Closing Reflection</h2>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
+              The core challenge wasn't building better automation.<br />
+              It was designing the right balance between AI autonomy and human control in a high-stakes domain.
             </p>
             <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333" }}>
               The breakthrough came when we stopped optimizing workflows and started designing for recruiter cognition.
