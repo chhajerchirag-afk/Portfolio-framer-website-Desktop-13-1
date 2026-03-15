@@ -4,9 +4,6 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
   LoaderIcon,
-  PanelLeftIcon,
-  SlidersHorizontalIcon,
-  CheckIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -441,38 +438,51 @@ function MenuIcon({ type }: { type: string }) {
 
 function ThreeDotsMenu() {
   const [open, setOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [menuKey, setMenuKey] = useState(0);
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeAnimTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startClosing = useCallback(() => {
+    if (closeAnimTimer.current) clearTimeout(closeAnimTimer.current);
+    setIsClosing(true);
+    closeAnimTimer.current = setTimeout(() => {
+      setOpen(false);
+      setIsClosing(false);
+    }, 180);
+  }, []);
 
   useEffect(() => {
     if (!isMobile) return;
     const handler = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
+        startClosing();
       }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [isMobile]);
+  }, [isMobile, startClosing]);
 
   const handleMouseEnter = () => {
     if (isMobile) return;
     if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (closeAnimTimer.current) clearTimeout(closeAnimTimer.current);
+    setIsClosing(false);
     setMenuKey((k) => k + 1);
     setOpen(true);
   };
 
   const handleMouseLeave = () => {
     if (isMobile) return;
-    closeTimer.current = setTimeout(() => setOpen(false), 160);
+    closeTimer.current = setTimeout(() => startClosing(), 120);
   };
 
   const handleClick = () => {
     if (!isMobile) return;
     if (open) {
-      setOpen(false);
+      startClosing();
     } else {
       setMenuKey((k) => k + 1);
       setOpen(true);
@@ -482,7 +492,7 @@ function ThreeDotsMenu() {
   const handleItemClick = (item: (typeof menuLinks)[number]) => {
     if (!item.href) return;
     window.open(item.href, "_blank", "noopener,noreferrer");
-    setOpen(false);
+    startClosing();
   };
 
   return (
@@ -522,12 +532,14 @@ function ThreeDotsMenu() {
           onMouseEnter={() => {
             if (!isMobile) {
               if (closeTimer.current) clearTimeout(closeTimer.current);
+              if (closeAnimTimer.current) clearTimeout(closeAnimTimer.current);
+              setIsClosing(false);
             }
           }}
           onMouseLeave={handleMouseLeave}
         >
           <div
-            className="animate-menu-open"
+            className={isClosing ? "animate-menu-close" : "animate-menu-open"}
           >
           <div
             className="flex flex-col items-center"
@@ -618,36 +630,28 @@ function ThreeDotsMenu() {
 
 const caseStudies = [
   {
-    id: "ai-agents-hr",
     title: "AI Agents for HR Teams",
-    fullTitle: "Redefining Hiring at Scale with AI Agents",
     bg: bgTile1,
     ui: uiTile1,
   },
   {
-    id: "reimagining-ai",
     title: "Reimagining AI Experiences for Users",
-    fullTitle: "Reimagining AI Experiences for Users",
     bg: bgTile2,
     ui: uiTile2,
   },
   {
-    id: "mvp-video-ai",
     title: "Establishing MVP for Video AI",
-    fullTitle: "Defining MVP for Video AI",
     bg: bgTile3,
     ui: uiTile3,
   },
   {
-    id: "interview-scheduling",
     title: "Streamlining Interview Scheduling",
-    fullTitle: "Streamlining Interview Scheduling",
     bg: bgTile4,
     ui: uiTile4,
   },
 ];
 
-function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
+function WorkCards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 mt-6 animate-stream-line" style={{ gap: 20 }}>
       {caseStudies.map((study, i) => (
@@ -655,7 +659,6 @@ function WorkCards({ onOpen }: { onOpen?: (id: string) => void }) {
           key={i}
           data-testid={`card-work-${i}`}
           className="flex flex-col cursor-pointer select-none"
-          onClick={() => onOpen?.(study.id)}
           style={{
             gap: 10,
             opacity: 0,
@@ -957,574 +960,6 @@ function useLiveClock() {
   return time;
 }
 
-function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
-  return (
-    <div
-      style={{
-        maxWidth: 720,
-        margin: "0 auto",
-        padding: "60px 40px 80px",
-        fontFamily: "Inter, sans-serif",
-        color: "#171717",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: 40,
-          fontWeight: 700,
-          lineHeight: "1.15",
-          letterSpacing: "-0.02em",
-          textAlign: "center",
-          marginBottom: 20,
-        }}
-        className="font-medium text-[40px] text-center">
-        Redefining Hiring at Scale with AI Agents
-      </h1>
-      <p
-        style={{
-          fontSize: 16,
-          lineHeight: "1.6",
-          color: "#666",
-          textAlign: "center",
-          maxWidth: 560,
-          margin: "0 auto 48px",
-        }}
-      >
-        Designed a Conversational AI recruiting co-pilot that automates talent engagement at every stage of the recruiting funnel.
-      </p>
-      <div
-        style={{
-          borderRadius: 16,
-          overflow: "hidden",
-          border: "1px solid #e5e5e5",
-          marginBottom: 56,
-          background: "#f3f3f8",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "28px 32px",
-        }}
-      >
-        <img
-          src={uiTile1}
-          alt="AI Agents for HR Teams UI"
-          style={{ width: "100%", maxWidth: 500, borderRadius: 12, display: "block" }}
-        />
-      </div>
-      <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>
-        Context
-      </h2>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-        Sense is an AI-powered Talent Engagement platform. It's here to redefine the recruitment process by seamlessly blending personalised, omni-channel candidate experiences with enhanced recruiter efficiency.
-      </p>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 40 }}>
-        As communication volume increased across chat, SMS, and voice, automation complexity grew. Admins struggled to configure and scale agents efficiently. AI was intended to reduce recruiter effort — instead, it increased operational overhead.
-      </p>
-      <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>
-        What Actually Happened?
-      </h3>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 20,
-          padding: "28px",
-          background: "#F7F7F7",
-          borderRadius: 14,
-          marginBottom: 48,
-        }}
-      >
-        {[
-          { number: "38%", label: "Sense AI adoption stagnated at 38%" },
-          { number: "62%", label: "Recruiters spent more time on manual tasks (sourcing, tracking and follow-ups)" },
-          { number: "47%", label: "Hiring outcomes and momentum declined" },
-        ].map((stat, i) => (
-          <div key={i}>
-            <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 8 }}>{stat.number}</div>
-            <div style={{ fontSize: 13, lineHeight: "1.5", color: "#555" }}>{stat.label}</div>
-          </div>
-        ))}
-      </div>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
-        Automation increased system capability, but decreased usability and trust, resulting in stagnating adoption and declining hiring momentum.
-      </p>
-      {view === "intense" && (
-        <>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 48 }}>
-            <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 24 }}>
-              <h3 style={{ fontSize: 13, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 16 }}>My Role</h3>
-              {["Defined end-to-end conversational journeys", "Designed conversation logic, edge cases and fallback states", "Shaped success metrics with PM + Eng"].map((r, i) => (
-                <div key={i} style={{ fontSize: 14, lineHeight: "1.6", color: "#333", marginBottom: 8, display: "flex", gap: 8 }}>
-                  <span style={{ color: "#aaa" }}>—</span> {r}
-                </div>
-              ))}
-            </div>
-            <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 24 }}>
-              <h3 style={{ fontSize: 13, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 16 }}>Team</h3>
-              {["1× Product Designer", "1× Lead Product Designer", "2× Product Manager", "4× Engineers"].map((r, i) => (
-                <div key={i} style={{ fontSize: 14, lineHeight: "1.6", color: "#333", marginBottom: 8, display: "flex", gap: 8 }}>
-                  <span style={{ color: "#aaa" }}>—</span> {r}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Problem Statement</h2>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-            Recruiters/Admins relied on rigid, rule-based workflows that were slow to configure, difficult to maintain.
-          </p>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-            Chat and voice operated independently, lacked shared context, and required manual setup for each use case, preventing true multimodal continuity.
-          </p>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 40 }}>
-            As complexity increased, trust and adoption decreased.
-          </p>
-
-          {[
-            { label: "Pain Point 1: High Setup Effort", body: "Admins manually built long decision trees. Even minor updates required editing multiple nodes.", stats: ["64% Recruiters abandoning automation during setup", "Avg 2.4 hrs to configure one hiring campaign"] },
-            { label: "Pain Point 2: Channel Silos", body: "Chat and voice were configured separately with no shared state. Conversations could not move seamlessly between modalities.", stats: ["39% missed follow-ups due to fragmented flows"] },
-            { label: "Pain Point 3: Limited Scalability", body: "Automation could not scale across hiring scenarios, forcing admins to repeatedly rebuild similar journeys.", stats: [] },
-          ].map((pp, i) => (
-            <div key={i} style={{ background: "#F7F7F7", borderRadius: 14, padding: 24, marginBottom: 16 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 10 }}>{pp.label}</h3>
-              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#444", marginBottom: pp.stats.length ? 12 : 0 }}>{pp.body}</p>
-              {pp.stats.map((s, j) => (
-                <div key={j} style={{ fontSize: 13, fontWeight: 600, color: "#171717", background: "white", borderRadius: 8, padding: "6px 12px", display: "inline-block", marginRight: 8, marginTop: 4 }}>{s}</div>
-              ))}
-            </div>
-          ))}
-
-          <div style={{ marginTop: 40, marginBottom: 48 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>What We Need to Learn?</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
-              {[
-                "How do recruiters mentally model hiring work?",
-                "Where does trust break in AI-driven workflows?",
-                "What balance of control vs autonomy drives adoption?",
-              ].map((q, i) => (
-                <div key={i} style={{ background: "#F7F7F7", borderRadius: 14, padding: "20px 16px", fontSize: 14, lineHeight: "1.6", color: "#333" }}>{q}</div>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 28, marginBottom: 48 }}>
-            <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Core Insight</h2>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-              The product required users to think like system designers. Recruiters think in hiring outcomes.
-            </p>
-            {['"Screen faster."', '"Move candidates forward."', '"Don\'t miss talent."'].map((q, i) => (
-              <p key={i} style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "#171717", marginBottom: 6 }}>{q}</p>
-            ))}
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginTop: 16 }}>That mismatch created friction.</p>
-          </div>
-
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 24, letterSpacing: "-0.01em" }}>Design Iterations</h2>
-          {[
-            { version: "V1 — Transparency First", tagline: "Precision > Momentum", hypothesis: "If we expose full control, recruiters will trust AI.", what: ["Exposed all controls", "Made decision logic visible", "Enabled deep customization"], then: "Recruiters will feel safe using AI", learning: "Over-transparency reduced momentum. AI felt like another system to manage. Trust improved. Adoption didn't." },
-            { version: "V2 — Momentum First", tagline: "Momentum > Precision", hypothesis: "If we remove setup and automate by default, recruiters will experience immediate value.", what: ["Removed visible workflows", "Eliminated upfront configuration"], then: "Adoption will increase", learning: "Speed increased. But trust declined. Users experienced 'black-box anxiety.' Momentum improved. Confidence dropped." },
-            { version: "V4 — Guided Autonomy", tagline: "Momentum > Complexity · Control > Blind Automation", hypothesis: null, what: [], then: null, learning: null },
-          ].map((v, i) => (
-            <div key={i} style={{ border: "1px solid #e5e5e5", borderRadius: 14, padding: 24, marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: "#888", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>{v.tagline}</div>
-              <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 12 }}>{v.version}</h3>
-              {v.hypothesis && <p style={{ fontSize: 14, lineHeight: "1.6", color: "#555", marginBottom: 12 }}><strong>Hypothesis:</strong> {v.hypothesis}</p>}
-              {v.what.length > 0 && (
-                <div style={{ marginBottom: 12 }}>
-                  {v.what.map((w, j) => (
-                    <div key={j} style={{ fontSize: 14, color: "#333", marginBottom: 4, display: "flex", gap: 8 }}>
-                      <span style={{ color: "#aaa" }}>·</span> {w}
-                    </div>
-                  ))}
-                </div>
-              )}
-              {v.learning && (
-                <div style={{ background: "#F7F7F7", borderRadius: 10, padding: "12px 16px", fontSize: 14, lineHeight: "1.6", color: "#444" }}>
-                  <strong>Learning:</strong> {v.learning}
-                </div>
-              )}
-              {v.version.includes("V4") && (
-                <div>
-                  <p style={{ fontSize: 14, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>We reframed the problem: AI shouldn't be fully controlled. AI shouldn't be fully autonomous. It should be guided.</p>
-                  {[
-                    { n: "#1", title: "Linear Stages Over Decision Trees", body: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching. Admins define what the agent accomplishes at each stage, not how." },
-                    { n: "#2", title: "Contextual Intervention Points", body: "Added visible 'human handoff triggers' so recruiters know when and how to step in. Preserved AI momentum while giving recruiters control at critical moments." },
-                    { n: "#3", title: "Reusable Module Library", body: "Built a library of pre-configured modules that admins can drag, drop, and customize. Eliminated repetitive setup work while maintaining flexibility." },
-                    { n: "#4", title: "Unified Multimodal Context", body: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels." },
-                  ].map((point, j) => (
-                    <div key={j} style={{ marginBottom: 16, paddingLeft: 16, borderLeft: "3px solid #E5E5E5" }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.06em", marginBottom: 4 }}>{point.n}</div>
-                      <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{point.title}</div>
-                      <div style={{ fontSize: 14, lineHeight: "1.7", color: "#444" }}>{point.body}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </>
-      )}
-      <div style={{ marginTop: 48, marginBottom: 48 }}>
-        <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Solution</h2>
-        <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-          The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
-        </p>
-        <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 20, fontSize: 14, lineHeight: "1.7", color: "#333" }}>
-          <strong>Example:</strong> "Create an agent to screen candidates who have already applied to open roles and assess their suitability"
-          <br /><br />
-          Admins define the outcome. The system orchestrates execution across reusable modules. Conversations move seamlessly across chat, SMS, and voice while preserving context.
-        </div>
-      </div>
-      <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>Achieved Goals</h3>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 20,
-          padding: "28px",
-          background: "#F7F7F7",
-          borderRadius: 14,
-          marginBottom: 48,
-        }}
-      >
-        {[
-          { number: "75–85%", label: "Reduction in average setup time" },
-          { number: "1.4×", label: "Increase in setup completion rate" },
-          { number: "↓ Dependency", label: "Dependency on external support has been reduced" },
-        ].map((stat, i) => (
-          <div key={i}>
-            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 8 }}>{stat.number}</div>
-            <div style={{ fontSize: 13, lineHeight: "1.5", color: "#555" }}>{stat.label}</div>
-          </div>
-        ))}
-      </div>
-      {view === "intense" && (
-        <>
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What Changed Strategically?</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 48 }}>
-            {[
-              { from: "Flow-based automation", to: "Outcome-driven orchestration" },
-              { from: "System-first thinking", to: "Recruiter mental-model alignment" },
-            ].map((c, i) => (
-              <div key={i} style={{ border: "1px solid #e5e5e5", borderRadius: 12, padding: 20 }}>
-                <div style={{ fontSize: 13, color: "#999", marginBottom: 4 }}>From</div>
-                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>{c.from}</div>
-                <div style={{ fontSize: 13, color: "#999", marginBottom: 4 }}>To</div>
-                <div style={{ fontSize: 14, fontWeight: 600 }}>{c.to}</div>
-              </div>
-            ))}
-          </div>
-
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What I'd Evolve Next</h2>
-          {[
-            { n: "#1", title: "Measuring Trust, Not Just Adoption", body: "We tracked setup completion and time savings, but didn't measure long-term trust signals like: How often do recruiters override AI decisions? Where do they intervene most? I'd design a trust dashboard to surface these patterns." },
-            { n: "#2", title: "Designing for Exception Handling at Scale", body: "As automation grows, edge cases multiply. I would invest in better visibility into failure states and AI recovery patterns." },
-            { n: "#3", title: "Making Autonomy Configurable by Maturity Level", body: "Different customers require different levels of control. Future iterations should adapt autonomy dynamically based on user confidence and usage patterns." },
-          ].map((point, i) => (
-            <div key={i} style={{ marginBottom: 16, paddingLeft: 16, borderLeft: "3px solid #e5e5e5" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.06em", marginBottom: 4 }}>{point.n}</div>
-              <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{point.title}</div>
-              <div style={{ fontSize: 14, lineHeight: "1.7", color: "#444" }}>{point.body}</div>
-            </div>
-          ))}
-
-          <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 28, marginTop: 48 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.01em" }}>Closing Reflection</h2>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 12 }}>
-              The core challenge wasn't building better automation. It was designing the right balance between AI autonomy and human control in a high-stakes domain.
-            </p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333" }}>
-              The breakthrough came when we stopped optimizing workflows and started designing for recruiter cognition.
-            </p>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-function CaseStudyPlaceholder({ title }: { title: string }) {
-  return (
-    <div
-      style={{
-        maxWidth: 720,
-        margin: "0 auto",
-        padding: "80px 40px",
-        fontFamily: "Inter, sans-serif",
-        textAlign: "center",
-      }}
-    >
-      <h1 style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 16 }}>{title}</h1>
-      <p style={{ fontSize: 15, color: "#888", lineHeight: "1.6" }}>Full case study coming soon.</p>
-    </div>
-  );
-}
-
-function CaseStudyBrowser({
-  studyId,
-  fullscreen,
-  onToggleFullscreen,
-  view,
-  onViewChange,
-  onNavigate,
-}: {
-  studyId: string;
-  fullscreen: boolean;
-  onToggleFullscreen: () => void;
-  view: "intense" | "overview";
-  onViewChange: (v: "intense" | "overview") => void;
-  onNavigate: (id: string) => void;
-}) {
-  const [urlOpen, setUrlOpen] = useState(false);
-  const [viewOpen, setViewOpen] = useState(false);
-  const urlRef = useRef<HTMLDivElement>(null);
-  const viewRef = useRef<HTMLDivElement>(null);
-  const study = caseStudies.find((s) => s.id === studyId)!;
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (urlRef.current && !urlRef.current.contains(e.target as Node)) setUrlOpen(false);
-      if (viewRef.current && !viewRef.current.contains(e.target as Node)) setViewOpen(false);
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        background: "white",
-        borderRadius: 16,
-        border: "0.5px solid #E5E5E5",
-        overflow: "hidden",
-        marginRight: fullscreen ? 8 : 0,
-      }}
-    >
-      {/* Browser header */}
-      <div
-        style={{
-          height: 40,
-          flexShrink: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 12px",
-          borderBottom: "0.5px solid #E5E5E5",
-          background: "white",
-          gap: 12,
-        }}
-      >
-        {/* Left: toggle sidebar */}
-        <button
-          onClick={onToggleFullscreen}
-          data-testid="button-case-study-panel-toggle"
-          style={{
-            flexShrink: 0,
-            width: 28,
-            height: 28,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 6,
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            color: "#888",
-            transition: "background 0.15s",
-          }}
-          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-        >
-          <PanelLeftIcon size={16} />
-        </button>
-
-        {/* Center: URL pill */}
-        <div ref={urlRef} style={{ position: "relative", flex: 1, display: "flex", justifyContent: "center" }}>
-          <button
-            data-testid="button-case-study-url"
-            onClick={() => { setUrlOpen((o) => !o); setViewOpen(false); }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              padding: "4px 14px",
-              borderRadius: 999,
-              border: "0.5px solid #E0E0E0",
-              background: urlOpen ? "#F5F5F5" : "transparent",
-              cursor: "pointer",
-              fontSize: 12,
-              color: "#555",
-              fontFamily: "Inter, sans-serif",
-              whiteSpace: "nowrap",
-              maxWidth: 420,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              transition: "background 0.15s",
-            }}
-            onMouseEnter={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
-            onMouseLeave={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-          >
-            <span style={{ color: "#999", fontWeight: 500 }}>chirag.design</span>
-            <span style={{ color: "#ccc" }}>/</span>
-            <span style={{ color: "#bbb" }}>work</span>
-            <span style={{ color: "#ccc" }}>/</span>
-            <span style={{ color: "#444", fontWeight: 500 }}>{study.fullTitle}</span>
-          </button>
-
-          {urlOpen && (
-            <div
-              style={{
-                position: "absolute",
-                top: "calc(100% + 6px)",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "white",
-                border: "0.5px solid #E5E5E5",
-                borderRadius: 12,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                minWidth: 300,
-                zIndex: 100,
-                overflow: "hidden",
-              }}
-            >
-              {caseStudies.map((s) => (
-                <button
-                  key={s.id}
-                  data-testid={`button-nav-study-${s.id}`}
-                  onClick={() => {
-                    onNavigate(s.id);
-                    setUrlOpen(false);
-                  }}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 16px",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    color: s.id === studyId ? "#171717" : "#555",
-                    fontWeight: s.id === studyId ? 600 : 400,
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "background 0.12s",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F7F7F7"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-                >
-                  {s.fullTitle}
-                  {s.id === studyId && (
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#171717", flexShrink: 0 }} />
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Right: view toggle */}
-        <div ref={viewRef} style={{ position: "relative", flexShrink: 0 }}>
-          <button
-            data-testid="button-case-study-view-toggle"
-            onClick={() => { setViewOpen((o) => !o); setUrlOpen(false); }}
-            style={{
-              width: 28,
-              height: 28,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 6,
-              border: "none",
-              background: viewOpen ? "#F5F5F5" : "transparent",
-              cursor: "pointer",
-              color: "#888",
-              transition: "background 0.15s",
-            }}
-            onMouseEnter={(e) => { if (!viewOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
-            onMouseLeave={(e) => { if (!viewOpen) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-          >
-            <SlidersHorizontalIcon size={15} />
-          </button>
-
-          {viewOpen && (
-            <div
-              style={{
-                position: "absolute",
-                top: "calc(100% + 6px)",
-                right: 0,
-                background: "white",
-                border: "0.5px solid #E5E5E5",
-                borderRadius: 12,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                minWidth: 180,
-                zIndex: 100,
-                overflow: "hidden",
-              }}
-            >
-              {([
-                { id: "intense", label: "Intense Mode" },
-                { id: "overview", label: "Overview Mode" },
-              ] as const).map((opt) => (
-                <button
-                  key={opt.id}
-                  data-testid={`button-view-mode-${opt.id}`}
-                  onClick={() => {
-                    onViewChange(opt.id);
-                    setViewOpen(false);
-                  }}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 16px",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    color: opt.id === view ? "#171717" : "#555",
-                    fontWeight: opt.id === view ? 600 : 400,
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "background 0.12s",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F7F7F7"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-                >
-                  {opt.label}
-                  {opt.id === view && (
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#171717", flexShrink: 0 }} />
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div
-        style={{
-          flex: 1,
-          overflowY: "auto",
-          background: "#FAFAFA",
-        }}
-        className="hide-scrollbar"
-      >
-        {studyId === "ai-agents-hr" ? (
-          <AIAgentsHRContent view={view} />
-        ) : (
-          <CaseStudyPlaceholder title={study.fullTitle} />
-        )}
-      </div>
-    </div>
-  );
-}
-
 export const Desktop = (): JSX.Element => {
   const [history, setHistory] = useState<ConversationEntry[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -1535,10 +970,6 @@ export const Desktop = (): JSX.Element => {
   const [pendingType, setPendingType] = useState<ResponseType>("work");
   const [inChatMode, setInChatMode] = useState(false);
   const [isInputHovered, setIsInputHovered] = useState(false);
-  const [activeCaseStudy, setActiveCaseStudy] = useState<string | null>(null);
-  const [caseStudyFullscreen, setCaseStudyFullscreen] = useState(false);
-  const [caseStudyView, setCaseStudyView] = useState<"intense" | "overview">("intense");
-  const sessionId = useRef(Math.random().toString(36).slice(2, 18));
   const [streamComplete, setStreamComplete] = useState(false);
   const [streamKey, setStreamKey] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -1635,9 +1066,6 @@ export const Desktop = (): JSX.Element => {
     setPendingQuery("");
     setInChatMode(false);
     setStreamComplete(false);
-    setActiveCaseStudy(null);
-    setCaseStudyFullscreen(false);
-    setCaseStudyView("intense");
   }
 
   function startNewPrompt(item: (typeof navItems)[number]) {
@@ -1711,7 +1139,7 @@ export const Desktop = (): JSX.Element => {
               <h1
                 className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
                 style={{
-                  letterSpacing: "-0.01em",
+                  letterSpacing: 0,
                   fontSize: "clamp(24px, 4vw, 32px)",
                   lineHeight: "clamp(32px, 5vw, 40px)",
                   marginBottom: 24,
@@ -1784,165 +1212,93 @@ export const Desktop = (): JSX.Element => {
             </div>
           </div>
         ) : isChatScreen ? (
-          activeCaseStudy && caseStudyFullscreen ? (
-            /* ── Full-screen case study ── */
-            (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
-                </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
-                <AnimatedClock time={time} />
-              </div>
-              <div className="flex-1 overflow-hidden" style={{ padding: "0 8px 8px" }}>
-                <CaseStudyBrowser
-                  studyId={activeCaseStudy}
-                  fullscreen={true}
-                  onToggleFullscreen={() => setCaseStudyFullscreen(false)}
-                  view={caseStudyView}
-                  onViewChange={setCaseStudyView}
-                  onNavigate={setActiveCaseStudy}
+          <div className="relative w-full h-full flex flex-col bg-white">
+            <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+              <button onClick={handleReset} data-testid="button-logo-home">
+                <img
+                  className="w-[86px] h-[34px]"
+                  alt="Logo"
+                  src="/figmaAssets/vector-22.svg"
                 />
+              </button>
+              <div className="absolute left-1/2 -translate-x-1/2 top-4">
+                <ThreeDotsMenu />
               </div>
-            </div>)
-          ) : activeCaseStudy ? (
-            /* ── Split view: 30% chat + 70% browser ── */
-            (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
-                </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
-                <AnimatedClock time={time} />
-              </div>
+              <AnimatedClock time={time} />
+            </div>
+
+            <div className="relative flex-1 overflow-hidden">
               <div
-                className="flex-1 overflow-hidden"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "3fr 7fr",
-                  paddingLeft: 40,
-                  paddingRight: 0,
-                  gap: 40,
-                  paddingBottom: 8,
-                }}
-              >
-                {/* Left: conversation panel */}
-                <div className="h-full overflow-y-auto hide-scrollbar" style={{ paddingTop: 4 }}>
-                  <p style={{ fontSize: 11, color: "#D0D0D0", fontFamily: "monospace", marginBottom: 20, letterSpacing: "0.04em" }}>
-                    {sessionId.current}
-                  </p>
-                  {history.map((entry, i) => (
-                    <CompletedEntry key={i} entry={entry} />
-                  ))}
-                  {pendingQuery && <UserBubble message={pendingQuery} />}
-                  {activePhase === "reasoning" && (
-                    <ActiveReasoning steps={reasoningSteps[pendingType]} currentStep={reasoningStep} />
-                  )}
-                  {(activePhase === "streaming" || activePhase === "done") && (
-                    <>
-                      <CollapsibleReasoning steps={reasoningSteps[pendingType]} defaultCollapsed={true} />
-                      <WordStreamingText key={streamKey} blocks={responseBlocks[pendingType]} onComplete={handleStreamComplete} />
-                      {pendingType === "work" && streamComplete && (
-                        <WorkCards onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
-                      )}
-                      {pendingType === "resume" && streamComplete && <ResumeCard />}
-                    </>
-                  )}
-                </div>
-                {/* Right: browser panel */}
-                <CaseStudyBrowser
-                  studyId={activeCaseStudy}
-                  fullscreen={false}
-                  onToggleFullscreen={() => setCaseStudyFullscreen(true)}
-                  view={caseStudyView}
-                  onViewChange={setCaseStudyView}
-                  onNavigate={setActiveCaseStudy}
-                />
-              </div>
-            </div>)
-          ) : (
-            /* ── Normal chat view ── */
-            (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
-                </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
-                <AnimatedClock time={time} />
-              </div>
-              <div className="relative flex-1 overflow-hidden">
-                <div
-                  className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
-                  style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
-                />
-                <div
-                  ref={scrollRef}
-                  className="h-full overflow-y-auto pb-8 pt-2 hide-scrollbar"
-                  style={{
-                    width: "100%",
-                    maxWidth: "min(720px, calc(100% - 40px))",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                >
-                  <div ref={scrollContentRef}>
-                    {history.map((entry, i) => (
-                      <CompletedEntry key={i} entry={entry} />
-                    ))}
+                className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
+                style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
+              />
+            <div
+              ref={scrollRef}
+              className="h-full overflow-y-auto pb-8 pt-2 hide-scrollbar"
+              style={{
+                width: "100%",
+                maxWidth: "min(720px, calc(100% - 40px))",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              <div ref={scrollContentRef}>
+                {history.map((entry, i) => (
+                  <CompletedEntry key={i} entry={entry} />
+                ))}
 
-                    <UserBubble message={pendingQuery} />
+                <UserBubble message={pendingQuery} />
 
-                    {activePhase === "reasoning" && (
-                      <ActiveReasoning
-                        steps={reasoningSteps[pendingType]}
-                        currentStep={reasoningStep}
-                      />
+                {activePhase === "reasoning" && (
+                  <ActiveReasoning
+                    steps={reasoningSteps[pendingType]}
+                    currentStep={reasoningStep}
+                  />
+                )}
+
+                {(activePhase === "streaming" || activePhase === "done") && (
+                  <>
+                    <CollapsibleReasoning
+                      steps={reasoningSteps[pendingType]}
+                      defaultCollapsed={true}
+                    />
+
+                    <WordStreamingText
+                      key={streamKey}
+                      blocks={responseBlocks[pendingType]}
+                      onComplete={handleStreamComplete}
+                    />
+
+                    {pendingType === "work" && streamComplete && (
+                      <WorkCards />
                     )}
 
-                    {(activePhase === "streaming" || activePhase === "done") && (
-                      <>
-                        <CollapsibleReasoning
-                          steps={reasoningSteps[pendingType]}
-                          defaultCollapsed={true}
-                        />
-
-                        <WordStreamingText
-                          key={streamKey}
-                          blocks={responseBlocks[pendingType]}
-                          onComplete={handleStreamComplete}
-                        />
-
-                        {pendingType === "work" && streamComplete && (
-                          <WorkCards onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
-                        )}
-
-                        {pendingType === "resume" && streamComplete && (
-                          <ResumeCard />
-                        )}
-
-                        {streamComplete && suggestedItems.length > 0 && (
-                          <div className="animate-stream-line" style={{ marginTop: 40 }}>
-                            <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
-                              More Options:
-                            </p>
-                            <div className="flex items-center gap-2 flex-wrap mt-3">
-                              {suggestedItems.map((item) => (
-                                <NavPill
-                                  key={item.id}
-                                  item={item}
-                                  onClick={() => startNewPrompt(item)}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </>
+                    {pendingType === "resume" && streamComplete && (
+                      <ResumeCard />
                     )}
-                  </div>
-                </div>
+
+                    {streamComplete && suggestedItems.length > 0 && (
+                      <div className="animate-stream-line" style={{ marginTop: 40 }}>
+                        <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
+                          More Options:
+                        </p>
+                        <div className="flex items-center gap-2 flex-wrap mt-3">
+                          {suggestedItems.map((item) => (
+                            <NavPill
+                              key={item.id}
+                              item={item}
+                              onClick={() => startNewPrompt(item)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
-            </div>)
-          )
+            </div>
+            </div>
+          </div>
         ) : null}
       </div>
     </div>
