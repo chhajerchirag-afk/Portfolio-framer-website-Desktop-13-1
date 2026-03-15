@@ -1592,6 +1592,116 @@ function CaseStudyBrowser({
   );
 }
 
+function CaseStudyBottomSheet({
+  studyId,
+  view,
+  onClose,
+}: {
+  studyId: string;
+  view: "intense" | "overview";
+  onClose: () => void;
+}) {
+  const [visible, setVisible] = useState(false);
+  const study = caseStudies.find((s) => s.id === studyId)!;
+
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(t);
+  }, []);
+
+  const handleClose = () => {
+    setVisible(false);
+    setTimeout(onClose, 320);
+  };
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 200,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+      }}
+    >
+      {/* Backdrop */}
+      <div
+        onClick={handleClose}
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.45)",
+          transition: "opacity 0.32s ease",
+          opacity: visible ? 1 : 0,
+        }}
+      />
+      {/* Sheet */}
+      <div
+        style={{
+          position: "relative",
+          height: "78vh",
+          background: "white",
+          borderRadius: "20px 20px 0 0",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          transform: visible ? "translateY(0)" : "translateY(100%)",
+          transition: "transform 0.35s cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
+        {/* Sheet header */}
+        <div
+          style={{
+            flexShrink: 0,
+            padding: "12px 16px 10px",
+            borderBottom: "0.5px solid #EFEFEF",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ width: 28 }} />
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+            <div style={{ width: 36, height: 4, borderRadius: 99, background: "#E0E0E0" }} />
+            <p style={{ fontSize: 13, fontWeight: 500, color: "#555", fontFamily: "Inter, sans-serif", margin: 0 }}>
+              {study.title}
+            </p>
+          </div>
+          <button
+            onClick={handleClose}
+            data-testid="button-case-study-close"
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              border: "none",
+              background: "#F2F2F2",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 1l10 10M11 1L1 11" stroke="#555" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+        {/* Scrollable content */}
+        <div className="hide-scrollbar" style={{ flex: 1, overflowY: "auto", background: "#F2F3F4" }}>
+          {studyId === "ai-agents-hr" ? (
+            <AIAgentsHRContent view={view} />
+          ) : (
+            <CaseStudyPlaceholder title={study.fullTitle} />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export const Desktop = (): JSX.Element => {
   const [history, setHistory] = useState<ConversationEntry[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -1612,6 +1722,7 @@ export const Desktop = (): JSX.Element => {
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const time = useLiveClock();
+  const isMobile = useIsMobile();
 
   const smoothScrollToBottom = () => {
     if (scrollRef.current) {
@@ -1851,7 +1962,60 @@ export const Desktop = (): JSX.Element => {
             </div>
           </div>
         ) : isChatScreen ? (
-          activeCaseStudy && caseStudyFullscreen ? (
+          isMobile ? (
+            /* ── Mobile: normal chat + bottom sheet overlay ── */
+            (<div className="relative w-full h-full flex flex-col bg-white">
+              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+                <button onClick={handleReset} data-testid="button-logo-home">
+                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
+                </button>
+                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
+                <AnimatedClock time={time} />
+              </div>
+              <div className="relative flex-1 overflow-hidden">
+                <div
+                  className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
+                  style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
+                />
+                <div
+                  ref={scrollRef}
+                  className="h-full overflow-y-auto pb-8 pt-2 hide-scrollbar"
+                  style={{ width: "100%", maxWidth: "min(720px, calc(100% - 40px))", marginLeft: "auto", marginRight: "auto" }}
+                >
+                  <div ref={scrollContentRef}>
+                    {history.map((entry, i) => (<CompletedEntry key={i} entry={entry} />))}
+                    <UserBubble message={pendingQuery} />
+                    {activePhase === "reasoning" && (<ActiveReasoning steps={reasoningSteps[pendingType]} currentStep={reasoningStep} />)}
+                    {(activePhase === "streaming" || activePhase === "done") && (
+                      <>
+                        <CollapsibleReasoning steps={reasoningSteps[pendingType]} defaultCollapsed={true} />
+                        <WordStreamingText key={streamKey} blocks={responseBlocks[pendingType]} onComplete={handleStreamComplete} />
+                        {pendingType === "work" && streamComplete && (
+                          <WorkCards onOpen={(id) => setActiveCaseStudy(id)} />
+                        )}
+                        {pendingType === "resume" && streamComplete && <ResumeCard />}
+                        {streamComplete && suggestedItems.length > 0 && (
+                          <div className="animate-stream-line" style={{ marginTop: 40 }}>
+                            <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16 }}>More Options:</p>
+                            <div className="flex items-center gap-2 flex-wrap mt-3">
+                              {suggestedItems.map((item) => (<NavPill key={item.id} item={item} onClick={() => startNewPrompt(item)} />))}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {activeCaseStudy && (
+                <CaseStudyBottomSheet
+                  studyId={activeCaseStudy}
+                  view={caseStudyView}
+                  onClose={() => setActiveCaseStudy(null)}
+                />
+              )}
+            </div>)
+          ) : activeCaseStudy && caseStudyFullscreen ? (
             /* ── Full-screen case study ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
