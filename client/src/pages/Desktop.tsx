@@ -102,14 +102,7 @@ interface ResponseBlock {
 
 const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
   work: [
-    { type: "paragraph", text: "\u003Cb\u003EHere\u2019s a compilation of Chirag\u2019s work.\u003C/b\u003E It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems. Some of his most impactful work includes:" },
-    { type: "break" },
-    { type: "numbered-item", number: 1, text: "AI Agents for HR Teams", description: "Designing AI agents that help HR Admins and Recruiters configure talent engagement workflows with significantly less effort and time." },
-    { type: "numbered-item", number: 2, text: "Reimagining AI Experiences", description: "Simplifying how users interact with AI systems, making learning, discovery, and adoption more intuitive." },
-    { type: "numbered-item", number: 3, text: "Interview Scheduling for Talent Acquisition", description: "Streamlining the scheduling process for recruiters and hiring managers to reduce coordination friction." },
-    { type: "numbered-item", number: 4, text: "Visual Design Explorations", description: "" },
-    { type: "break" },
-    { type: "paragraph", text: "Beyond this, Chirag has also worked on simplifying research for legal professionals and establishing the MVP for an AI-powered cybersecurity platform." },
+    { type: "paragraph", text: "\u003Cb\u003EHere\u2019s a compilation of Chirag\u2019s work.\u003C/b\u003E It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems." },
   ],
   about: [
     { type: "heading", text: "About Chirag" },
