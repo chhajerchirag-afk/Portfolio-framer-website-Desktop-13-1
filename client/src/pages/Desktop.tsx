@@ -5,7 +5,7 @@ import {
   ChevronRightIcon,
   LoaderIcon,
   PanelLeftIcon,
-  SlidersHorizontalIcon,
+  GlobeIcon,
   CheckIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
@@ -962,29 +962,30 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       style={{
         maxWidth: 720,
         margin: "0 auto",
-        padding: "60px 40px 80px",
+        padding: "60px 0 80px",
         fontFamily: "Inter, sans-serif",
-        color: "#171717",
+        color: "#14191F",
       }}
     >
       <h1
         style={{
           fontSize: 40,
-          fontWeight: 700,
-          lineHeight: "1.2",
-          letterSpacing: "-0.025em",
+          fontWeight: 500,
+          lineHeight: "50px",
+          letterSpacing: "-0.02em",
           marginBottom: 16,
+          color: "#14191F",
         }}
       >
         Redefining hiring at scale with AI Agents
       </h1>
       <p
         style={{
-          fontSize: 15,
-          lineHeight: "1.6",
-          color: "#666",
-          marginBottom: 40,
-          maxWidth: 520,
+          fontSize: 16,
+          lineHeight: "24px",
+          letterSpacing: "0",
+          color: "#14191F",
+          marginBottom: 56,
         }}
       >
         Designed a Conversational AI recruiting co-pilot that automates talent engagement at every stage of the recruiting funnel.
@@ -994,7 +995,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           borderRadius: 16,
           overflow: "hidden",
           border: "1px solid #e5e5e5",
-          marginBottom: 56,
+          marginBottom: 64,
           background: "white",
           padding: "20px",
         }}
@@ -1209,7 +1210,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
 
           {/* Dark section: V4 + Designing for Multimodal + Solution */}
-          <div style={{ margin: "0 -40px", background: "#131215", padding: "48px 40px 56px" }}>
+          <div style={{ margin: 0, background: "#131215", padding: "48px 40px 56px" }}>
 
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, letterSpacing: "-0.01em", color: "white" }}>V4 — Guided Autonomy</h3>
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
@@ -1378,15 +1379,12 @@ function CaseStudyBrowser({
   onNavigate: (id: string) => void;
 }) {
   const [urlOpen, setUrlOpen] = useState(false);
-  const [viewOpen, setViewOpen] = useState(false);
   const urlRef = useRef<HTMLDivElement>(null);
-  const viewRef = useRef<HTMLDivElement>(null);
   const study = caseStudies.find((s) => s.id === studyId)!;
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (urlRef.current && !urlRef.current.contains(e.target as Node)) setUrlOpen(false);
-      if (viewRef.current && !viewRef.current.contains(e.target as Node)) setViewOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -1447,33 +1445,38 @@ function CaseStudyBrowser({
         <div ref={urlRef} style={{ position: "relative", flex: 1, display: "flex", justifyContent: "center" }}>
           <button
             data-testid="button-case-study-url"
-            onClick={() => { setUrlOpen((o) => !o); setViewOpen(false); }}
+            onClick={() => setUrlOpen((o) => !o)}
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 6,
-              padding: "4px 14px",
-              borderRadius: 999,
+              gap: 8,
+              padding: "0px 10px",
+              height: 28,
+              borderRadius: 6,
               border: "0.5px solid #E0E0E0",
-              background: urlOpen ? "#F5F5F5" : "transparent",
+              background: urlOpen ? "white" : "#F5F5F5",
               cursor: "pointer",
+              fontFamily: "'JetBrains Mono', monospace",
               fontSize: 12,
-              color: "#555",
-              fontFamily: "Inter, sans-serif",
+              lineHeight: "16px",
+              letterSpacing: "-0.02em",
               whiteSpace: "nowrap",
-              maxWidth: 420,
+              maxWidth: 480,
               overflow: "hidden",
               textOverflow: "ellipsis",
               transition: "background 0.15s",
             }}
-            onMouseEnter={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
-            onMouseLeave={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+            onMouseEnter={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "white"; }}
+            onMouseLeave={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
           >
-            <span style={{ color: "#999", fontWeight: 500 }}>chirag.design</span>
-            <span style={{ color: "#ccc" }}>/</span>
-            <span style={{ color: "#bbb" }}>work</span>
-            <span style={{ color: "#ccc" }}>/</span>
-            <span style={{ color: "#444", fontWeight: 500 }}>{study.fullTitle}</span>
+            <GlobeIcon size={13} color="#7A7A7A" style={{ flexShrink: 0 }} />
+            <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <span style={{ color: "#212121" }}>chirag.design</span>
+              <span style={{ color: "#B8B8B8" }}>/</span>
+              <span style={{ color: "#B8B8B8" }}>work</span>
+              <span style={{ color: "#B8B8B8" }}>/</span>
+              <span style={{ color: "#212121" }}>{study.fullTitle}</span>
+            </span>
           </button>
 
           {urlOpen && (
@@ -1529,84 +1532,6 @@ function CaseStudyBrowser({
           )}
         </div>
 
-        {/* Right: view toggle */}
-        <div ref={viewRef} style={{ position: "relative", flexShrink: 0 }}>
-          <button
-            data-testid="button-case-study-view-toggle"
-            onClick={() => { setViewOpen((o) => !o); setUrlOpen(false); }}
-            style={{
-              width: 28,
-              height: 28,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 6,
-              border: "none",
-              background: viewOpen ? "#F5F5F5" : "transparent",
-              cursor: "pointer",
-              color: "#888",
-              transition: "background 0.15s",
-            }}
-            onMouseEnter={(e) => { if (!viewOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
-            onMouseLeave={(e) => { if (!viewOpen) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-          >
-            <SlidersHorizontalIcon size={15} />
-          </button>
-
-          {viewOpen && (
-            <div
-              style={{
-                position: "absolute",
-                top: "calc(100% + 6px)",
-                right: 0,
-                background: "white",
-                border: "0.5px solid #E5E5E5",
-                borderRadius: 12,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                minWidth: 180,
-                zIndex: 100,
-                overflow: "hidden",
-              }}
-            >
-              {([
-                { id: "intense", label: "Intense Mode" },
-                { id: "overview", label: "Overview Mode" },
-              ] as const).map((opt) => (
-                <button
-                  key={opt.id}
-                  data-testid={`button-view-mode-${opt.id}`}
-                  onClick={() => {
-                    onViewChange(opt.id);
-                    setViewOpen(false);
-                  }}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 16px",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    color: opt.id === view ? "#171717" : "#555",
-                    fontWeight: opt.id === view ? 600 : 400,
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "background 0.12s",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F7F7F7"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-                >
-                  {opt.label}
-                  {opt.id === view && (
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#171717", flexShrink: 0 }} />
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
       </div>
 
       {/* Content */}
