@@ -1402,7 +1402,7 @@ function CaseStudyBrowser({
         borderRadius: 16,
         border: "0.5px solid #d9d9d9",
         overflow: "hidden",
-        marginRight: fullscreen ? 8 : 0,
+        marginRight: 8,
       }}
     >
       {/* Browser header */}
