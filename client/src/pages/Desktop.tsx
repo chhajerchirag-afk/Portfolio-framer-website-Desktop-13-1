@@ -6,6 +6,7 @@ import {
   LoaderIcon,
   PanelLeftIcon,
   GlobeIcon,
+  ChevronsUpDownIcon,
   CheckIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
@@ -977,7 +978,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           color: "#14191F",
         }}
       >
-        Redefining hiring at scale with AI Agents
+        Redefining hiring at scale<br />with AI Agents
       </h1>
       <p
         style={{
@@ -988,34 +989,35 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           marginBottom: 56,
         }}
       >
-        Designed a Conversational AI recruiting co-pilot that automates talent engagement at every stage of the recruiting funnel.
+        Designed a Conversational AI recruiting co-pilot that automates<br />talent engagement at every stage of the recruiting funnel.
       </p>
       <div
         style={{
           borderRadius: 16,
           overflow: "hidden",
-          border: "1px solid #e5e5e5",
           marginBottom: 64,
-          background: "white",
+          backgroundImage: "url('/project-1/hero-proj-1.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           padding: "20px",
         }}
       >
         <img
-          src={uiTile1}
+          src="/project-1/Adobe Express - Screen Recording 2026-01-29 at 11.58.20 AM.gif"
           alt="AI Agents for HR Teams UI"
           style={{ width: "100%", borderRadius: 10, display: "block" }}
         />
       </div>
-      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 14, letterSpacing: "-0.01em" }}>
+      <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>
         Context
       </h2>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 14 }}>
         Sense is an AI-powered Talent Engagement platform. It's here to redefine the recruitment process by seamlessly blending personalised, omni-channel candidate experiences with enhanced recruiter efficiency.
       </p>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
         As communication volume increased across chat, SMS, and voice, automation complexity grew. Admins struggled to configure and scale agents efficiently. AI was intended to reduce recruiter effort — instead, it increased operational overhead.
       </p>
-      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em" }}>
+      <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, letterSpacing: "0", color: "#14191F" }}>
         What Actually Happened?
       </h2>
       <div
@@ -1039,32 +1041,32 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
         ))}
       </div>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
         Automation increased system capability, but decreased usability and trust, resulting in stagnating adoption and declining hiring momentum.
       </p>
       {view === "intense" && (
         <>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>My Role</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, letterSpacing: "0", color: "#14191F" }}>My Role</h2>
           <div style={{ marginBottom: 32 }}>
             {["Defined end-to-end conversational journeys", "Designed conversation logic, edge cases and fallback states", "Shaped success metrics with PM + Eng"].map((r, i) => (
               <div key={i} style={{ fontSize: 14, lineHeight: "1.8", color: "#333" }}>{r}</div>
             ))}
           </div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>Team</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, letterSpacing: "0", color: "#14191F" }}>Team</h2>
           <div style={{ marginBottom: 48 }}>
             {["1x Product Designer", "1x Lead Product Designer", "2x Product Manager", "4x Engineers"].map((r, i) => (
               <div key={i} style={{ fontSize: 14, lineHeight: "1.8", color: "#333" }}>{r}</div>
             ))}
           </div>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 14, letterSpacing: "-0.01em" }}>Problem Statement</h2>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Problem Statement</h2>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 14 }}>
             Recruiters/Admins relied on rigid, rule-based workflows that were slow to configure, difficult to maintain.
           </p>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 14 }}>
             Chat and voice operated independently, lacked shared context, and required manual setup for each use case, preventing true multimodal continuity.
           </p>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
             As complexity increased, trust and adoption decreased.
           </p>
 
@@ -1092,7 +1094,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           ].map((pp, i) => (
             <div key={i} style={{ marginBottom: 48 }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10, letterSpacing: "-0.01em" }}>{pp.label}</h3>
-              <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>{pp.body}</p>
+              <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 14 }}>{pp.body}</p>
               {pp.stats.length > 0 && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
                   {pp.stats.map((s, j) => (
@@ -1109,7 +1111,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             </div>
           ))}
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em" }}>What We Need to Learn?</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, letterSpacing: "0", color: "#14191F" }}>What We Need to Learn?</h2>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 48 }}>
             {[
               "How do recruiters mentally model hiring work?",
@@ -1120,25 +1122,25 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             ))}
           </div>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.01em" }}>Core Insight</h2>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 12, letterSpacing: "0", color: "#14191F" }}>Core Insight</h2>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 14 }}>
             The product required users to think like system designers. Recruiters think in hiring outcomes.
           </p>
           {['"Screen faster."', '"Move candidates forward."', '"Don\'t miss talent."'].map((q, i) => (
             <p key={i} style={{ fontSize: 16, fontWeight: 600, letterSpacing: "-0.01em", color: "#171717", marginBottom: 4 }}>{q}</p>
           ))}
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginTop: 12, marginBottom: 48 }}>That mismatch created friction.</p>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginTop: 12, marginBottom: 48 }}>That mismatch created friction.</p>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Initial Conceptualising Using Lovable</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Initial Conceptualising Using Lovable</h2>
           <div style={{ background: "#F7F7F7", borderRadius: 14, height: 320, marginBottom: 48 }} />
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 32, letterSpacing: "-0.01em" }}>Design Iterations</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 32, letterSpacing: "0", color: "#14191F" }}>Design Iterations</h2>
 
           {/* V1 */}
           <div style={{ marginBottom: 56 }}>
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>V1 — Transparency First</h3>
             <p style={{ fontSize: 13, color: "#888", marginBottom: 14 }}>Precision &gt; Momentum</p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 20 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
               <span style={{ fontWeight: 600 }}>Hypothesis:</span> If we expose full control, recruiters will trust AI.
             </p>
             <p style={{ fontSize: 12, fontWeight: 600, color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>We:</p>
@@ -1175,7 +1177,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           <div style={{ marginBottom: 56 }}>
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>V2 — Momentum First</h3>
             <p style={{ fontSize: 13, color: "#888", marginBottom: 14 }}>Momentum &gt; Precision</p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 20 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
               <span style={{ fontWeight: 600 }}>Hypothesis:</span> If we remove setup and automate by default, recruiters will experience immediate value.
             </p>
             <p style={{ fontSize: 12, fontWeight: 600, color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>We:</p>
@@ -1262,7 +1264,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               </div>
             ))}
 
-            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 24, letterSpacing: "-0.01em", color: "white" }}>Designing for Multimodal & System Scale</h2>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Designing for Multimodal & System Scale</h2>
             {[
               { title: "Cross-Platform Consistency", body: "Abstract conversation logic while adapting to channel differences — voice required structured prompts and clear fallbacks; chat supported richer branching and contextual persistence." },
               { title: "Shared State Architecture", body: "Enabled true multimodal continuity through shared conversation memory instead of channel-specific flows, aligning UX with orchestration logic." },
@@ -1274,7 +1276,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               </div>
             ))}
 
-            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.01em", color: "white", marginTop: 40 }}>Solution</h2>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 12, letterSpacing: "0", color: "white", marginTop: 40 }}>Solution</h2>
             <p style={{ fontSize: 14, color: "#555", marginBottom: 10 }}>Admins define the outcome:</p>
             <p style={{ fontSize: 15, lineHeight: "1.7", color: "#9090B0", marginBottom: 24 }}>
               The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
@@ -1291,7 +1293,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
         </>
       )}
-      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em", marginTop: 48 }}>Achieved Goals</h2>
+      <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, letterSpacing: "0", color: "#14191F", marginTop: 48 }}>Achieved Goals</h2>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 56 }}>
         {[
           { number: "75% - 85%", label: "reduction in average setup time" },
@@ -1306,19 +1308,19 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       </div>
       {view === "intense" && (
         <>
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>What Changed Strategically?</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>What Changed Strategically?</h2>
           <div style={{ marginBottom: 48 }}>
             <p style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>The product moved from:</p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 14 }}>
               Flow-based automation <strong>to</strong> Outcome-driven orchestration
             </p>
             <p style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>From</p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333" }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" }}>
               System-first thinking <strong>to</strong> Recruiter mental-model alignment
             </p>
           </div>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em" }}>What I'd Evolve Next</h2>
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, letterSpacing: "0", color: "#14191F" }}>What I'd Evolve Next</h2>
           {[
             { n: "#1", title: "Measuring Trust, Not Just Adoption", body: "We tracked setup completion and time savings, but didn't measure long-term trust signals like: How often do recruiters override AI decisions? Where do they intervene most? I'd design a trust dashboard to surface these patterns and inform future iterations." },
             { n: "#2", title: "Designing for Exception Handling at Scale", body: "As automation grows, edge cases multiply. I would invest in better visibility into failure states and AI recovery patterns." },
@@ -1331,12 +1333,12 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           ))}
 
           <div style={{ marginTop: 48, paddingBottom: 16 }}>
-            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Closing Reflection</h2>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Closing Reflection</h2>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 16 }}>
               The core challenge wasn't building better automation.<br />
               It was designing the right balance between AI autonomy and human control in a high-stakes domain.
             </p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333" }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" }}>
               The breakthrough came when we stopped optimizing workflows and started designing for recruiter cognition.
             </p>
           </div>
@@ -1396,9 +1398,9 @@ function CaseStudyBrowser({
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        background: "white",
+        background: "#F6F6F7",
         borderRadius: 16,
-        border: "0.5px solid #E5E5E5",
+        border: "0.5px solid #d9d9d9",
         overflow: "hidden",
         marginRight: fullscreen ? 8 : 0,
       }}
@@ -1412,8 +1414,8 @@ function CaseStudyBrowser({
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 12px",
-          borderBottom: "0.5px solid #E5E5E5",
-          background: "white",
+          borderBottom: "0.5px solid #d9d9d9",
+          background: "#F6F6F7",
           gap: 12,
         }}
       >
@@ -1443,93 +1445,95 @@ function CaseStudyBrowser({
 
         {/* Center: URL pill */}
         <div ref={urlRef} style={{ position: "relative", flex: 1, display: "flex", justifyContent: "center" }}>
-          <button
-            data-testid="button-case-study-url"
-            onClick={() => setUrlOpen((o) => !o)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "0px 10px",
-              height: 28,
-              borderRadius: 6,
-              border: "0.5px solid #E0E0E0",
-              background: urlOpen ? "white" : "#F5F5F5",
-              cursor: "pointer",
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 12,
-              lineHeight: "16px",
-              letterSpacing: "-0.02em",
-              whiteSpace: "nowrap",
-              maxWidth: 480,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              transition: "background 0.15s",
-            }}
-            onMouseEnter={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "white"; }}
-            onMouseLeave={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
-          >
-            <GlobeIcon size={13} color="#7A7A7A" style={{ flexShrink: 0 }} />
-            <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <span style={{ color: "#212121" }}>chirag.design</span>
-              <span style={{ color: "#B8B8B8" }}>/</span>
-              <span style={{ color: "#B8B8B8" }}>work</span>
-              <span style={{ color: "#B8B8B8" }}>/</span>
-              <span style={{ color: "#212121" }}>{study.fullTitle}</span>
-            </span>
-          </button>
-
-          {urlOpen && (
-            <div
+          <div style={{ position: "relative", width: "max-content", maxWidth: 500 }}>
+            <button
+              data-testid="button-case-study-url"
+              onClick={() => setUrlOpen((o) => !o)}
               style={{
-                position: "absolute",
-                top: "calc(100% + 6px)",
-                left: "50%",
-                transform: "translateX(-50%)",
-                background: "white",
-                border: "0.5px solid #E5E5E5",
-                borderRadius: 12,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                minWidth: 300,
-                zIndex: 100,
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "0px 12px",
+                height: 28,
+                width: "100%",
+                borderRadius: 999,
+                border: "0.5px solid #E0E0E0",
+                background: urlOpen ? "white" : "#F5F5F5",
+                cursor: "pointer",
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 12,
+                lineHeight: "16px",
+                letterSpacing: "-0.02em",
+                whiteSpace: "nowrap",
                 overflow: "hidden",
+                transition: "background 0.15s",
               }}
+              onMouseEnter={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "white"; }}
+              onMouseLeave={(e) => { if (!urlOpen) (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
             >
-              {caseStudies.map((s) => (
-                <button
-                  key={s.id}
-                  data-testid={`button-nav-study-${s.id}`}
-                  onClick={() => {
-                    onNavigate(s.id);
-                    setUrlOpen(false);
-                  }}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 16px",
-                    fontSize: 13,
-                    fontFamily: "Inter, sans-serif",
-                    color: s.id === studyId ? "#171717" : "#555",
-                    fontWeight: s.id === studyId ? 600 : 400,
-                    background: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "background 0.12s",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F7F7F7"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
-                >
-                  {s.fullTitle}
-                  {s.id === studyId && (
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#171717", flexShrink: 0 }} />
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
+              <GlobeIcon size={13} color="#7A7A7A" style={{ flexShrink: 0 }} />
+              <span style={{ display: "flex", alignItems: "center", gap: 4, flex: 1, overflow: "hidden" }}>
+                <span style={{ color: "#212121" }}>chirag.design</span>
+                <span style={{ color: "#B8B8B8" }}>/</span>
+                <span style={{ color: "#B8B8B8" }}>work</span>
+                <span style={{ color: "#B8B8B8" }}>/</span>
+                <span style={{ color: "#B8B8B8", overflow: "hidden", textOverflow: "ellipsis" }}>{study.fullTitle}</span>
+              </span>
+              <ChevronsUpDownIcon size={14} color="#7A7A7A" style={{ flexShrink: 0 }} />
+            </button>
+
+            {urlOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 6px)",
+                  left: 0,
+                  width: "100%",
+                  background: "white",
+                  border: "0.5px solid #E5E5E5",
+                  borderRadius: 12,
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                  zIndex: 100,
+                  overflow: "hidden",
+                }}
+              >
+                {caseStudies.map((s) => (
+                  <button
+                    key={s.id}
+                    data-testid={`button-nav-study-${s.id}`}
+                    onClick={() => {
+                      onNavigate(s.id);
+                      setUrlOpen(false);
+                    }}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "10px 16px",
+                      fontSize: 12,
+                      fontFamily: "'JetBrains Mono', monospace",
+                      letterSpacing: "-0.02em",
+                      color: s.id === studyId ? "#171717" : "#888",
+                      fontWeight: s.id === studyId ? 600 : 400,
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      transition: "background 0.12s",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F7F7F7"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                  >
+                    {s.fullTitle}
+                    {s.id === studyId && (
+                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#171717", flexShrink: 0 }} />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
       </div>
@@ -1539,7 +1543,7 @@ function CaseStudyBrowser({
         style={{
           flex: 1,
           overflowY: "auto",
-          background: "#F2F3F4",
+          background: "#F6F6F7",
         }}
         className="hide-scrollbar"
       >
