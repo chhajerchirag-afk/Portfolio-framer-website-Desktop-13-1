@@ -971,22 +971,20 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
         style={{
           fontSize: 40,
           fontWeight: 700,
-          lineHeight: "1.15",
-          letterSpacing: "-0.02em",
-          textAlign: "center",
-          marginBottom: 20,
+          lineHeight: "1.2",
+          letterSpacing: "-0.025em",
+          marginBottom: 16,
         }}
-        className="font-medium text-[40px] text-center">
-        Redefining Hiring at Scale with AI Agents
+      >
+        Redefining hiring at scale with AI Agents
       </h1>
       <p
         style={{
-          fontSize: 16,
+          fontSize: 15,
           lineHeight: "1.6",
           color: "#666",
-          textAlign: "center",
-          maxWidth: 560,
-          margin: "0 auto 48px",
+          marginBottom: 40,
+          maxWidth: 520,
         }}
       >
         Designed a Conversational AI recruiting co-pilot that automates talent engagement at every stage of the recruiting funnel.
@@ -997,49 +995,45 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           overflow: "hidden",
           border: "1px solid #e5e5e5",
           marginBottom: 56,
-          background: "#f3f3f8",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "28px 32px",
+          background: "white",
+          padding: "20px",
         }}
       >
         <img
           src={uiTile1}
           alt="AI Agents for HR Teams UI"
-          style={{ width: "100%", maxWidth: 500, borderRadius: 12, display: "block" }}
+          style={{ width: "100%", borderRadius: 10, display: "block" }}
         />
       </div>
-      <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 14, letterSpacing: "-0.01em" }}>
         Context
       </h2>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
+      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
         Sense is an AI-powered Talent Engagement platform. It's here to redefine the recruitment process by seamlessly blending personalised, omni-channel candidate experiences with enhanced recruiter efficiency.
       </p>
-      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 40 }}>
+      <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
         As communication volume increased across chat, SMS, and voice, automation complexity grew. Admins struggled to configure and scale agents efficiently. AI was intended to reduce recruiter effort — instead, it increased operational overhead.
       </p>
-      <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em" }}>
         What Actually Happened?
-      </h3>
+      </h2>
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 20,
-          padding: "28px",
-          background: "#F7F7F7",
-          borderRadius: 14,
-          marginBottom: 48,
+          gap: 12,
+          marginBottom: 24,
         }}
       >
         {[
-          { number: "38%", label: "Sense AI adoption stagnated at 38%" },
-          { number: "62%", label: "Recruiters spent more time on manual tasks (sourcing, tracking and follow-ups)" },
-          { number: "47%", label: "Hiring outcomes and momentum declined" },
+          { number: "38%", arrow: "↓", label: "Sense AI adoption stagnated at 38%" },
+          { number: "62%", arrow: "↑", label: "Recruiters spent more time on manual tasks (sourcing, tracking and follow-ups)" },
+          { number: "47%", arrow: "↓", label: "Hiring outcomes and momentum declined" },
         ].map((stat, i) => (
-          <div key={i}>
-            <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 8 }}>{stat.number}</div>
+          <div key={i} style={{ background: "#F7F7F7", borderRadius: 12, padding: "20px 16px" }}>
+            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10, color: "#D0392B" }}>
+              {stat.number}{stat.arrow}
+            </div>
             <div style={{ fontSize: 13, lineHeight: "1.5", color: "#555" }}>{stat.label}</div>
           </div>
         ))}
@@ -1049,23 +1043,17 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       </p>
       {view === "intense" && (
         <>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 48 }}>
-            <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 24 }}>
-              <h3 style={{ fontSize: 13, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 16 }}>My Role</h3>
-              {["Defined end-to-end conversational journeys", "Designed conversation logic, edge cases and fallback states", "Shaped success metrics with PM + Eng"].map((r, i) => (
-                <div key={i} style={{ fontSize: 14, lineHeight: "1.6", color: "#333", marginBottom: 8, display: "flex", gap: 8 }}>
-                  <span style={{ color: "#aaa" }}>—</span> {r}
-                </div>
-              ))}
-            </div>
-            <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 24 }}>
-              <h3 style={{ fontSize: 13, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 16 }}>Team</h3>
-              {["1× Product Designer", "1× Lead Product Designer", "2× Product Manager", "4× Engineers"].map((r, i) => (
-                <div key={i} style={{ fontSize: 14, lineHeight: "1.6", color: "#333", marginBottom: 8, display: "flex", gap: 8 }}>
-                  <span style={{ color: "#aaa" }}>—</span> {r}
-                </div>
-              ))}
-            </div>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>My Role</h2>
+          <div style={{ marginBottom: 32 }}>
+            {["Defined end-to-end conversational journeys", "Designed conversation logic, edge cases and fallback states", "Shaped success metrics with PM + Eng"].map((r, i) => (
+              <div key={i} style={{ fontSize: 14, lineHeight: "1.8", color: "#333" }}>{r}</div>
+            ))}
+          </div>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>Team</h2>
+          <div style={{ marginBottom: 48 }}>
+            {["1x Product Designer", "1x Lead Product Designer", "2x Product Manager", "4x Engineers"].map((r, i) => (
+              <div key={i} style={{ fontSize: 14, lineHeight: "1.8", color: "#333" }}>{r}</div>
+            ))}
           </div>
 
           <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Problem Statement</h2>
