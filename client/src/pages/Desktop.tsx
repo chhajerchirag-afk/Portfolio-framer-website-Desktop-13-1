@@ -1208,39 +1208,88 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             </div>
           </div>
 
-          {/* V4 */}
-          <div style={{ marginBottom: 48 }}>
-            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>V4 — Guided Autonomy</h3>
-            <p style={{ fontSize: 13, color: "#888", marginBottom: 20 }}>Momentum &gt; Complexity · Control &gt; Blind Automation</p>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 24 }}>
-              We reframed the problem: AI shouldn't be fully controlled. AI shouldn't be fully autonomous. It should be guided.
-            </p>
-            {[
-              { n: "#1", title: "Linear Stages Over Decision Trees", body: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching. Admins define what the agent accomplishes at each stage, not how." },
-              { n: "#2", title: "Contextual Intervention Points", body: "Added visible 'human handoff triggers' so recruiters know when and how to step in. Preserved AI momentum while giving recruiters control at critical moments." },
-              { n: "#3", title: "Reusable Module Library", body: "Built a library of pre-configured modules that admins can drag, drop, and customize. Eliminated repetitive setup work while maintaining flexibility." },
-              { n: "#4", title: "Unified Multimodal Context", body: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels." },
-            ].map((point, j) => (
-              <div key={j} style={{ marginBottom: 20, paddingLeft: 16, borderLeft: "3px solid #E5E5E5" }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.06em", marginBottom: 4 }}>{point.n}</div>
-                <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{point.title}</div>
-                <div style={{ fontSize: 14, lineHeight: "1.7", color: "#444" }}>{point.body}</div>
+          {/* Dark section: V4 + Designing for Multimodal + Solution */}
+          <div style={{ margin: "0 -40px", background: "#131215", padding: "48px 40px 56px" }}>
+
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, letterSpacing: "-0.01em", color: "white" }}>V4 — Guided Autonomy</h3>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
+              {["Momentum > Complexity", "Control", "Blind Automation"].map((tag, i) => (
+                <span key={i} style={{ fontSize: 11, fontWeight: 600, padding: "3px 10px", borderRadius: 999, background: "#222230", color: "#7070A0", letterSpacing: "0.04em" }}>{tag}</span>
+              ))}
+            </div>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#7070A0", marginBottom: 6 }}>We reframed the problem:</p>
+            {["AI shouldn't be fully controlled.", "AI shouldn't be fully autonomous.", "It should be guided."].map((pt, i) => (
+              <div key={i} style={{ fontSize: 14, color: "#9090B0", lineHeight: "1.7", display: "flex", gap: 8, marginBottom: 3 }}>
+                <span style={{ color: "#444" }}>•</span>{pt}
               </div>
             ))}
+
+            <p style={{ fontSize: 13, fontWeight: 600, color: "#555", letterSpacing: "0.06em", textTransform: "uppercase", margin: "36px 0 20px" }}>What we exposed:</p>
+
+            {[
+              {
+                n: "#1", title: "Linear Stages Over Decision Trees",
+                shift: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching.",
+                worked: "Admins define what the agent accomplishes at each stage, not how. This aligned with how recruiters naturally think about hiring work.",
+              },
+              {
+                n: "#2", title: "Contextual Intervention Points",
+                shift: "Added visible 'human handoff triggers' so recruiters know when and how to step in.",
+                worked: "Preserved AI momentum while giving recruiters control at critical moments.",
+              },
+              {
+                n: "#3", title: "Reusable Module Library",
+                shift: "Built a library of pre-configured modules (screening questions, greetings, scheduling logic) that admins can drag, drop, and customize.",
+                worked: "Eliminated repetitive setup work while maintaining flexibility.",
+              },
+              {
+                n: "#4", title: "Unified Multimodal Context",
+                shift: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels.",
+                worked: "Candidates no longer had to repeat information when switching channels.",
+              },
+            ].map((point, j) => (
+              <div key={j} style={{ marginBottom: 44 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#444", letterSpacing: "0.08em", marginBottom: 6 }}>{point.n}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "white", marginBottom: 12 }}>{point.title}</div>
+                <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0", marginBottom: 6 }}>
+                  <span style={{ color: "#555", fontWeight: 600 }}>The shift: </span>{point.shift}
+                </p>
+                <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0", marginBottom: 20 }}>
+                  <span style={{ color: "#555", fontWeight: 600 }}>Why it worked: </span>{point.worked}
+                </p>
+                <div style={{ background: "#1C1C24", borderRadius: 12, height: 200 }} />
+              </div>
+            ))}
+
+            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 24, letterSpacing: "-0.01em", color: "white" }}>Designing for Multimodal & System Scale</h2>
+            {[
+              { title: "Cross-Platform Consistency", body: "Abstract conversation logic while adapting to channel differences — voice required structured prompts and clear fallbacks; chat supported richer branching and contextual persistence." },
+              { title: "Shared State Architecture", body: "Enabled true multimodal continuity through shared conversation memory instead of channel-specific flows, aligning UX with orchestration logic." },
+              { title: "Design System Alignment", body: "Extended existing UI patterns to support modular agent configuration, ensuring consistency across workflows while reducing cognitive load." },
+            ].map((item, i) => (
+              <div key={i} style={{ marginBottom: 28 }}>
+                <div style={{ fontSize: 15, fontWeight: 600, color: "white", marginBottom: 6 }}>{item.title}</div>
+                <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0" }}>{item.body}</p>
+              </div>
+            ))}
+
+            <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.01em", color: "white", marginTop: 40 }}>Solution</h2>
+            <p style={{ fontSize: 14, color: "#555", marginBottom: 10 }}>Admins define the outcome:</p>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#9090B0", marginBottom: 24 }}>
+              The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
+            </p>
+            <div style={{ background: "#1C1C24", borderRadius: 14, padding: "20px 24px" }}>
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#555", marginBottom: 8 }}>Example:</p>
+              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#9090B0", marginBottom: 12, fontStyle: "italic" }}>
+                "Create an agent to screen candidates who have already applied to open roles and assess their suitability"
+              </p>
+              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#9090B0" }}>
+                The system orchestrates execution across reusable modules. Conversations move seamlessly across chat, SMS, and voice while preserving context.
+              </p>
+            </div>
           </div>
         </>
       )}
-      <div style={{ marginTop: 48, marginBottom: 48 }}>
-        <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Solution</h2>
-        <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-          The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
-        </p>
-        <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 20, fontSize: 14, lineHeight: "1.7", color: "#333" }}>
-          <strong>Example:</strong> "Create an agent to screen candidates who have already applied to open roles and assess their suitability"
-          <br /><br />
-          Admins define the outcome. The system orchestrates execution across reusable modules. Conversations move seamlessly across chat, SMS, and voice while preserving context.
-        </div>
-      </div>
       <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>Achieved Goals</h3>
       <div
         style={{
