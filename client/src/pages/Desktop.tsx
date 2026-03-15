@@ -1056,28 +1056,55 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             ))}
           </div>
 
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Problem Statement</h2>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 14, letterSpacing: "-0.01em" }}>Problem Statement</h2>
+          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
             Recruiters/Admins relied on rigid, rule-based workflows that were slow to configure, difficult to maintain.
           </p>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
+          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
             Chat and voice operated independently, lacked shared context, and required manual setup for each use case, preventing true multimodal continuity.
           </p>
-          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 40 }}>
+          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 48 }}>
             As complexity increased, trust and adoption decreased.
           </p>
 
           {[
-            { label: "Pain Point 1: High Setup Effort", body: "Admins manually built long decision trees. Even minor updates required editing multiple nodes.", stats: ["64% Recruiters abandoning automation during setup", "Avg 2.4 hrs to configure one hiring campaign"] },
-            { label: "Pain Point 2: Channel Silos", body: "Chat and voice were configured separately with no shared state. Conversations could not move seamlessly between modalities.", stats: ["39% missed follow-ups due to fragmented flows"] },
-            { label: "Pain Point 3: Limited Scalability", body: "Automation could not scale across hiring scenarios, forcing admins to repeatedly rebuild similar journeys.", stats: [] },
+            {
+              label: "Pain Point 1: High Setup Effort",
+              body: "Admins manually built long decision trees. Even minor updates required editing multiple nodes.",
+              stats: [
+                { highlight: "64%", desc: "Recruiters abandoning automation during setup" },
+                { highlight: "Avg 2.4 hrs", desc: "to configure one hiring campaign" },
+              ],
+            },
+            {
+              label: "Pain Point 2: Channel Silos",
+              body: "Chat and voice were configured separately with no shared state. Conversations could not move seamlessly between modalities.",
+              stats: [
+                { highlight: "39%", desc: "missed follow-ups due to fragmented flows" },
+              ],
+            },
+            {
+              label: "Pain Point 3: Limited Scalability",
+              body: "Automation could not scale across hiring scenarios, forcing admins to repeatedly rebuild similar journeys.",
+              stats: [],
+            },
           ].map((pp, i) => (
-            <div key={i} style={{ background: "#F7F7F7", borderRadius: 14, padding: 24, marginBottom: 16 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 600, marginBottom: 10 }}>{pp.label}</h3>
-              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#444", marginBottom: pp.stats.length ? 12 : 0 }}>{pp.body}</p>
-              {pp.stats.map((s, j) => (
-                <div key={j} style={{ fontSize: 13, fontWeight: 600, color: "#171717", background: "white", borderRadius: 8, padding: "6px 12px", display: "inline-block", marginRight: 8, marginTop: 4 }}>{s}</div>
-              ))}
+            <div key={i} style={{ marginBottom: 48 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10, letterSpacing: "-0.01em" }}>{pp.label}</h3>
+              <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>{pp.body}</p>
+              {pp.stats.length > 0 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+                  {pp.stats.map((s, j) => (
+                    <div key={j} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#F0F0F0", borderRadius: 999, padding: "5px 12px", width: "fit-content" }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: "#171717" }}>{s.highlight}</span>
+                      <span style={{ fontSize: 13, color: "#666" }}>{s.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid #e5e5e5", background: "white", padding: "16px" }}>
+                <img src={uiTile1} alt={pp.label} style={{ width: "100%", borderRadius: 8, display: "block" }} />
+              </div>
             </div>
           ))}
 
