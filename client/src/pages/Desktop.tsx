@@ -1108,73 +1108,126 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             </div>
           ))}
 
-          <div style={{ marginTop: 40, marginBottom: 48 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: "#888", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>What We Need to Learn?</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 20, letterSpacing: "-0.01em" }}>What We Need to Learn?</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 48 }}>
+            {[
+              "How do recruiters mentally model hiring work?",
+              "Where does trust break in AI-driven workflows?",
+              "What balance of control vs autonomy drives adoption?",
+            ].map((q, i) => (
+              <div key={i} style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 14px", fontSize: 14, lineHeight: "1.6", color: "#333" }}>{q}</div>
+            ))}
+          </div>
+
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.01em" }}>Core Insight</h2>
+          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 14 }}>
+            The product required users to think like system designers. Recruiters think in hiring outcomes.
+          </p>
+          {['"Screen faster."', '"Move candidates forward."', '"Don\'t miss talent."'].map((q, i) => (
+            <p key={i} style={{ fontSize: 16, fontWeight: 600, letterSpacing: "-0.01em", color: "#171717", marginBottom: 4 }}>{q}</p>
+          ))}
+          <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginTop: 12, marginBottom: 48 }}>That mismatch created friction.</p>
+
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Initial Conceptualising Using Lovable</h2>
+          <div style={{ background: "#F7F7F7", borderRadius: 14, height: 320, marginBottom: 48 }} />
+
+          <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 32, letterSpacing: "-0.01em" }}>Design Iterations</h2>
+
+          {/* V1 */}
+          <div style={{ marginBottom: 56 }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>V1 — Transparency First</h3>
+            <p style={{ fontSize: 13, color: "#888", marginBottom: 14 }}>Precision &gt; Momentum</p>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 20 }}>
+              <span style={{ fontWeight: 600 }}>Hypothesis:</span> If we expose full control, recruiters will trust AI.
+            </p>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>We:</p>
+            <div style={{ marginBottom: 20 }}>
+              {["Exposed all controls", "Made decision logic visible", "Enabled deep customization"].map((w, j) => (
+                <div key={j} style={{ fontSize: 14, color: "#333", lineHeight: "1.7", display: "flex", gap: 8 }}>
+                  <span style={{ color: "#bbb" }}>•</span>{w}
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>Then:</p>
+            <div style={{ marginBottom: 24 }}>
+              {["Recruiters will feel safe using AI"].map((w, j) => (
+                <div key={j} style={{ fontSize: 14, color: "#333", lineHeight: "1.7", display: "flex", gap: 8 }}>
+                  <span style={{ color: "#bbb" }}>•</span>{w}
+                </div>
+              ))}
+            </div>
+            <div style={{ background: "#F7F7F7", borderRadius: 14, height: 280, marginBottom: 16 }} />
+            <div style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 20px" }}>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "#171717", marginBottom: 10 }}>V1 revealed an uncomfortable truth:</p>
               {[
-                "How do recruiters mentally model hiring work?",
-                "Where does trust break in AI-driven workflows?",
-                "What balance of control vs autonomy drives adoption?",
-              ].map((q, i) => (
-                <div key={i} style={{ background: "#F7F7F7", borderRadius: 14, padding: "20px 16px", fontSize: 14, lineHeight: "1.6", color: "#333" }}>{q}</div>
+                "Over-transparency reduced momentum. AI felt like another system to manage.",
+                "Trust improved. Adoption didn't.",
+              ].map((pt, j) => (
+                <div key={j} style={{ fontSize: 14, color: "#444", lineHeight: "1.7", display: "flex", gap: 8 }}>
+                  <span style={{ color: "#bbb" }}>•</span>{pt}
+                </div>
               ))}
             </div>
           </div>
 
-          <div style={{ background: "#F7F7F7", borderRadius: 14, padding: 28, marginBottom: 48 }}>
-            <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>Core Insight</h2>
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>
-              The product required users to think like system designers. Recruiters think in hiring outcomes.
+          {/* V2 */}
+          <div style={{ marginBottom: 56 }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>V2 — Momentum First</h3>
+            <p style={{ fontSize: 13, color: "#888", marginBottom: 14 }}>Momentum &gt; Precision</p>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 20 }}>
+              <span style={{ fontWeight: 600 }}>Hypothesis:</span> If we remove setup and automate by default, recruiters will experience immediate value.
             </p>
-            {['"Screen faster."', '"Move candidates forward."', '"Don\'t miss talent."'].map((q, i) => (
-              <p key={i} style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "#171717", marginBottom: 6 }}>{q}</p>
-            ))}
-            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginTop: 16 }}>That mismatch created friction.</p>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>We:</p>
+            <div style={{ marginBottom: 20 }}>
+              {["Removed visible workflows", "Eliminated upfront configuration"].map((w, j) => (
+                <div key={j} style={{ fontSize: 14, color: "#333", lineHeight: "1.7", display: "flex", gap: 8 }}>
+                  <span style={{ color: "#bbb" }}>•</span>{w}
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: 12, fontWeight: 600, color: "#888", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 8 }}>Then:</p>
+            <div style={{ marginBottom: 24 }}>
+              {["Recruiters will experience immediate value", "Adoption will increase"].map((w, j) => (
+                <div key={j} style={{ fontSize: 14, color: "#333", lineHeight: "1.7", display: "flex", gap: 8 }}>
+                  <span style={{ color: "#bbb" }}>•</span>{w}
+                </div>
+              ))}
+            </div>
+            <div style={{ background: "#F7F7F7", borderRadius: 14, height: 280, marginBottom: 16 }} />
+            <div style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 20px" }}>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "#171717", marginBottom: 10 }}>Learnings from V2:</p>
+              {[
+                'Speed increased. But trust declined.',
+                'Users experienced "black-box anxiety." They didn\'t know why the AI acted the way it did.',
+                'Momentum improved. Confidence dropped.',
+              ].map((pt, j) => (
+                <div key={j} style={{ fontSize: 14, color: "#444", lineHeight: "1.7", display: "flex", gap: 8, marginBottom: 4 }}>
+                  <span style={{ color: "#bbb" }}>•</span>{pt}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 24, letterSpacing: "-0.01em" }}>Design Iterations</h2>
-          {[
-            { version: "V1 — Transparency First", tagline: "Precision > Momentum", hypothesis: "If we expose full control, recruiters will trust AI.", what: ["Exposed all controls", "Made decision logic visible", "Enabled deep customization"], then: "Recruiters will feel safe using AI", learning: "Over-transparency reduced momentum. AI felt like another system to manage. Trust improved. Adoption didn't." },
-            { version: "V2 — Momentum First", tagline: "Momentum > Precision", hypothesis: "If we remove setup and automate by default, recruiters will experience immediate value.", what: ["Removed visible workflows", "Eliminated upfront configuration"], then: "Adoption will increase", learning: "Speed increased. But trust declined. Users experienced 'black-box anxiety.' Momentum improved. Confidence dropped." },
-            { version: "V4 — Guided Autonomy", tagline: "Momentum > Complexity · Control > Blind Automation", hypothesis: null, what: [], then: null, learning: null },
-          ].map((v, i) => (
-            <div key={i} style={{ border: "1px solid #e5e5e5", borderRadius: 14, padding: 24, marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: "#888", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>{v.tagline}</div>
-              <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 12 }}>{v.version}</h3>
-              {v.hypothesis && <p style={{ fontSize: 14, lineHeight: "1.6", color: "#555", marginBottom: 12 }}><strong>Hypothesis:</strong> {v.hypothesis}</p>}
-              {v.what.length > 0 && (
-                <div style={{ marginBottom: 12 }}>
-                  {v.what.map((w, j) => (
-                    <div key={j} style={{ fontSize: 14, color: "#333", marginBottom: 4, display: "flex", gap: 8 }}>
-                      <span style={{ color: "#aaa" }}>·</span> {w}
-                    </div>
-                  ))}
-                </div>
-              )}
-              {v.learning && (
-                <div style={{ background: "#F7F7F7", borderRadius: 10, padding: "12px 16px", fontSize: 14, lineHeight: "1.6", color: "#444" }}>
-                  <strong>Learning:</strong> {v.learning}
-                </div>
-              )}
-              {v.version.includes("V4") && (
-                <div>
-                  <p style={{ fontSize: 14, lineHeight: "1.7", color: "#333", marginBottom: 16 }}>We reframed the problem: AI shouldn't be fully controlled. AI shouldn't be fully autonomous. It should be guided.</p>
-                  {[
-                    { n: "#1", title: "Linear Stages Over Decision Trees", body: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching. Admins define what the agent accomplishes at each stage, not how." },
-                    { n: "#2", title: "Contextual Intervention Points", body: "Added visible 'human handoff triggers' so recruiters know when and how to step in. Preserved AI momentum while giving recruiters control at critical moments." },
-                    { n: "#3", title: "Reusable Module Library", body: "Built a library of pre-configured modules that admins can drag, drop, and customize. Eliminated repetitive setup work while maintaining flexibility." },
-                    { n: "#4", title: "Unified Multimodal Context", body: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels." },
-                  ].map((point, j) => (
-                    <div key={j} style={{ marginBottom: 16, paddingLeft: 16, borderLeft: "3px solid #E5E5E5" }}>
-                      <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.06em", marginBottom: 4 }}>{point.n}</div>
-                      <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{point.title}</div>
-                      <div style={{ fontSize: 14, lineHeight: "1.7", color: "#444" }}>{point.body}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+          {/* V4 */}
+          <div style={{ marginBottom: 48 }}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 6, letterSpacing: "-0.01em" }}>V4 — Guided Autonomy</h3>
+            <p style={{ fontSize: 13, color: "#888", marginBottom: 20 }}>Momentum &gt; Complexity · Control &gt; Blind Automation</p>
+            <p style={{ fontSize: 15, lineHeight: "1.7", color: "#333", marginBottom: 24 }}>
+              We reframed the problem: AI shouldn't be fully controlled. AI shouldn't be fully autonomous. It should be guided.
+            </p>
+            {[
+              { n: "#1", title: "Linear Stages Over Decision Trees", body: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching. Admins define what the agent accomplishes at each stage, not how." },
+              { n: "#2", title: "Contextual Intervention Points", body: "Added visible 'human handoff triggers' so recruiters know when and how to step in. Preserved AI momentum while giving recruiters control at critical moments." },
+              { n: "#3", title: "Reusable Module Library", body: "Built a library of pre-configured modules that admins can drag, drop, and customize. Eliminated repetitive setup work while maintaining flexibility." },
+              { n: "#4", title: "Unified Multimodal Context", body: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels." },
+            ].map((point, j) => (
+              <div key={j} style={{ marginBottom: 20, paddingLeft: 16, borderLeft: "3px solid #E5E5E5" }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#888", letterSpacing: "0.06em", marginBottom: 4 }}>{point.n}</div>
+                <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 6 }}>{point.title}</div>
+                <div style={{ fontSize: 14, lineHeight: "1.7", color: "#444" }}>{point.body}</div>
+              </div>
+            ))}
+          </div>
         </>
       )}
       <div style={{ marginTop: 48, marginBottom: 48 }}>
