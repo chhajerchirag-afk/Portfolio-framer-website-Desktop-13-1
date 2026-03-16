@@ -2607,6 +2607,7 @@ export const Desktop = (): JSX.Element => {
                     className="h-full overflow-y-auto hide-scrollbar"
                     style={activeCaseStudy ? {
                       paddingLeft: 40,
+                      paddingRight: 24,
                       paddingTop: 4,
                       paddingBottom: 8,
                     } : {
