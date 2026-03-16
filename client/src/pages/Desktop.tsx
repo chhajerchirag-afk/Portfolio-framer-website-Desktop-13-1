@@ -1379,7 +1379,7 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
         I led the end-to-end design of the "Thread Page," from problem research to implementation, incorporating continuous team feedback. This page serves as a dedicated space where users can store YouTube videos for learning and reference.
       </p>
       <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #2d2640 0%, #1a2a4a 40%, #0d3354 70%, #1a3a5c 100%)", padding: "20px" }}>
-        <img src="/project2.png" alt="Reimagining AI Experience" style={{ width: "100%", borderRadius: 10, display: "block" }} />
+        <img src="/project-2/project-2-cover.png" alt="Reimagining AI Experience" style={{ width: "100%", borderRadius: 10, display: "block" }} />
       </div>
 
       <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Context</h2>
@@ -1394,19 +1394,18 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
       <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 32 }}>
         During the initial ideation phase, the vision for Gistr was to create a YouTube learning tool with note-taking capabilities, integrating AI as a support mechanism for comprehension. However, user behavior revealed a different set of needs and expectations.
       </p>
+      <img src="/project-2/2.gif" alt="Problem statement" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
       {view === "intense" && (
         <>
           <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" }}>Pain Point 1: Discoverability</h3>
-          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
             Users struggled to find and access the Ask AI button due to its background color blending in with the interface. Additionally, when there was too much content in the background, locating the button became even more challenging.
           </p>
-          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 220, marginBottom: 48 }} />
 
           <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" }}>Pain Point 2: Lack of Follow-up Questioning</h3>
-          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
             The inability to ask consecutive questions limited AI's usability and depth of interaction. In the current implementation, users can ask only one question before having to either close the input box or manually reveal the AI response to their notes.
           </p>
-          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 220, marginBottom: 48 }} />
         </>
       )}
 
@@ -1439,7 +1438,7 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
         <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 24 }}>
           To enhance the AI experience, we introduced a dedicated thread page that prioritizes AI-driven insights, allowing users to find relevant information more efficiently.
         </p>
-        <div style={{ background: "#1C1C24", borderRadius: 14, height: 280, marginBottom: 24 }} />
+        <img src="/project-2/3.png" alt="Solution" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 24 }} />
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
           {[
             { title: "Improved Discoverability", body: "Making the Ask AI touchpoint more prominent within the editor to encourage engagement." },
@@ -1490,23 +1489,23 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
             Instead of a small button, we introduced a wide input field to make the feature more prominent and intuitive. This change increased engagement by making it immediately clear where users could ask AI-related queries.
           </p>
-          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 300, marginBottom: 48 }} />
+          <img src="/project-2/4.png" alt="Design decision - Ask AI button" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
 
           <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Introduced Tabs for User Notes and Ask AI</h3>
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
             To create a more structured experience, we introduced separate tabs—one for user-generated notes and another dedicated to AI interactions. This separation reduced cognitive overload and allowed users to efficiently manage both their notes and AI-generated insights.
           </p>
-          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 300, marginBottom: 64 }} />
+          <img src="/project-2/5.png" alt="Tabs for user notes and Ask AI" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 64 }} />
 
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Final Design</h2>
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
             Now, users can easily locate the Ask AI feature within the notes tab, click on it to view all available general and smart prompts, select one, or type in their own prompt. They receive quick responses, which they can add to their notes or use as a starting point for follow-up questions, enabling deeper understanding of the topic.
           </p>
-          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 380, marginBottom: 32 }} />
+          <img src="/project-2/6.gif" alt="Final design" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 32 }} />
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
             For users who prefer passive learning over active note-taking, the Ask AI tab serves as the ideal solution, allowing them to consume AI-generated content effortlessly. Additionally, it enables users to quickly browse through key insights without manually searching through the video. The ability to revisit past conversations and insights further enhances knowledge retention, ensuring a more efficient learning experience.
           </p>
-          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 380, marginBottom: 64 }} />
+          <img src="/project-2/7.gif" alt="Final design continued" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 64 }} />
 
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Outcome</h2>
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
