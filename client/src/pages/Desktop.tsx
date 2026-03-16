@@ -15,6 +15,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import sayHelloImg from "@assets/Image_1773518148939.png";
 import uiTile1 from "@assets/image_63_1773516807733.png";
+import { fireConfettiFromElement } from "@/components/ui/confetti";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
@@ -454,7 +455,11 @@ function ThreeDotsMenu() {
     closeTimer.current = setTimeout(() => setOpen(false), 160);
   };
 
-  const handleItemClick = (item: (typeof menuLinks)[number]) => {
+  const handleItemClick = (item: (typeof menuLinks)[number], e: React.MouseEvent<HTMLButtonElement>) => {
+    if (item.iconType === "person") {
+      fireConfettiFromElement(e.currentTarget);
+      return;
+    }
     if (!item.href) return;
     window.open(item.href, "_blank", "noopener,noreferrer");
     setOpen(false);
@@ -526,7 +531,7 @@ function ThreeDotsMenu() {
             <button
               key={i}
               data-testid={`menu-item-${i}`}
-              onClick={(e) => { e.stopPropagation(); handleItemClick(item); }}
+              onClick={(e) => { e.stopPropagation(); handleItemClick(item, e); }}
               className="flex flex-col items-center transition-all duration-200"
               style={{
                 cursor: "pointer",
@@ -537,11 +542,9 @@ function ThreeDotsMenu() {
                 transform: "scale(1) translateY(0)",
               }}
               onMouseEnter={(e) => {
-                if (!item.href) return;
                 (e.currentTarget as HTMLElement).style.transform = "scale(1.08) translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                if (!item.href) return;
                 (e.currentTarget as HTMLElement).style.transform = "scale(1) translateY(0)";
               }}
             >
