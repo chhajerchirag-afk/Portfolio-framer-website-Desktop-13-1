@@ -1348,6 +1348,171 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
   );
 }
 
+function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
+  return (
+    <div
+      style={{
+        maxWidth: 720,
+        margin: "0 auto",
+        padding: "60px 0 80px",
+        fontFamily: "Inter, sans-serif",
+        color: "#14191F",
+      }}
+    >
+      <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
+        Reimagining the<br />AI Experience for Users
+      </h1>
+      <p style={{ fontSize: 16, lineHeight: "24px", letterSpacing: "0", color: "#14191F", marginBottom: 56 }}>
+        I led the end-to-end design of the "Thread Page," from problem research to implementation, incorporating continuous team feedback. This page serves as a dedicated space where users can store YouTube videos for learning and reference.
+      </p>
+      <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #2d2640 0%, #1a2a4a 40%, #0d3354 70%, #1a3a5c 100%)", padding: "20px" }}>
+        <img src="/project2.png" alt="Reimagining AI Experience" style={{ width: "100%", borderRadius: 10, display: "block" }} />
+      </div>
+
+      <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Context</h2>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
+        In the age of information overload, video-based learning has become a dominant medium for acquiring knowledge. However, retaining and organizing key insights from long-form videos remains a challenge. <span style={{ textDecoration: "underline" }}>Gistr</span>, an AI-powered tool, was designed to solve this problem by enabling users to clip key moments, generate summaries, take smart notes, and extract insights effortlessly.
+      </p>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 64 }}>
+        While the initial goal was to integrate AI as a support mechanism for note-taking and comprehension on <span style={{ textDecoration: "underline" }}>Gistr</span>, user behavior told a different story.
+      </p>
+
+      <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Problem Statement</h2>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 32 }}>
+        During the initial ideation phase, the vision for Gistr was to create a YouTube learning tool with note-taking capabilities, integrating AI as a support mechanism for comprehension. However, user behavior revealed a different set of needs and expectations.
+      </p>
+      {view === "intense" && (
+        <>
+          <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" }}>Pain Point 1: Discoverability</h3>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
+            Users struggled to find and access the Ask AI button due to its background color blending in with the interface. Additionally, when there was too much content in the background, locating the button became even more challenging.
+          </p>
+          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 220, marginBottom: 48 }} />
+
+          <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" }}>Pain Point 2: Lack of Follow-up Questioning</h3>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
+            The inability to ask consecutive questions limited AI's usability and depth of interaction. In the current implementation, users can ask only one question before having to either close the input box or manually reveal the AI response to their notes.
+          </p>
+          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 220, marginBottom: 48 }} />
+        </>
+      )}
+
+      <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Understanding the Problems</h2>
+      <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 64 }}>
+        Our assumption was that users would primarily rely on AI as a supplementary tool to enhance their workflow—clipping key moments and taking notes for deeper understanding. However, post-launch analytics from PostHog session replays and user feedback indicated otherwise. Users were looking for a more direct, immediate way to extract key insights from videos rather than manually clipping and engaging in a structured workflow. This gap between expectation and actual user behavior highlighted the need to reimagine the AI experience.
+      </p>
+
+      {/* Dark section: Goals + Solution */}
+      <div style={{ margin: 0, background: "#131215", padding: "48px 40px 56px", borderRadius: 16 }}>
+        <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Goals</h2>
+        <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 28 }}>
+          Our goal was to make AI more accessible and valuable within Gistr, allowing users to interact with AI effortlessly, gain quick insights, and integrate those insights into their learning process.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 56 }}>
+          {[
+            { title: "Improve user interaction with AI", body: "Ensure a seamless and intuitive experience while engaging with AI-driven insights." },
+            { title: "Enable users to save AI-generated insights", body: "Provide an effortless way for users to store valuable information in their notes." },
+            { title: "Reduce cognitive load in prompt creation", body: "Minimize the time and effort required for users to formulate effective AI prompts." },
+            { title: "Increase user retention", body: "Enhance user satisfaction and engagement to drive higher retention rates within the product." },
+          ].map((goal, i) => (
+            <div key={i} style={{ background: "#1C1C24", borderRadius: 12, padding: "20px 18px" }}>
+              <p style={{ fontSize: 15, fontWeight: 600, color: "white", marginBottom: 8, lineHeight: "22px" }}>{goal.title}</p>
+              <p style={{ fontSize: 14, lineHeight: "20px", color: "#7070A0" }}>{goal.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Solution</h2>
+        <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 24 }}>
+          To enhance the AI experience, we introduced a dedicated thread page that prioritizes AI-driven insights, allowing users to find relevant information more efficiently.
+        </p>
+        <div style={{ background: "#1C1C24", borderRadius: 14, height: 280, marginBottom: 24 }} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
+          {[
+            { title: "Improved Discoverability", body: "Making the Ask AI touchpoint more prominent within the editor to encourage engagement." },
+            { title: "Predefined Smart and General Prompts", body: "Providing users with preset prompt options to simplify their workflow and extract meaningful insights." },
+            { title: "Follow-up Questions", body: "Enabling users to ask consecutive questions for a more interactive and contextual learning experience." },
+            { title: "Follow-up Questions", body: "Enabling users to ask consecutive questions for a more interactive and contextual learning experience." },
+          ].map((feat, i) => (
+            <div key={i} style={{ background: "#1C1C24", borderRadius: 12, padding: "16px 14px" }}>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "white", marginBottom: 6, lineHeight: "20px" }}>{feat.title}</p>
+              <p style={{ fontSize: 13, lineHeight: "19px", color: "#7070A0" }}>{feat.body}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: "#1C1C24", borderRadius: 12, padding: "16px 14px" }}>
+          <p style={{ fontSize: 14, fontWeight: 600, color: "white", marginBottom: 6, lineHeight: "20px" }}>Chat History</p>
+          <p style={{ fontSize: 13, lineHeight: "19px", color: "#7070A0" }}>Allowing users to revisit past interactions with AI for reference and continuity.</p>
+        </div>
+      </div>
+
+      {view === "intense" && (
+        <>
+          <div style={{ marginTop: 64 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Research</h2>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 32 }}>
+              To validate our hypothesis, we conducted an in-depth analysis of user behavior to set the foundation for reimagining how AI could enhance the user experience within Gistr.
+            </p>
+            {[
+              { n: "#1. Session Replays & Analytics", body: "PostHog data revealed that more than 20+ users were not engaging with Ask AI as expected. Instead of using it for deeper analysis, they sought quick insights from videos." },
+              { n: "#2. Competitor Benchmarking", body: "A review of 10 to 15 similar AI-powered tools highlighted the importance of an intuitive discovery experience and the ability to ask follow-up questions dynamically." },
+              { n: "#3. User Feedback & Interviews", body: "Conversations with 3 early adopters reinforced the insight that users wanted a more seamless and accessible AI experience." },
+            ].map((item, i) => (
+              <div key={i} style={{ marginBottom: 24 }}>
+                <p style={{ fontSize: 16, fontWeight: 600, lineHeight: "22px", marginBottom: 6, color: "#14191F" }}>{item.n}</p>
+                <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" }}>{item.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 48 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Feature Prioritization</h2>
+            <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
+              After discussions with the team—including the founder, engineers, and designers, we decided to first implement Smart & General Prompts, as the AI/ML team had an existing technical solution that only required a design and frontend implementation. This feature had the potential for immediate high impact. Meanwhile, other teams began working on the next set of proposed solutions.
+            </p>
+          </div>
+
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "#14191F" }}>Design Decisions</h2>
+          <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Redesigned Ask AI Button for Better Discoverability</h3>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
+            Instead of a small button, we introduced a wide input field to make the feature more prominent and intuitive. This change increased engagement by making it immediately clear where users could ask AI-related queries.
+          </p>
+          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 300, marginBottom: 48 }} />
+
+          <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Introduced Tabs for User Notes and Ask AI</h3>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
+            To create a more structured experience, we introduced separate tabs—one for user-generated notes and another dedicated to AI interactions. This separation reduced cognitive overload and allowed users to efficiently manage both their notes and AI-generated insights.
+          </p>
+          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 300, marginBottom: 64 }} />
+
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Final Design</h2>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
+            Now, users can easily locate the Ask AI feature within the notes tab, click on it to view all available general and smart prompts, select one, or type in their own prompt. They receive quick responses, which they can add to their notes or use as a starting point for follow-up questions, enabling deeper understanding of the topic.
+          </p>
+          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 380, marginBottom: 32 }} />
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
+            For users who prefer passive learning over active note-taking, the Ask AI tab serves as the ideal solution, allowing them to consume AI-generated content effortlessly. Additionally, it enables users to quickly browse through key insights without manually searching through the video. The ability to revisit past conversations and insights further enhances knowledge retention, ensuring a more efficient learning experience.
+          </p>
+          <div style={{ background: "#E0E0E3", borderRadius: 14, height: 380, marginBottom: 64 }} />
+
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Outcome</h2>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
+            After deploying the Smart and General Prompts feature, we received highly positive feedback from early adopters. Users found it easier to interact with AI, leading to an increase in engagement with suggested prompts and a noticeable improvement in user retention.
+          </p>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
+            The other proposed features, including follow-up questions and chat history, are currently in development. However, initial user research and usability testing have already indicated positive responses, reinforcing the need for these enhancements in future updates.
+          </p>
+
+          <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Takeaways</h2>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" }}>
+            This case study highlights the importance of relying on user data rather than assumptions. While hypotheses can guide initial design decisions, true insights come from observing actual user behavior. By prioritizing user intent and continuously iterating based on feedback, we can create more effective and intuitive AI experiences that genuinely enhance user workflows.
+          </p>
+        </>
+      )}
+    </div>
+  );
+}
+
 function CaseStudyPlaceholder({ title }: { title: string }) {
   return (
     <div
@@ -1549,6 +1714,8 @@ function CaseStudyBrowser({
       >
         {studyId === "ai-agents-hr" ? (
           <AIAgentsHRContent view={view} />
+        ) : studyId === "reimagining-ai" ? (
+          <ReimaginingAIContent view={view} />
         ) : (
           <CaseStudyPlaceholder title={study.fullTitle} />
         )}
@@ -1658,6 +1825,8 @@ function CaseStudyBottomSheet({
         <div className="hide-scrollbar" style={{ flex: 1, overflowY: "auto", background: "#F2F3F4" }}>
           {studyId === "ai-agents-hr" ? (
             <AIAgentsHRContent view={view} />
+          ) : studyId === "reimagining-ai" ? (
+            <ReimaginingAIContent view={view} />
           ) : (
             <CaseStudyPlaceholder title={study.fullTitle} />
           )}
