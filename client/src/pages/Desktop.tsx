@@ -1117,7 +1117,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
                   <img src="/project-1/5.png" alt="V1 Design" style={{ width: "100%", display: "block" }} />
                 </div>
-                <div style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 20px" }}>
+                <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
                   <p style={{ fontSize: 20, fontWeight: 500, color: "#14191F", marginBottom: 12 }}>V1 revealed an uncomfortable truth:</p>
                   {["Over-transparency reduced momentum. AI felt like another system to manage.", "Trust improved. Adoption didn't."].map((pt, j) => (
                     <div key={j} style={{ fontSize: 16, fontWeight: 400, color: "#14191F", lineHeight: "1.7", display: "flex", gap: 8 }}><span style={{ color: "#bbb" }}>•</span>{pt}</div>
@@ -1147,7 +1147,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
                   <img src="/project-1/6.png" alt="V2 Design" style={{ width: "100%", display: "block" }} />
                 </div>
-                <div style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 20px" }}>
+                <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
                   <p style={{ fontSize: 20, fontWeight: 500, color: "#14191F", marginBottom: 12 }}>Learnings from V2:</p>
                   {['Speed increased. But trust declined.', 'Users experienced "black-box anxiety." They didn\'t know why the AI acted the way it did.', 'Momentum improved. Confidence dropped.'].map((pt, j) => (
                     <div key={j} style={{ fontSize: 16, fontWeight: 400, color: "#14191F", lineHeight: "1.7", display: "flex", gap: 8, marginBottom: 4 }}><span style={{ color: "#bbb" }}>•</span>{pt}</div>
@@ -1170,18 +1170,17 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               {["AI shouldn't be fully controlled.", "AI shouldn't be fully autonomous.", "It should be guided."].map((pt, i) => (
                 <div key={i} style={{ fontSize: 16, color: "#D8D8D8", lineHeight: "1.7", display: "flex", gap: 8, marginBottom: 3 }}><span style={{ color: "#555" }}>•</span>{pt}</div>
               ))}
-              <p style={{ fontSize: 13, fontWeight: 600, color: "#555", letterSpacing: "0.06em", textTransform: "uppercase", margin: "64px 0 20px" }}>What we exposed:</p>
+              <p style={{ fontSize: 13, fontWeight: 600, color: "#555", letterSpacing: "0.06em", textTransform: "uppercase", margin: "64px 0 12px" }}>What we exposed:</p>
               {[
                 { n: "#1", title: "Linear Stages Over Decision Trees", shift: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching.", worked: "Admins define what the agent accomplishes at each stage, not how. This aligned with how recruiters naturally think about hiring work.", img: "/project-1/7.png" },
                 { n: "#2", title: "Contextual Intervention Points", shift: "Added visible 'human handoff triggers' so recruiters know when and how to step in.", worked: "Preserved AI momentum while giving recruiters control at critical moments.", img: "/project-1/8.png" },
                 { n: "#3", title: "Reusable Module Library", shift: "Built a library of pre-configured modules (screening questions, greetings, scheduling logic) that admins can drag, drop, and customize.", worked: "Eliminated repetitive setup work while maintaining flexibility.", img: "/project-1/9.png" },
                 { n: "#4", title: "Unified Multimodal Context", shift: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels.", worked: "Candidates no longer had to repeat information when switching channels.", img: "/project-1/10.png" },
               ].map((point, j) => (
-                <div key={j} style={{ marginBottom: 44 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#444", letterSpacing: "0.08em", marginBottom: 6 }}>{point.n}</div>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: "white", marginBottom: 12 }}>{point.title}</div>
-                  <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0", marginBottom: 6 }}><span style={{ color: "#555", fontWeight: 600 }}>The shift: </span>{point.shift}</p>
-                  <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0", marginBottom: 20 }}><span style={{ color: "#555", fontWeight: 600 }}>Why it worked: </span>{point.worked}</p>
+                <div key={j} style={{ marginBottom: 40 }}>
+                  <div style={{ fontSize: 20, fontWeight: 500, color: "white", marginBottom: 8 }}>{point.n}. {point.title}</div>
+                  <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 8 }}><span style={{ fontWeight: 500 }}>The shift: </span>{point.shift}</p>
+                  <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 20 }}><span style={{ fontWeight: 500 }}>Why it worked: </span>{point.worked}</p>
                   <div style={{ borderRadius: 12, overflow: "hidden" }}>
                     <img src={point.img} alt={point.title} style={{ width: "100%", display: "block" }} />
                   </div>
@@ -1194,13 +1193,12 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 { title: "Design System Alignment", body: "Extended existing UI patterns to support modular agent configuration, ensuring consistency across workflows while reducing cognitive load." },
               ].map((item, i) => (
                 <div key={i} style={{ marginBottom: 28 }}>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: "white", marginBottom: 6 }}>{item.title}</div>
-                  <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0" }}>{item.body}</p>
+                  <div style={{ fontSize: 20, fontWeight: 500, color: "white", marginBottom: 8 }}>{item.title}</div>
+                  <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8" }}>{item.body}</p>
                 </div>
               ))}
-              <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 12, color: "white", marginTop: 40 }}>Solution</h2>
-              <p style={{ fontSize: 14, color: "#555", marginBottom: 10 }}>Admins define the outcome:</p>
-              <p style={{ fontSize: 15, lineHeight: "1.7", color: "#9090B0", marginBottom: 24 }}>
+              <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 12, color: "white", marginTop: 64 }}>Solution</h2>
+              <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 24 }}>
                 The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
               </p>
               <div style={{ background: "#131215", borderRadius: 14, padding: "20px", border: "1px solid #33322F" }}>
@@ -1212,7 +1210,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       )}
 
       {/* ── Achieved Goals ── */}
-      <div style={section("#F6F6F7")}>
+      <div style={section("#F6F6F7", 64)}>
         <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>Achieved Goals</h2>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
@@ -1221,7 +1219,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               { number: "1.4X", label: "increase in setup completion rate" },
               { number: "Reduced Dependency", label: "Dependency on external support has been reduced" },
             ].map((stat, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 12, padding: "20px 16px" }}>
+              <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
                 <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.01em", marginBottom: 10, color: "#171717" }}>{stat.number}</div>
                 <div style={{ fontSize: 13, lineHeight: "1.5", color: "#666" }}>{stat.label}</div>
               </div>
@@ -1301,11 +1299,11 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
           <img src="/project-2/2.gif" alt="Problem statement" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
           {view === "intense" && (
             <>
-              <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" }}>Pain Point 1: Discoverability</h3>
+              <h3 style={{ fontSize: 20, fontWeight: 500, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Pain Point 1: Discoverability</h3>
               <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
                 Users struggled to find and access the Ask AI button due to its background color blending in with the interface. Additionally, when there was too much content in the background, locating the button became even more challenging.
               </p>
-              <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" }}>Pain Point 2: Lack of Follow-up Questioning</h3>
+              <h3 style={{ fontSize: 20, fontWeight: 500, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Pain Point 2: Lack of Follow-up Questioning</h3>
               <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 48 }}>
                 The inability to ask consecutive questions limited AI's usability and depth of interaction. In the current implementation, users can ask only one question before having to either close the input box or manually reveal the AI response to their notes.
               </p>
@@ -1319,10 +1317,10 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
       </div>
 
       {/* Dark section: Goals + Solution */}
-      <div style={section("#131215", 56)}>
+      <div style={section("#131215", 64)}>
         <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Goals</h2>
-          <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 28 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 28 }}>
             Our goal was to make AI more accessible and valuable within Gistr, allowing users to interact with AI effortlessly, gain quick insights, and integrate those insights into their learning process.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 56 }}>
@@ -1332,14 +1330,14 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
               { title: "Reduce cognitive load in prompt creation", body: "Minimize the time and effort required for users to formulate effective AI prompts." },
               { title: "Increase user retention", body: "Enhance user satisfaction and engagement to drive higher retention rates within the product." },
             ].map((goal, i) => (
-              <div key={i} style={{ background: "#1C1C24", borderRadius: 12, padding: "20px 18px" }}>
-                <p style={{ fontSize: 15, fontWeight: 600, color: "white", marginBottom: 8, lineHeight: "22px" }}>{goal.title}</p>
-                <p style={{ fontSize: 14, lineHeight: "20px", color: "#7070A0" }}>{goal.body}</p>
+              <div key={i} style={{ background: "#1C1C24", borderRadius: 12, padding: "20px" }}>
+                <p style={{ fontSize: 16, fontWeight: 500, color: "white", marginBottom: 8, lineHeight: "22px" }}>{goal.title}</p>
+                <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8" }}>{goal.body}</p>
               </div>
             ))}
           </div>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Solution</h2>
-          <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 24 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 24 }}>
             To enhance the AI experience, we introduced a dedicated thread page that prioritizes AI-driven insights, allowing users to find relevant information more efficiently.
           </p>
           <img src="/project-2/3.png" alt="Solution" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 24 }} />
@@ -1350,22 +1348,22 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
               { title: "Follow-up Questions", body: "Enabling users to ask consecutive questions for a more interactive and contextual learning experience." },
               { title: "Follow-up Questions", body: "Enabling users to ask consecutive questions for a more interactive and contextual learning experience." },
             ].map((feat, i) => (
-              <div key={i} style={{ background: "#1C1C24", borderRadius: 12, padding: "16px 14px" }}>
-                <p style={{ fontSize: 14, fontWeight: 600, color: "white", marginBottom: 6, lineHeight: "20px" }}>{feat.title}</p>
-                <p style={{ fontSize: 13, lineHeight: "19px", color: "#7070A0" }}>{feat.body}</p>
+              <div key={i} style={{ background: "#1C1C24", borderRadius: 12, padding: "20px" }}>
+                <p style={{ fontSize: 16, fontWeight: 500, color: "white", marginBottom: 8, lineHeight: "22px" }}>{feat.title}</p>
+                <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8" }}>{feat.body}</p>
               </div>
             ))}
           </div>
-          <div style={{ background: "#1C1C24", borderRadius: 12, padding: "16px 14px" }}>
-            <p style={{ fontSize: 14, fontWeight: 600, color: "white", marginBottom: 6, lineHeight: "20px" }}>Chat History</p>
-            <p style={{ fontSize: 13, lineHeight: "19px", color: "#7070A0" }}>Allowing users to revisit past interactions with AI for reference and continuity.</p>
+          <div style={{ background: "#1C1C24", borderRadius: 12, padding: "20px" }}>
+            <p style={{ fontSize: 16, fontWeight: 500, color: "white", marginBottom: 8, lineHeight: "22px" }}>Chat History</p>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8" }}>Allowing users to revisit past interactions with AI for reference and continuity.</p>
           </div>
         </div>
       </div>
 
       {/* Intense-only: Research → Takeaways */}
       {view === "intense" && (
-        <div style={section("white", 56)}>
+        <div style={section("white", 64)}>
           <div style={{ ...inner, paddingBottom: 24 }}>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Research</h2>
             <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 32 }}>
@@ -1388,12 +1386,12 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
               </p>
             </div>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "#14191F" }}>Design Decisions</h2>
-            <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Redesigned Ask AI Button for Better Discoverability</h3>
+            <h3 style={{ fontSize: 20, fontWeight: 500, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Redesigned Ask AI Button for Better Discoverability</h3>
             <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
               Instead of a small button, we introduced a wide input field to make the feature more prominent and intuitive. This change increased engagement by making it immediately clear where users could ask AI-related queries.
             </p>
             <img src="/project-2/4.png" alt="Design decision - Ask AI button" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
-            <h3 style={{ fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Introduced Tabs for User Notes and Ask AI</h3>
+            <h3 style={{ fontSize: 20, fontWeight: 500, lineHeight: "28px", marginBottom: 12, color: "#14191F" }}>Introduced Tabs for User Notes and Ask AI</h3>
             <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 24 }}>
               To create a more structured experience, we introduced separate tabs—one for user-generated notes and another dedicated to AI interactions. This separation reduced cognitive overload and allowed users to efficiently manage both their notes and AI-generated insights.
             </p>
@@ -1609,7 +1607,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
   const phStyle = (h: number, mb = 48): React.CSSProperties => ({ background: "#E0E0E3", borderRadius: 14, height: h, marginBottom: mb });
   const phDark = (h: number, mb = 32): React.CSSProperties => ({ background: "#1C1C24", borderRadius: 14, height: h, marginBottom: mb });
   const h2Style: React.CSSProperties = { fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" };
-  const h3Style: React.CSSProperties = { fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" };
+  const h3Style: React.CSSProperties = { fontSize: 20, fontWeight: 500, lineHeight: "28px", marginBottom: 12, color: "#14191F" };
   const bodyStyle: React.CSSProperties = { fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" };
   const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto" };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
@@ -1658,19 +1656,19 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           "See the number of rounds and its details.",
           "Schedule interview for each candidate individually",
         ].map((text, i) => (
-          <div key={i} style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "16px 14px" }}>
+          <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
             <p style={{ fontSize: 13, fontWeight: 600, color: "#14191F", marginBottom: 6 }}>User wants to</p>
             <p style={{ fontSize: 14, lineHeight: "20px", color: "#555" }}>{text}</p>
           </div>
         ))}
       </div>
-      <div style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "16px 14px", marginBottom: 32 }}>
+      <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
         <p style={{ fontSize: 13, fontWeight: 600, color: "#14191F", marginBottom: 6 }}>User wants to</p>
         <p style={{ fontSize: 14, lineHeight: "20px", color: "#555" }}>See the candidate status and progress in the interview event.</p>
       </div>
 
       {/* Constraint Note */}
-      <div style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
+      <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
         <p style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: "#14191F" }}>Note</p>
         {[
           "Creation and editing of an interview event are currently not possible due to technical issues. Therefore, the interview event will be created and edited within the job requisition module. Hence each interview event should be connected with a job requisition.",
@@ -1688,7 +1686,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           "Easier, faster and more flexible ways to manage interviews",
           "Making search and filtering candidates simple to schedule interview's quickly",
         ].map((g, i) => (
-          <div key={i} style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "18px 16px" }}>
+          <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
             <p style={{ fontSize: 15, fontWeight: 500, lineHeight: "22px", color: "#14191F" }}>{g}</p>
           </div>
         ))}
@@ -1699,7 +1697,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
       {view === "intense" && (
         <>
           {/* Dark section: Research + Wireframe + Solution */}
-          <div style={section("#131215", 56)}>
+          <div style={section("#131215", 64)}>
           <div style={inner}>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Research</h2>
             <img src="/project-4/2.webp" alt="Research 1" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 16 }} />
@@ -1709,25 +1707,25 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
             <img src="/project-4/4.gif" alt="Wireframe" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
 
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Solution</h2>
-            <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 24 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 24 }}>
               The solution features simplified navigation, a clear visual hierarchy, and scalability, achieved using an in-house design system I created.
             </p>
             <img src="/project-4/5.webp" alt="Solution" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 24 }} />
-            <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 16 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 16 }}>
               Introducing the home screen of the Interview Control Center. This page includes key event metrics, a table that provides an overview of all events with various statuses, and options for search and filter to find the events quickly.
             </p>
-            <p style={{ fontSize: 14, color: "#7070A0", marginBottom: 10 }}>Through this table, users gain insights into:</p>
-            <ul style={{ fontSize: 14, lineHeight: "21px", color: "#7070A0", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 10 }}>Through this table, users gain insights into:</p>
+            <ul style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
               <li>Interviews, including start and end dates</li>
               <li>Displays names of the primary recruiter and hiring manager</li>
               <li>Shows the number of panelists and candidates</li>
               <li>Provides an option to download reports</li>
             </ul>
-            <p style={{ fontSize: 14, lineHeight: "21px", color: "#7070A0" }}>This helps in managing multiple interview events simultaneously.</p>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8" }}>This helps in managing multiple interview events simultaneously.</p>
           </div>
           </div>
 
-          <div style={section("white", 56)}>
+          <div style={section("white", 64)}>
           <div style={{ ...inner, paddingBottom: 24 }}>
           {/* Monitoring and Managing Interviews */}
           <h2 style={{ ...h2Style }}>Monitoring and Managing Interviews</h2>
