@@ -2384,6 +2384,8 @@ export const Desktop = (): JSX.Element => {
       responseType: pendingType,
     };
     setHistory((h) => [...h, currentEntry]);
+    setActiveCaseStudy(null);
+    setCaseStudyFullscreen(false);
 
     setPendingQuery(item.query);
     setPendingType(item.id);
@@ -2694,7 +2696,7 @@ export const Desktop = (): JSX.Element => {
                             <ResumeCard />
                           )}
 
-                          {!activeCaseStudy && streamComplete && suggestedItems.length > 0 && (
+                          {streamComplete && suggestedItems.length > 0 && (
                             <div className="animate-stream-line" style={{ marginTop: 40 }}>
                               <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
                                 More Options:
