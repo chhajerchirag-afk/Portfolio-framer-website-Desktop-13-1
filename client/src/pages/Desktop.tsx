@@ -1033,7 +1033,10 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           { number: "62%", arrow: "↑", label: "Recruiters spent more time on manual tasks (sourcing, tracking and follow-ups)" },
           { number: "47%", arrow: "↓", label: "Hiring outcomes and momentum declined" },
         ].map((stat, i) => (
-          <div key={i} style={{ background: "#F7F7F7", borderRadius: 12, padding: "20px 16px" }}>
+          <div
+            key={i}
+            style={{ background: "#F7F7F7", borderRadius: 12, padding: "20px 16px" }}
+            className="bg-[#EAECED] pl-[20px] pr-[20px]">
             <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10, color: "#D0392B" }}>
               {stat.number}{stat.arrow}
             </div>
