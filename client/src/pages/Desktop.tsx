@@ -1091,6 +1091,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 { highlight: "64%", desc: "Recruiters abandoning automation during setup" },
                 { highlight: "Avg 2.4 hrs", desc: "to configure one hiring campaign" },
               ],
+              img: "/project-1/1.png",
             },
             {
               label: "Pain Point 2: Channel Silos",
@@ -1098,11 +1099,13 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               stats: [
                 { highlight: "39%", desc: "missed follow-ups due to fragmented flows" },
               ],
+              img: "/project-1/2.png",
             },
             {
               label: "Pain Point 3: Limited Scalability",
               body: "Automation could not scale across hiring scenarios, forcing admins to repeatedly rebuild similar journeys.",
               stats: [],
+              img: "/project-1/3.png",
             },
           ].map((pp, i) => (
             <div key={i} style={{ marginBottom: 48 }}>
@@ -1119,7 +1122,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 </div>
               )}
               <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid #e5e5e5", background: "white", padding: "16px" }}>
-                <img src={uiTile1} alt={pp.label} style={{ width: "100%", borderRadius: 8, display: "block" }} />
+                <img src={pp.img} alt={pp.label} style={{ width: "100%", borderRadius: 8, display: "block" }} />
               </div>
             </div>
           ))}
@@ -1145,7 +1148,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginTop: 12, marginBottom: 48 }}>That mismatch created friction.</p>
 
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, letterSpacing: "0", color: "#14191F" }}>Initial Conceptualising Using Lovable</h2>
-          <div style={{ background: "#F7F7F7", borderRadius: 14, height: 320, marginBottom: 48 }} />
+          <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 48 }}>
+            <img src="/project-1/4.png" alt="Initial Conceptualising" style={{ width: "100%", display: "block" }} />
+          </div>
 
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 32, letterSpacing: "0", color: "#14191F" }}>Design Iterations</h2>
 
@@ -1172,7 +1177,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 </div>
               ))}
             </div>
-            <div style={{ background: "#F7F7F7", borderRadius: 14, height: 280, marginBottom: 16 }} />
+            <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 16 }}>
+              <img src="/project-1/5.png" alt="V1 Design" style={{ width: "100%", display: "block" }} />
+            </div>
             <div style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 20px" }}>
               <p style={{ fontSize: 14, fontWeight: 600, color: "#171717", marginBottom: 10 }}>V1 revealed an uncomfortable truth:</p>
               {[
@@ -1209,7 +1216,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 </div>
               ))}
             </div>
-            <div style={{ background: "#F7F7F7", borderRadius: 14, height: 280, marginBottom: 16 }} />
+            <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 16 }}>
+              <img src="/project-1/6.png" alt="V2 Design" style={{ width: "100%", display: "block" }} />
+            </div>
             <div style={{ background: "#F7F7F7", borderRadius: 12, padding: "16px 20px" }}>
               <p style={{ fontSize: 14, fontWeight: 600, color: "#171717", marginBottom: 10 }}>Learnings from V2:</p>
               {[
@@ -1247,21 +1256,25 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 n: "#1", title: "Linear Stages Over Decision Trees",
                 shift: "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching.",
                 worked: "Admins define what the agent accomplishes at each stage, not how. This aligned with how recruiters naturally think about hiring work.",
+                img: "/project-1/7.png",
               },
               {
                 n: "#2", title: "Contextual Intervention Points",
                 shift: "Added visible 'human handoff triggers' so recruiters know when and how to step in.",
                 worked: "Preserved AI momentum while giving recruiters control at critical moments.",
+                img: "/project-1/8.png",
               },
               {
                 n: "#3", title: "Reusable Module Library",
                 shift: "Built a library of pre-configured modules (screening questions, greetings, scheduling logic) that admins can drag, drop, and customize.",
                 worked: "Eliminated repetitive setup work while maintaining flexibility.",
+                img: "/project-1/9.png",
               },
               {
                 n: "#4", title: "Unified Multimodal Context",
                 shift: "Created shared context across chat, SMS, and voice so conversations continue seamlessly between channels.",
                 worked: "Candidates no longer had to repeat information when switching channels.",
+                img: "/project-1/10.png",
               },
             ].map((point, j) => (
               <div key={j} style={{ marginBottom: 44 }}>
@@ -1273,7 +1286,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 <p style={{ fontSize: 14, lineHeight: "1.7", color: "#7070A0", marginBottom: 20 }}>
                   <span style={{ color: "#555", fontWeight: 600 }}>Why it worked: </span>{point.worked}
                 </p>
-                <div style={{ background: "#1C1C24", borderRadius: 12, height: 200 }} />
+                <div style={{ borderRadius: 12, overflow: "hidden" }}>
+                  <img src={point.img} alt={point.title} style={{ width: "100%", display: "block" }} />
+                </div>
               </div>
             ))}
 
@@ -1294,14 +1309,8 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             <p style={{ fontSize: 15, lineHeight: "1.7", color: "#9090B0", marginBottom: 24 }}>
               The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
             </p>
-            <div style={{ background: "#1C1C24", borderRadius: 14, padding: "20px 24px" }}>
-              <p style={{ fontSize: 13, fontWeight: 600, color: "#555", marginBottom: 8 }}>Example:</p>
-              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#9090B0", marginBottom: 12, fontStyle: "italic" }}>
-                "Create an agent to screen candidates who have already applied to open roles and assess their suitability"
-              </p>
-              <p style={{ fontSize: 14, lineHeight: "1.7", color: "#9090B0" }}>
-                The system orchestrates execution across reusable modules. Conversations move seamlessly across chat, SMS, and voice while preserving context.
-              </p>
+            <div style={{ background: "#1F1E1C", borderRadius: 14, padding: "20px", border: "1px solid #33322F" }}>
+              <img src="/project-1/cover.gif" alt="Solution Preview" style={{ width: "100%", borderRadius: 10, display: "block" }} />
             </div>
           </div>
         </>
