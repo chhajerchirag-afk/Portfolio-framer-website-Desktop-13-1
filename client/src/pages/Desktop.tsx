@@ -996,14 +996,14 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           borderRadius: 16,
           overflow: "hidden",
           marginBottom: 64,
-          backgroundImage: "url('/project-1/hero-proj-1.png')",
+          backgroundImage: "url('/project-1/hero-proj-1.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           padding: "20px",
         }}
       >
         <img
-          src="/project-1/Adobe Express - Screen Recording 2026-01-29 at 11.58.20 AM.gif"
+          src="/project-1/cover.gif"
           alt="AI Agents for HR Teams UI"
           style={{ width: "100%", borderRadius: 10, display: "block" }}
         />
