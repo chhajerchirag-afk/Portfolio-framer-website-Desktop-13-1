@@ -1513,6 +1513,179 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
   );
 }
 
+function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
+  const phStyle = (h: number, mt = 32, mb = 0): React.CSSProperties => ({
+    background: "#E8E8EA", borderRadius: 14, height: h, marginTop: mt, marginBottom: mb,
+  });
+
+  const senderBubble = (
+    initials: string,
+    role: string,
+    children: React.ReactNode,
+    key?: number
+  ) => (
+    <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 20 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "#14191F", fontFamily: "Inter, sans-serif" }}>{initials}</span>
+        <span style={{ fontSize: 11, color: "#9B9B9B", fontFamily: "Inter, sans-serif" }}>• {role}</span>
+      </div>
+      <div style={{
+        background: "white", border: "0.5px solid #E0E0E0", borderRadius: "4px 14px 14px 14px",
+        padding: "14px 16px", maxWidth: 480, fontSize: 15, lineHeight: "22px",
+        color: "#14191F", fontFamily: "Inter, sans-serif",
+      }}>
+        {children}
+      </div>
+    </div>
+  );
+
+  const myBubble = (children: React.ReactNode, key?: number) => (
+    <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginBottom: 20 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "#14191F", fontFamily: "Inter, sans-serif" }}>Me</span>
+        <span style={{ fontSize: 11, color: "#9B9B9B", fontFamily: "Inter, sans-serif" }}>• Product Designer</span>
+      </div>
+      <div style={{
+        background: "#1B72E8", borderRadius: "14px 4px 14px 14px",
+        padding: "14px 16px", maxWidth: 480, fontSize: 15, lineHeight: "22px",
+        color: "white", fontFamily: "Inter, sans-serif",
+      }}>
+        {children}
+      </div>
+    </div>
+  );
+
+  const divider = (label: string) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 16, margin: "32px 0", color: "#9B9B9B" }}>
+      <div style={{ flex: 1, height: 1, background: "#E0E0E0" }} />
+      <span style={{ fontSize: 12, fontFamily: "'JetBrains Mono', monospace", whiteSpace: "nowrap", letterSpacing: "0.03em" }}>{label}</span>
+      <div style={{ flex: 1, height: 1, background: "#E0E0E0" }} />
+    </div>
+  );
+
+  const avatarRow = (label: string) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "28px 0 32px", justifyContent: "center" }}>
+      <div style={{ display: "flex" }}>
+        {["#C5D8F7", "#F7D4C5", "#D4C5F7"].map((bg, i) => (
+          <div key={i} style={{
+            width: 34, height: 34, borderRadius: "50%", background: bg,
+            border: "2px solid white", marginLeft: i === 0 ? 0 : -8,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 15,
+          }}>
+            {["🧑‍💼","👩‍💻","🧑‍🎨"][i]}
+          </div>
+        ))}
+      </div>
+      <span style={{ fontSize: 12, fontFamily: "'JetBrains Mono', monospace", color: "#555", letterSpacing: "0.03em" }}>{label}</span>
+    </div>
+  );
+
+  return (
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "60px 0 80px", fontFamily: "Inter, sans-serif", color: "#14191F" }}>
+
+      {/* Title */}
+      <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 56, color: "#14191F" }}>
+        Defining the MVP for an AI-Powered Candidate Video Experience
+      </h1>
+
+      {/* Meeting kickoff */}
+      {avatarRow("+4 Joined the Meeting")}
+
+      {senderBubble("SD", "Managing Director",
+        "Hey everyone! We're running a 2-week AI hackathon and looking for innovative solutions that can be designed and built within that timeframe using AI tools. Think V1 — lean, essential features only."
+      )}
+
+      {senderBubble("SD", "Managing Director",
+        <div>
+          <p style={{ marginBottom: 10 }}>Here are your topic:</p>
+          <ul style={{ paddingLeft: 18, marginBottom: 12, display: "flex", flexDirection: "column", gap: 4 }}>
+            <li>AI Notetaker - Team A</li>
+            <li>AI Receptionist - Team B</li>
+            <li>Video AI - Team C [🧑‍💻 Me]</li>
+            <li>AI Powered Career Sites - Team D</li>
+            <li>ROI Agent - Team E</li>
+          </ul>
+          <p>The best project wins a cash prize. Good luck, and thanks for joining!</p>
+        </div>
+      )}
+
+      {myBubble("Thank you")}
+
+      {divider("Meeting Ended")}
+
+      {senderBubble("AG", "Product Manger",
+        "Let's keep this interesting but realistic and something we can actually ship in two weeks."
+      )}
+
+      {myBubble("Agreed. Let's start with a competitor analysis to map out the possible features, then narrow down to what's achievable.")}
+
+      {senderBubble("AG", "Product Manger", "Sounds good. Let's connect tomorrow.")}
+
+      {divider("Next Day")}
+
+      {myBubble("Hey AG! I've been looking into a few competitors like Alex AI and a few others, and explored their design patterns.")}
+
+      {senderBubble("AG", "Product Manger",
+        "Same here. I checked out Alex AI and a couple of others. I'm thinking we focus on two core problems and a dynamic AI powered screening flow and fraud detection."
+      )}
+
+      {senderBubble("AG", "Product Manger",
+        "A lot of competitors have failed because they couldn't crack fraud detection and proctoring. We need to get that right. I'm putting together a one-pager PRD for approval and in the meantime, go ahead and work on the candidate experience flow based on your understanding. We can sync up and align our ideas after."
+      )}
+
+      {myBubble("Sure!")}
+
+      {divider("3 hours later")}
+
+      {avatarRow("Meeting Started")}
+
+      {myBubble(
+        <div>
+          <p style={{ fontSize: 12, opacity: 0.75, marginBottom: 6, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.02em" }}>Presented the demo built on v0</p>
+          <p>Quick demo time — I put this together on v0. It covers the full candidate experience.</p>
+        </div>
+      )}
+
+      {senderBubble("DP", "Director or Product Management",
+        "This looks great! A couple of things — add initial verification, and think through how we surface fraud detection findings post-analysis. Full fraud detection in two weeks is ambitious, but we could incorporate it into the candidate evaluation report using a third-party vendor for analysis. Let's focus on that angle."
+      )}
+
+      {myBubble("Got it! I'll add that and work on the final version in Lovable.")}
+
+      {divider("Meeting Ended")}
+
+      {senderBubble("AG", "Product Manger",
+        <div>
+          {/* PRD attachment card */}
+          <div style={{
+            background: "#F5F5F7", border: "0.5px solid #E0E0E0", borderRadius: 10,
+            padding: "10px 12px", marginBottom: 10, display: "flex", alignItems: "center", gap: 10,
+          }}>
+            <div style={{ width: 32, height: 40, background: "#E0E0E8", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="14" rx="2" fill="#9090B0"/><rect x="5" y="5" width="6" height="1" rx="0.5" fill="white"/><rect x="5" y="8" width="6" height="1" rx="0.5" fill="white"/><rect x="5" y="11" width="4" height="1" rx="0.5" fill="white"/></svg>
+            </div>
+            <div>
+              <p style={{ fontSize: 12, fontWeight: 600, color: "#14191F", marginBottom: 2 }}>Product Requirement Document</p>
+              <p style={{ fontSize: 11, color: "#9B9B9B" }}>AI Video Interview Agent Automated Screening Interview</p>
+            </div>
+          </div>
+          <p>Chirag, here's the final PRD. Let me know if you have any questions!</p>
+        </div>
+      )}
+
+      {myBubble("Thanks, will go through it!")}
+
+      {divider("Prototype Delivered")}
+
+      <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 0 }}>
+        Here is the initial prototype I created for the hackathon using Lovable.
+      </p>
+      <div style={phStyle(360, 24, 0)} />
+    </div>
+  );
+}
+
 function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) {
   const phStyle = (h: number, mb = 48): React.CSSProperties => ({ background: "#E0E0E3", borderRadius: 14, height: h, marginBottom: mb });
   const phDark = (h: number, mb = 32): React.CSSProperties => ({ background: "#1C1C24", borderRadius: 14, height: h, marginBottom: mb });
@@ -1929,6 +2102,8 @@ function CaseStudyBrowser({
           <AIAgentsHRContent view={view} />
         ) : studyId === "reimagining-ai" ? (
           <ReimaginingAIContent view={view} />
+        ) : studyId === "mvp-video-ai" ? (
+          <MVPVideoAIContent view={view} />
         ) : studyId === "interview-scheduling" ? (
           <InterviewSchedulingContent view={view} />
         ) : (
@@ -2042,6 +2217,8 @@ function CaseStudyBottomSheet({
             <AIAgentsHRContent view={view} />
           ) : studyId === "reimagining-ai" ? (
             <ReimaginingAIContent view={view} />
+          ) : studyId === "mvp-video-ai" ? (
+            <MVPVideoAIContent view={view} />
           ) : studyId === "interview-scheduling" ? (
             <InterviewSchedulingContent view={view} />
           ) : (
