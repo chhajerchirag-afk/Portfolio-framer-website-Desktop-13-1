@@ -1276,8 +1276,8 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
 
   return (
     <div style={{ width: "100%", fontFamily: "Inter, sans-serif", color: "#14191F" }}>
-      {/* White section: title → Understanding the Problems */}
-      <div style={section("white", 60)}>
+      {/* #F2F3F4 section: title → hero → Context */}
+      <div style={section("#F2F3F4", 60)}>
         <div style={inner}>
           <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
             Reimagining the<br />AI Experience for Users
@@ -1285,16 +1285,22 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
           <p style={{ fontSize: 16, lineHeight: "24px", letterSpacing: "0", color: "#14191F", marginBottom: 56 }}>
             I led the end-to-end design of the "Thread Page," from problem research to implementation, incorporating continuous team feedback. This page serves as a dedicated space where users can store YouTube videos for learning and reference.
           </p>
-          <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #2d2640 0%, #1a2a4a 40%, #0d3354 70%, #1a3a5c 100%)", padding: "20px" }}>
-            <img src="/project-2/project-2-cover.png" alt="Reimagining AI Experience" style={{ width: "100%", borderRadius: 10, display: "block" }} />
+          <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64 }}>
+            <img src="/project-2/project-2-cover.png" alt="Reimagining AI Experience" style={{ width: "100%", display: "block", objectFit: "cover" }} />
           </div>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Context</h2>
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
             In the age of information overload, video-based learning has become a dominant medium for acquiring knowledge. However, retaining and organizing key insights from long-form videos remains a challenge. <span style={{ textDecoration: "underline" }}>Gistr</span>, an AI-powered tool, was designed to solve this problem by enabling users to clip key moments, generate summaries, take smart notes, and extract insights effortlessly.
           </p>
-          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 64 }}>
+          <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" }}>
             While the initial goal was to integrate AI as a support mechanism for note-taking and comprehension on <span style={{ textDecoration: "underline" }}>Gistr</span>, user behavior told a different story.
           </p>
+        </div>
+      </div>
+
+      {/* White section: Problem Statement → Understanding the Problems */}
+      <div style={section("white", 64)}>
+        <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Problem Statement</h2>
           <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 32 }}>
             During the initial ideation phase, the vision for Gistr was to create a YouTube learning tool with note-taking capabilities, integrating AI as a support mechanism for comprehension. However, user behavior revealed a different set of needs and expectations.
