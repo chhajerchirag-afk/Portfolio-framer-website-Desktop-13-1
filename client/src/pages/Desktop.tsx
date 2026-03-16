@@ -2540,6 +2540,10 @@ export const Desktop = (): JSX.Element => {
                   }}
                 >
                   <div
+                    className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
+                    style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
+                  />
+                  <div
                     ref={scrollRef}
                     className="h-full overflow-y-auto hide-scrollbar"
                     style={activeCaseStudy ? {
