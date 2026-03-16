@@ -1046,7 +1046,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               marginBottom: 10,
               color: "#7C0505",
             }}>
-              {stat.number}{stat.arrow}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
+                <span>{stat.number}</span><span>{stat.arrow}</span>
+              </span>
             </div>
             <div style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>{stat.label}</div>
           </div>
@@ -1060,13 +1062,13 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, letterSpacing: "0", color: "#14191F" }}>My Role</h2>
           <div style={{ marginBottom: 32 }}>
             {["Defined end-to-end conversational journeys", "Designed conversation logic, edge cases and fallback states", "Shaped success metrics with PM + Eng"].map((r, i) => (
-              <div key={i} style={{ fontSize: 14, lineHeight: "1.8", color: "#333" }}>{r}</div>
+              <div key={i} style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>{r}</div>
             ))}
           </div>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, letterSpacing: "0", color: "#14191F" }}>Team</h2>
           <div style={{ marginBottom: 48 }}>
             {["1x Product Designer", "1x Lead Product Designer", "2x Product Manager", "4x Engineers"].map((r, i) => (
-              <div key={i} style={{ fontSize: 14, lineHeight: "1.8", color: "#333" }}>{r}</div>
+              <div key={i} style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>{r}</div>
             ))}
           </div>
 
@@ -1977,7 +1979,7 @@ function CaseStudyBrowser({
           justifyContent: "space-between",
           padding: "0 12px",
           borderBottom: "0.5px solid #d9d9d9",
-          background: "#F6F6F7",
+          background: "white",
           gap: 12,
         }}
       >
