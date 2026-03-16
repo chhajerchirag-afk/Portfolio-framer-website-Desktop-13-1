@@ -613,7 +613,6 @@ const caseStudies = [
 ];
 
 function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string) => void; singleColumn?: boolean; selectedId?: string | null }) {
-  const isMobile = useIsMobile();
   const chipRef = useRef<HTMLDivElement>(null);
   const [chipVisible, setChipVisible] = useState(false);
 
@@ -626,8 +625,8 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
 
   return (
     <>
-      {/* Custom cursor chip — follows mouse, portal-style via fixed positioning (desktop only) */}
-      {!isMobile && <div
+      {/* Custom cursor chip — follows mouse, portal-style via fixed positioning */}
+      <div
         ref={chipRef}
         style={{
           position: "fixed",
@@ -652,7 +651,7 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
         }}
       >
         View Project
-      </div>}
+      </div>
 
       <div className={`grid grid-cols-1 ${singleColumn ? "" : "md:grid-cols-2"} mt-6 animate-stream-line`} style={{ gap: 20 }}>
         {caseStudies.map((study, i) => {
@@ -667,19 +666,20 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
             style={{
               gap: 10,
               opacity: 0,
-              cursor: isMobile ? "pointer" : "none",
+              cursor: "none",
               animation: "fadeInTile 0.45s ease forwards",
               animationDelay: `${i * 0.12}s`,
               transition: "opacity 0.2s ease",
             }}
-            onMouseEnter={isMobile ? undefined : () => setChipVisible(true)}
-            onMouseLeave={isMobile ? undefined : () => setChipVisible(false)}
-            onMouseMove={isMobile ? undefined : handleMouseMove}
+            onMouseEnter={() => setChipVisible(true)}
+            onMouseLeave={() => setChipVisible(false)}
+            onMouseMove={handleMouseMove}
           >
             <div
               className="relative overflow-hidden rounded-2xl flex-shrink-0"
               style={{
                 width: "100%",
+                maxWidth: 350,
                 height: 240,
                 outline: isSelected ? "2px solid #171717" : "2px solid transparent",
                 outlineOffset: 2,
@@ -2277,7 +2277,7 @@ export const Desktop = (): JSX.Element => {
 
   const smoothScrollToBottom = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: isMobile ? 'instant' : 'smooth' });
+      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
     }
   };
 
@@ -2519,9 +2519,9 @@ export const Desktop = (): JSX.Element => {
           isMobile ? (
             /* ── Mobile: normal chat + bottom sheet overlay ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 flex-shrink-0 relative z-20" style={{ height: 66 }}>
-                <button onClick={handleReset} data-testid="button-logo-home" style={{ display: 'flex', alignItems: 'center', padding: 0, border: 'none', background: 'transparent', cursor: 'pointer' }}>
-                  <img className="w-[72px] h-[28px]" style={{ display: 'block' }} alt="Logo" src="/figmaAssets/vector-22.svg" />
+              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+                <button onClick={handleReset} data-testid="button-logo-home">
+                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
@@ -2532,13 +2532,9 @@ export const Desktop = (): JSX.Element => {
                   style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
                 />
                 <div
-                  className="absolute bottom-0 left-0 right-0 h-16 z-10 pointer-events-none"
-                  style={{ background: "linear-gradient(to top, white 0%, transparent 100%)" }}
-                />
-                <div
                   ref={scrollRef}
                   className="h-full overflow-y-auto pt-2 hide-scrollbar"
-                  style={{ width: "100%", maxWidth: "min(720px, calc(100% - 40px))", marginLeft: "auto", marginRight: "auto", paddingBottom: 80, transform: "translateZ(0)", willChange: "scroll-position" }}
+                  style={{ width: "100%", maxWidth: "min(720px, calc(100% - 40px))", marginLeft: "auto", marginRight: "auto", paddingBottom: 80 }}
                 >
                   <div ref={scrollContentRef}>
                     {history.map((entry, i) => (<CompletedEntry key={i} entry={entry} />))}
@@ -2575,10 +2571,10 @@ export const Desktop = (): JSX.Element => {
             </div>)
           ) : activeCaseStudy && caseStudyFullscreen ? (
             /* ── Full-screen case study ── */
-            (<div className="relative w-full h-full flex flex-col bg-white animate-panel-expand">
-              <div className="flex items-center justify-between px-5 flex-shrink-0 relative z-20" style={{ height: 66 }}>
-                <button onClick={handleReset} data-testid="button-logo-home" style={{ display: 'flex', alignItems: 'center', padding: 0, border: 'none', background: 'transparent', cursor: 'pointer' }}>
-                  <img className="w-[86px] h-[34px]" style={{ display: 'block' }} alt="Logo" src="/figmaAssets/vector-22.svg" />
+            (<div className="relative w-full h-full flex flex-col bg-white">
+              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+                <button onClick={handleReset} data-testid="button-logo-home">
+                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
@@ -2597,9 +2593,9 @@ export const Desktop = (): JSX.Element => {
           ) : (
             /* ── Unified chat view (animates into 30/70 split when case study opens) ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 flex-shrink-0 relative z-20" style={{ height: 66 }}>
-                <button onClick={handleReset} data-testid="button-logo-home" style={{ display: 'flex', alignItems: 'center', padding: 0, border: 'none', background: 'transparent', cursor: 'pointer' }}>
-                  <img className="w-[86px] h-[34px]" style={{ display: 'block' }} alt="Logo" src="/figmaAssets/vector-22.svg" />
+              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+                <button onClick={handleReset} data-testid="button-logo-home">
+                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
@@ -2621,10 +2617,6 @@ export const Desktop = (): JSX.Element => {
                       style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
                     />
                   )}
-                  <div
-                    className="absolute bottom-0 left-0 right-0 h-16 z-10 pointer-events-none"
-                    style={{ background: "linear-gradient(to top, white 0%, transparent 100%)" }}
-                  />
                   <div
                     ref={scrollRef}
                     className="h-full overflow-y-auto hide-scrollbar"
