@@ -2512,23 +2512,19 @@ export const Desktop = (): JSX.Element => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
               </div>
-              <div className="flex-1 overflow-hidden flex" style={{ minHeight: 0 }}>
-                {/* Left: chat panel — stays mounted, width transitions smoothly */}
+              <div className="flex-1 overflow-hidden" style={{ minHeight: 0, position: "relative" }}>
+                {/* Left: chat panel — width transitions from 100% to 30% */}
                 <div
                   style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
                     width: activeCaseStudy ? "30%" : "100%",
-                    transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
-                    flexShrink: 0,
+                    transition: "width 0.38s ease-out",
                     overflow: "hidden",
-                    position: "relative",
                   }}
                 >
-                  {!activeCaseStudy && (
-                    <div
-                      className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
-                      style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
-                    />
-                  )}
                   <div
                     ref={scrollRef}
                     className="h-full overflow-y-auto hide-scrollbar"
@@ -2613,25 +2609,28 @@ export const Desktop = (): JSX.Element => {
                   </div>
                 </div>
 
-                {/* Right: browser panel — slides in from the right */}
+                {/* Right: browser panel — slides in with transform (GPU-accelerated, no reflow) */}
                 <div
                   style={{
-                    width: activeCaseStudy ? "70%" : "0%",
-                    transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
-                    flexShrink: 0,
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    width: "70%",
+                    transform: activeCaseStudy ? "translateX(0)" : "translateX(100%)",
+                    transition: "transform 0.38s ease-out",
                     overflow: "hidden",
+                    willChange: "transform",
                   }}
                 >
-                  {activeCaseStudy && (
-                    <CaseStudyBrowser
-                      studyId={activeCaseStudy}
-                      fullscreen={false}
-                      onToggleFullscreen={() => setCaseStudyFullscreen(true)}
-                      view={caseStudyView}
-                      onViewChange={setCaseStudyView}
-                      onNavigate={setActiveCaseStudy}
-                    />
-                  )}
+                  <CaseStudyBrowser
+                    studyId={activeCaseStudy ?? caseStudies[0].id}
+                    fullscreen={false}
+                    onToggleFullscreen={() => setCaseStudyFullscreen(true)}
+                    view={caseStudyView}
+                    onViewChange={setCaseStudyView}
+                    onNavigate={setActiveCaseStudy}
+                  />
                 </div>
               </div>
             </div>)
