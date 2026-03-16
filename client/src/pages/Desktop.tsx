@@ -1035,14 +1035,20 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
         ].map((stat, i) => (
           <div
             key={i}
-            style={{ background: "#F7F7F7", borderRadius: 12, padding: "20px 16px" }}
-            className="bg-[#EAECED] pl-[20px] pr-[20px]">
-            <div
-              style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10, color: "#D0392B" }}
-              className="text-[#7C0505] text-[24px] font-semibold">
+            style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}
+          >
+            <div style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 24,
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              lineHeight: "36px",
+              marginBottom: 10,
+              color: "#7C0505",
+            }}>
               {stat.number}{stat.arrow}
             </div>
-            <div style={{ fontSize: 13, lineHeight: "1.5", color: "#555" }}>{stat.label}</div>
+            <div style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>{stat.label}</div>
           </div>
         ))}
       </div>
@@ -2569,60 +2575,8 @@ export const Desktop = (): JSX.Element => {
                 />
               </div>
             </div>)
-          ) : activeCaseStudy ? (
-            /* ── Split view: 30% chat + 70% browser ── */
-            (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
-                </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
-                <AnimatedClock time={time} />
-              </div>
-              <div
-                className="flex-1 overflow-hidden"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "3fr 7fr",
-                  paddingLeft: 40,
-                  paddingRight: 0,
-                  gap: 40,
-                  paddingBottom: 8,
-                }}
-              >
-                {/* Left: conversation panel */}
-                <div className="h-full overflow-y-auto hide-scrollbar" style={{ paddingTop: 4 }}>
-                  {history.map((entry, i) => (
-                    <CompletedEntry key={i} entry={entry} />
-                  ))}
-                  {pendingQuery && <UserBubble message={pendingQuery} />}
-                  {activePhase === "reasoning" && (
-                    <ActiveReasoning steps={reasoningSteps[pendingType]} currentStep={reasoningStep} />
-                  )}
-                  {(activePhase === "streaming" || activePhase === "done") && (
-                    <>
-                      <CollapsibleReasoning steps={reasoningSteps[pendingType]} defaultCollapsed={true} />
-                      <WordStreamingText key={streamKey} blocks={responseBlocks[pendingType]} onComplete={handleStreamComplete} />
-                      {pendingType === "work" && streamComplete && (
-                        <WorkCards singleColumn selectedId={activeCaseStudy} onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
-                      )}
-                      {pendingType === "resume" && streamComplete && <ResumeCard />}
-                    </>
-                  )}
-                </div>
-                {/* Right: browser panel */}
-                <CaseStudyBrowser
-                  studyId={activeCaseStudy}
-                  fullscreen={false}
-                  onToggleFullscreen={() => setCaseStudyFullscreen(true)}
-                  view={caseStudyView}
-                  onViewChange={setCaseStudyView}
-                  onNavigate={setActiveCaseStudy}
-                />
-              </div>
-            </div>)
           ) : (
-            /* ── Normal chat view ── */
+            /* ── Unified chat view (animates into 30/70 split when case study opens) ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home">
@@ -2631,75 +2585,119 @@ export const Desktop = (): JSX.Element => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
               </div>
-              <div className="relative flex-1 overflow-hidden">
+              <div className="flex-1 overflow-hidden flex" style={{ minHeight: 0 }}>
+                {/* Left: chat panel — stays mounted, width transitions smoothly */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
-                  style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
-                />
-                <div
-                  ref={scrollRef}
-                  className="h-full overflow-y-auto pb-8 pt-2 hide-scrollbar"
                   style={{
-                    width: "100%",
-                    maxWidth: "min(720px, calc(100% - 40px))",
-                    marginLeft: "auto",
-                    marginRight: "auto",
+                    width: activeCaseStudy ? "30%" : "100%",
+                    transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
+                    flexShrink: 0,
+                    overflow: "hidden",
+                    position: "relative",
                   }}
                 >
-                  <div ref={scrollContentRef}>
-                    {history.map((entry, i) => (
-                      <CompletedEntry key={i} entry={entry} />
-                    ))}
+                  {!activeCaseStudy && (
+                    <div
+                      className="absolute top-0 left-0 right-0 h-8 z-10 pointer-events-none"
+                      style={{ background: "linear-gradient(to bottom, white 0%, transparent 100%)" }}
+                    />
+                  )}
+                  <div
+                    ref={scrollRef}
+                    className="h-full overflow-y-auto hide-scrollbar"
+                    style={activeCaseStudy ? {
+                      paddingLeft: 40,
+                      paddingTop: 4,
+                      paddingBottom: 8,
+                    } : {
+                      width: "100%",
+                      maxWidth: "min(720px, calc(100% - 40px))",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      paddingTop: 8,
+                      paddingBottom: 32,
+                    }}
+                  >
+                    <div ref={scrollContentRef}>
+                      {history.map((entry, i) => (
+                        <CompletedEntry key={i} entry={entry} />
+                      ))}
 
-                    <UserBubble message={pendingQuery} />
+                      <UserBubble message={pendingQuery} />
 
-                    {activePhase === "reasoning" && (
-                      <ActiveReasoning
-                        steps={reasoningSteps[pendingType]}
-                        currentStep={reasoningStep}
-                      />
-                    )}
-
-                    {(activePhase === "streaming" || activePhase === "done") && (
-                      <>
-                        <CollapsibleReasoning
+                      {activePhase === "reasoning" && (
+                        <ActiveReasoning
                           steps={reasoningSteps[pendingType]}
-                          defaultCollapsed={true}
+                          currentStep={reasoningStep}
                         />
+                      )}
 
-                        <WordStreamingText
-                          key={streamKey}
-                          blocks={responseBlocks[pendingType]}
-                          onComplete={handleStreamComplete}
-                        />
+                      {(activePhase === "streaming" || activePhase === "done") && (
+                        <>
+                          <CollapsibleReasoning
+                            steps={reasoningSteps[pendingType]}
+                            defaultCollapsed={true}
+                          />
 
-                        {pendingType === "work" && streamComplete && (
-                          <WorkCards onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }} />
-                        )}
+                          <WordStreamingText
+                            key={streamKey}
+                            blocks={responseBlocks[pendingType]}
+                            onComplete={handleStreamComplete}
+                          />
 
-                        {pendingType === "resume" && streamComplete && (
-                          <ResumeCard />
-                        )}
+                          {pendingType === "work" && streamComplete && (
+                            <WorkCards
+                              singleColumn={!!activeCaseStudy}
+                              selectedId={activeCaseStudy}
+                              onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }}
+                            />
+                          )}
 
-                        {streamComplete && suggestedItems.length > 0 && (
-                          <div className="animate-stream-line" style={{ marginTop: 40 }}>
-                            <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
-                              More Options:
-                            </p>
-                            <div className="flex items-center gap-2 flex-wrap mt-3">
-                              {suggestedItems.map((item) => (
-                                <NavPill
-                                  key={item.id}
-                                  item={item}
-                                  onClick={() => startNewPrompt(item)}
-                                />
-                              ))}
+                          {pendingType === "resume" && streamComplete && (
+                            <ResumeCard />
+                          )}
+
+                          {!activeCaseStudy && streamComplete && suggestedItems.length > 0 && (
+                            <div className="animate-stream-line" style={{ marginTop: 40 }}>
+                              <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16, lineHeight: "24px" }}>
+                                More Options:
+                              </p>
+                              <div className="flex items-center gap-2 flex-wrap mt-3">
+                                {suggestedItems.map((item) => (
+                                  <NavPill
+                                    key={item.id}
+                                    item={item}
+                                    onClick={() => startNewPrompt(item)}
+                                  />
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </>
-                    )}
+                          )}
+                        </>
+                      )}
+                    </div>
                   </div>
+                </div>
+
+                {/* Right: browser panel — slides in from the right */}
+                <div
+                  style={{
+                    width: activeCaseStudy ? "70%" : "0%",
+                    transition: "width 0.45s cubic-bezier(0.22,1,0.36,1)",
+                    flexShrink: 0,
+                    overflow: "hidden",
+                  }}
+                >
+                  {activeCaseStudy && (
+                    <CaseStudyBrowser
+                      studyId={activeCaseStudy}
+                      fullscreen={false}
+                      onToggleFullscreen={() => setCaseStudyFullscreen(true)}
+                      view={caseStudyView}
+                      onViewChange={setCaseStudyView}
+                      onNavigate={setActiveCaseStudy}
+                    />
+                  )}
                 </div>
               </div>
             </div>)
