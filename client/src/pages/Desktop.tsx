@@ -1378,10 +1378,11 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
       <p style={{ fontSize: 16, lineHeight: "24px", letterSpacing: "0", color: "#14191F", marginBottom: 56 }}>
         I led the end-to-end design of the "Thread Page," from problem research to implementation, incorporating continuous team feedback. This page serves as a dedicated space where users can store YouTube videos for learning and reference.
       </p>
-      <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #2d2640 0%, #1a2a4a 40%, #0d3354 70%, #1a3a5c 100%)", padding: "20px" }}>
+      <div
+        style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #2d2640 0%, #1a2a4a 40%, #0d3354 70%, #1a3a5c 100%)", padding: "20px" }}
+        className="pl-[0px] pr-[0px] pt-[0px] pb-[0px]">
         <img src="/project-2/project-2-cover.png" alt="Reimagining AI Experience" style={{ width: "100%", borderRadius: 10, display: "block" }} />
       </div>
-
       <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Context</h2>
       <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 20 }}>
         In the age of information overload, video-based learning has become a dominant medium for acquiring knowledge. However, retaining and organizing key insights from long-form videos remains a challenge. <span style={{ textDecoration: "underline" }}>Gistr</span>, an AI-powered tool, was designed to solve this problem by enabling users to clip key moments, generate summaries, take smart notes, and extract insights effortlessly.
@@ -1389,7 +1390,6 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
       <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 64 }}>
         While the initial goal was to integrate AI as a support mechanism for note-taking and comprehension on <span style={{ textDecoration: "underline" }}>Gistr</span>, user behavior told a different story.
       </p>
-
       <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Problem Statement</h2>
       <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 32 }}>
         During the initial ideation phase, the vision for Gistr was to create a YouTube learning tool with note-taking capabilities, integrating AI as a support mechanism for comprehension. However, user behavior revealed a different set of needs and expectations.
@@ -1408,12 +1408,10 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
           </p>
         </>
       )}
-
       <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" }}>Understanding the Problems</h2>
       <p style={{ fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F", marginBottom: 64 }}>
         Our assumption was that users would primarily rely on AI as a supplementary tool to enhance their workflow—clipping key moments and taking notes for deeper understanding. However, post-launch analytics from PostHog session replays and user feedback indicated otherwise. Users were looking for a more direct, immediate way to extract key insights from videos rather than manually clipping and engaging in a structured workflow. This gap between expectation and actual user behavior highlighted the need to reimagine the AI experience.
       </p>
-
       {/* Dark section: Goals + Solution */}
       <div style={{ margin: 0, background: "#131215", padding: "48px 40px 56px", borderRadius: 16 }}>
         <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Goals</h2>
@@ -1457,7 +1455,6 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
           <p style={{ fontSize: 13, lineHeight: "19px", color: "#7070A0" }}>Allowing users to revisit past interactions with AI for reference and continuity.</p>
         </div>
       </div>
-
       {view === "intense" && (
         <>
           <div style={{ marginTop: 64 }}>
