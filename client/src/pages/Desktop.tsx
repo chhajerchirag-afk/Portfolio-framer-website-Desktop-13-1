@@ -679,8 +679,7 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
               className="relative overflow-hidden rounded-2xl flex-shrink-0"
               style={{
                 width: "100%",
-                maxWidth: 350,
-                height: 240,
+                aspectRatio: "350 / 240",
                 outline: isSelected ? "2px solid #171717" : "2px solid transparent",
                 outlineOffset: 2,
                 transition: "outline-color 0.2s ease, opacity 0.2s ease",
