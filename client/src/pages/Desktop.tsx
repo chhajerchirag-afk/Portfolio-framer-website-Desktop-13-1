@@ -1714,8 +1714,8 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
       </p>
 
       {/* Hero */}
-      <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #e8d5f5 0%, #c5ddf7 25%, #f7e0c5 55%, #c5f5d5 80%, #d5c5f5 100%)", padding: "20px" }}>
-        <img src="/project4.png" alt="Interview Scheduling" style={{ width: "100%", borderRadius: 10, display: "block" }} />
+      <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64 }}>
+        <img src="/project-4/proj-4-cover.png" alt="Interview Scheduling" style={{ width: "100%", display: "block" }} />
       </div>
 
       {/* Note */}
@@ -1733,7 +1733,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
         <li>Regular users, mainly recruiters and hiring managers, had to rely on other tools for conducting interviews.</li>
       </ul>
       <p style={{ ...bodyStyle, marginBottom: 32 }}>Due to numerous client requests received by Hyreo's sales team, the decision was made to enhance this feature, despite initially not knowing the best solution.</p>
-      <div style={phStyle(260)} />
+      <img src="/project-4/1.webp" alt="Problem statement" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 48 }} />
 
       {/* User Stories */}
       <h2 style={{ ...h2Style }}>User Stories Shared by the Stakeholders</h2>
@@ -1785,17 +1785,17 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           {/* Dark section: Research + Wireframe + Solution */}
           <div style={{ margin: 0, background: "#131215", padding: "48px 40px 56px", borderRadius: 16, marginBottom: 64 }}>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Research</h2>
-            <div style={phDark(240, 16)} />
-            <div style={phDark(240, 48)} />
+            <img src="/project-4/2.webp" alt="Research 1" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 16 }} />
+            <img src="/project-4/3.webp" alt="Research 2" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
 
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Wireframe</h2>
-            <div style={phDark(240, 48)} />
+            <img src="/project-4/4.gif" alt="Wireframe" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
 
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Solution</h2>
             <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 24 }}>
               The solution features simplified navigation, a clear visual hierarchy, and scalability, achieved using an in-house design system I created.
             </p>
-            <div style={phDark(260, 24)} />
+            <img src="/project-4/5.webp" alt="Solution" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 24 }} />
             <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 16 }}>
               Introducing the home screen of the Interview Control Center. This page includes key event metrics, a table that provides an overview of all events with various statuses, and options for search and filter to find the events quickly.
             </p>
@@ -1814,8 +1814,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 24 }}>
             After discussion with the developers and my head, I understood the technical limitations as well as different possible edge cases around the Kanban approach. Hence, I adjusted my initial plan from a Kanban approach to an accordion approach, as I realized that the Kanban approach wasn't the optimal solution.
           </p>
-          <div style={phStyle(260, 16)} />
-          <div style={phStyle(260, 24)} />
+          <img src="/project-4/6.webp" alt="Monitoring and managing interviews" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 24 }} />
           <p style={{ ...bodyStyle, marginBottom: 64 }}>
             Then, I brainstormed possible solutions that would help the end users monitor, manage and schedule interviews seamlessly. Also validated the solution and ultimately designed the final approach.
           </p>
@@ -1831,7 +1830,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
             <li>Candidate tab: See all candidate details participating in the interview event</li>
             <li>Panelist tab: See all panelist details participating in the interview event</li>
           </ol>
-          <div style={phStyle(300, 64)} />
+          <img src="/project-4/7.webp" alt="Functionalities" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
 
           {/* Different Views */}
           <h2 style={{ ...h2Style }}>Different Views of the Control Center</h2>
@@ -1841,13 +1840,13 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             In this view, the accordions have the round names and details. This view highlights the name of the panelist assigned to the round and the number of scheduled interviews for each panelist.
           </p>
-          <div style={phStyle(260, 48)} />
+          <img src="/project-4/8.webp" alt="Group by rounds" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 48 }} />
 
           <h3 style={{ ...h3Style }}>Group by Panelist</h3>
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             In this view, the accordions change from showing round names to displaying panelist names. This view highlights the rounds each panelist is assigned to and the number of scheduled interviews for each panelist.
           </p>
-          <div style={phStyle(260, 64)} />
+          <img src="/project-4/9.webp" alt="Group by panelist" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
 
           {/* Scheduling Interview */}
           <h2 style={{ ...h2Style }}>Scheduling Interview</h2>
@@ -1856,15 +1855,15 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 16 }}>
             1. By clicking on the 'Add candidate' button on the accordion. For example, if the user clicks on the 'Add candidate' option in round 1 accordion, all the candidates who are eligible for 'round 1' and whose interviews have not been scheduled will be displayed.
           </p>
-          <div style={phStyle(260, 32)} />
+          <img src="/project-4/10.webp" alt="Scheduling interview - add candidate" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32 }} />
 
           <p style={{ ...bodyStyle, marginBottom: 16 }}>
             2. By clicking on the 'Manage candidates' button all the candidate with different interview statuses will be displayed.
           </p>
-          <div style={phStyle(260, 32)} />
+          <img src="/project-4/11.webp" alt="Scheduling interview - manage candidates" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32 }} />
 
           <p style={{ ...bodyStyle, marginBottom: 16 }}>3. By dragging and dropping candidates to rounds or panelist accordion</p>
-          <div style={phStyle(260, 32)} />
+          <img src="/project-4/12.webp" alt="Scheduling interview - drag and drop" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32 }} />
 
           <h3 style={{ ...h3Style }}>Challenge</h3>
           <p style={{ ...bodyStyle, marginBottom: 24 }}>
@@ -1881,21 +1880,21 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             These custom cards allow end users to live track the interview progress of each candidate. These different cards are to represent different interview statuses.
           </p>
-          <div style={phStyle(300, 64)} />
+          <img src="/project-4/13.webp" alt="Candidate interview cards" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
 
           {/* Viewing Candidate Details */}
           <h2 style={{ ...h2Style }}>Viewing Candidate Details, Rescheduling and Cancelling Interviews</h2>
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             This drawer is very important for view the candidate details, it helps the users make decisions and perform actions such as rescheduling interviews or cancel if the candidate or panelist is not available or for other reasons.
           </p>
-          <div style={phStyle(300, 64)} />
+          <img src="/project-4/14.webp" alt="Viewing candidate details, rescheduling and cancelling" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
 
           {/* Candidate Tab */}
           <h2 style={{ ...h2Style }}>Candidate tab</h2>
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             This displays all the candidates who are participating in this interview event.
           </p>
-          <div style={phStyle(260, 64)} />
+          <img src="/project-4/15.webp" alt="Candidate tab" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
 
           {/* Last Notes */}
           <h2 style={{ ...h2Style }}>Last notes</h2>
