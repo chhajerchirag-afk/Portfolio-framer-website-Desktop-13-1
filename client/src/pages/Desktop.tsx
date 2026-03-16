@@ -2387,6 +2387,7 @@ export const Desktop = (): JSX.Element => {
   const handleStreamComplete = useCallback(() => {
     setStreamComplete(true);
     setActivePhase("done");
+    setTimeout(() => smoothScrollToBottom(), 80);
   }, []);
 
   useEffect(() => {
@@ -2532,8 +2533,8 @@ export const Desktop = (): JSX.Element => {
                 />
                 <div
                   ref={scrollRef}
-                  className="h-full overflow-y-auto pb-8 pt-2 hide-scrollbar"
-                  style={{ width: "100%", maxWidth: "min(720px, calc(100% - 40px))", marginLeft: "auto", marginRight: "auto" }}
+                  className="h-full overflow-y-auto pt-2 hide-scrollbar"
+                  style={{ width: "100%", maxWidth: "min(720px, calc(100% - 40px))", marginLeft: "auto", marginRight: "auto", paddingBottom: 80 }}
                 >
                   <div ref={scrollContentRef}>
                     {history.map((entry, i) => (<CompletedEntry key={i} entry={entry} />))}
@@ -2623,14 +2624,14 @@ export const Desktop = (): JSX.Element => {
                       paddingLeft: 40,
                       paddingRight: 24,
                       paddingTop: 4,
-                      paddingBottom: 8,
+                      paddingBottom: 80,
                     } : {
                       width: "100%",
                       maxWidth: "min(720px, calc(100% - 40px))",
                       marginLeft: "auto",
                       marginRight: "auto",
                       paddingTop: 8,
-                      paddingBottom: 32,
+                      paddingBottom: 80,
                     }}
                   >
                     <div ref={scrollContentRef}>
