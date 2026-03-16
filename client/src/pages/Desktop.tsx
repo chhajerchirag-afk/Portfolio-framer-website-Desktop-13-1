@@ -1513,6 +1513,219 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
   );
 }
 
+function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) {
+  const phStyle = (h: number, mb = 48): React.CSSProperties => ({ background: "#E0E0E3", borderRadius: 14, height: h, marginBottom: mb });
+  const phDark = (h: number, mb = 32): React.CSSProperties => ({ background: "#1C1C24", borderRadius: 14, height: h, marginBottom: mb });
+  const h2Style: React.CSSProperties = { fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" };
+  const h3Style: React.CSSProperties = { fontSize: 18, fontWeight: 600, lineHeight: "28px", marginBottom: 10, color: "#14191F" };
+  const bodyStyle: React.CSSProperties = { fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" };
+
+  return (
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "60px 0 80px", fontFamily: "Inter, sans-serif", color: "#14191F" }}>
+
+      {/* Title */}
+      <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
+        Streamlining interview scheduling for<br />talent acquisition and HR managers.
+      </h1>
+      <p style={{ ...bodyStyle, lineHeight: "24px", marginBottom: 56 }}>
+        Hyreo is an advanced talent relationship management solution that anticipates the needs of every stakeholder in the recruitment process before they even arise. As a candidate relationship management platform, Hyreo provides recruiters with exceptional insights, ensuring they remain informed and engaged throughout the recruitment journey.
+      </p>
+
+      {/* Hero */}
+      <div style={{ borderRadius: 16, overflow: "hidden", marginBottom: 64, background: "linear-gradient(135deg, #e8d5f5 0%, #c5ddf7 25%, #f7e0c5 55%, #c5f5d5 80%, #d5c5f5 100%)", padding: "20px" }}>
+        <img src="/project4.png" alt="Interview Scheduling" style={{ width: "100%", borderRadius: 10, display: "block" }} />
+      </div>
+
+      {/* Note */}
+      <h2 style={{ ...h2Style, marginBottom: 12 }}>Note</h2>
+      <p style={{ ...bodyStyle, fontStyle: "italic", marginBottom: 64 }}>
+        My work spans the entire platform, affecting how users interact with features from creating job requisitions to scheduling interviews and onboarding candidates. I notably led the design and solution for the interview scheduling module, incorporating ongoing feedback from my lead. (<span style={{ textDecoration: "underline" }}>Arun Antony</span>).
+      </p>
+
+      {/* Problem Statement */}
+      <h2 style={{ ...h2Style }}>Problem Statement</h2>
+      <p style={{ ...bodyStyle, marginBottom: 16 }}>Before we initiated work on the product, the interview creation feature was quite basic:</p>
+      <ul style={{ ...bodyStyle, paddingLeft: 20, marginBottom: 16, display: "flex", flexDirection: "column", gap: 8 }}>
+        <li>Users could only select the type of interview, name it, set start and end dates, specify the number of rounds, and assign panelists.</li>
+        <li>Interviews was inefficient and lacked effective process management.</li>
+        <li>Regular users, mainly recruiters and hiring managers, had to rely on other tools for conducting interviews.</li>
+      </ul>
+      <p style={{ ...bodyStyle, marginBottom: 32 }}>Due to numerous client requests received by Hyreo's sales team, the decision was made to enhance this feature, despite initially not knowing the best solution.</p>
+      <div style={phStyle(260)} />
+
+      {/* User Stories */}
+      <h2 style={{ ...h2Style }}>User Stories Shared by the Stakeholders</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+        {[
+          "View all the the ongoing interview events along with key details.",
+          "See the candidates and panelist details who are participating in the interview process.",
+          "See the number of rounds and its details.",
+          "Schedule interview for each candidate individually",
+        ].map((text, i) => (
+          <div key={i} style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "16px 14px" }}>
+            <p style={{ fontSize: 13, fontWeight: 600, color: "#14191F", marginBottom: 6 }}>User wants to</p>
+            <p style={{ fontSize: 14, lineHeight: "20px", color: "#555" }}>{text}</p>
+          </div>
+        ))}
+      </div>
+      <div style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "16px 14px", marginBottom: 32 }}>
+        <p style={{ fontSize: 13, fontWeight: 600, color: "#14191F", marginBottom: 6 }}>User wants to</p>
+        <p style={{ fontSize: 14, lineHeight: "20px", color: "#555" }}>See the candidate status and progress in the interview event.</p>
+      </div>
+
+      {/* Constraint Note */}
+      <div style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
+        <p style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: "#14191F" }}>Note</p>
+        {[
+          "Creation and editing of an interview event are currently not possible due to technical issues. Therefore, the interview event will be created and edited within the job requisition module. Hence each interview event should be connected with a job requisition.",
+          `Only candidates whose statuses have been changed to "interview" under a job requisition will be displayed in this module.`,
+          "Interviews are called as events.",
+        ].map((text, i) => (
+          <p key={i} style={{ fontSize: 14, lineHeight: "21px", color: "#555", marginBottom: i < 2 ? 10 : 0 }}>{i + 1}. {text}</p>
+        ))}
+      </div>
+
+      {/* Goals */}
+      <h2 style={{ ...h2Style }}>Goals</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 64 }}>
+        {[
+          "Easier, faster and more flexible ways to manage interviews",
+          "Making search and filtering candidates simple to schedule interview's quickly",
+        ].map((g, i) => (
+          <div key={i} style={{ background: "white", border: "0.5px solid #E5E5E5", borderRadius: 12, padding: "18px 16px" }}>
+            <p style={{ fontSize: 15, fontWeight: 500, lineHeight: "22px", color: "#14191F" }}>{g}</p>
+          </div>
+        ))}
+      </div>
+
+      {view === "intense" && (
+        <>
+          {/* Dark section: Research + Wireframe + Solution */}
+          <div style={{ margin: 0, background: "#131215", padding: "48px 40px 56px", borderRadius: 16, marginBottom: 64 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Research</h2>
+            <div style={phDark(240, 16)} />
+            <div style={phDark(240, 48)} />
+
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Wireframe</h2>
+            <div style={phDark(240, 48)} />
+
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Solution</h2>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 24 }}>
+              The solution features simplified navigation, a clear visual hierarchy, and scalability, achieved using an in-house design system I created.
+            </p>
+            <div style={phDark(260, 24)} />
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#9090B0", marginBottom: 16 }}>
+              Introducing the home screen of the Interview Control Center. This page includes key event metrics, a table that provides an overview of all events with various statuses, and options for search and filter to find the events quickly.
+            </p>
+            <p style={{ fontSize: 14, color: "#7070A0", marginBottom: 10 }}>Through this table, users gain insights into:</p>
+            <ul style={{ fontSize: 14, lineHeight: "21px", color: "#7070A0", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+              <li>Interviews, including start and end dates</li>
+              <li>Displays names of the primary recruiter and hiring manager</li>
+              <li>Shows the number of panelists and candidates</li>
+              <li>Provides an option to download reports</li>
+            </ul>
+            <p style={{ fontSize: 14, lineHeight: "21px", color: "#7070A0" }}>This helps in managing multiple interview events simultaneously.</p>
+          </div>
+
+          {/* Monitoring and Managing Interviews */}
+          <h2 style={{ ...h2Style }}>Monitoring and Managing Interviews</h2>
+          <p style={{ ...bodyStyle, marginBottom: 24 }}>
+            After discussion with the developers and my head, I understood the technical limitations as well as different possible edge cases around the Kanban approach. Hence, I adjusted my initial plan from a Kanban approach to an accordion approach, as I realized that the Kanban approach wasn't the optimal solution.
+          </p>
+          <div style={phStyle(260, 16)} />
+          <div style={phStyle(260, 24)} />
+          <p style={{ ...bodyStyle, marginBottom: 64 }}>
+            Then, I brainstormed possible solutions that would help the end users monitor, manage and schedule interviews seamlessly. Also validated the solution and ultimately designed the final approach.
+          </p>
+
+          {/* Functionalities */}
+          <h2 style={{ ...h2Style }}>Functionalities</h2>
+          <p style={{ ...bodyStyle, marginBottom: 16 }}>
+            This is a full-page modal with options to switch between different events using the up and down buttons, followed by the number of events at the top. The header includes the job requisition name and ID, followed by key details of the event. It also has an option to email candidates and panelists who are part of this event, eliminating the need for other mailing tools.
+          </p>
+          <p style={{ ...bodyStyle, marginBottom: 12 }}>I have seperated the bottom section into three tabs:</p>
+          <ol style={{ ...bodyStyle, paddingLeft: 20, marginBottom: 32, display: "flex", flexDirection: "column", gap: 6 }}>
+            <li>Control panel tab: Used to manage interviews</li>
+            <li>Candidate tab: See all candidate details participating in the interview event</li>
+            <li>Panelist tab: See all panelist details participating in the interview event</li>
+          </ol>
+          <div style={phStyle(300, 64)} />
+
+          {/* Different Views */}
+          <h2 style={{ ...h2Style }}>Different Views of the Control Center</h2>
+          <p style={{ ...bodyStyle, marginBottom: 28 }}>The control center had 2 types of view:</p>
+
+          <h3 style={{ ...h3Style }}>Group by Rounds</h3>
+          <p style={{ ...bodyStyle, marginBottom: 20 }}>
+            In this view, the accordions have the round names and details. This view highlights the name of the panelist assigned to the round and the number of scheduled interviews for each panelist.
+          </p>
+          <div style={phStyle(260, 48)} />
+
+          <h3 style={{ ...h3Style }}>Group by Panelist</h3>
+          <p style={{ ...bodyStyle, marginBottom: 20 }}>
+            In this view, the accordions change from showing round names to displaying panelist names. This view highlights the rounds each panelist is assigned to and the number of scheduled interviews for each panelist.
+          </p>
+          <div style={phStyle(260, 64)} />
+
+          {/* Scheduling Interview */}
+          <h2 style={{ ...h2Style }}>Scheduling Interview</h2>
+          <p style={{ ...bodyStyle, marginBottom: 24 }}>This is the key part of the entire module. There are multiple options to schedule interview:</p>
+
+          <p style={{ ...bodyStyle, marginBottom: 16 }}>
+            1. By clicking on the 'Add candidate' button on the accordion. For example, if the user clicks on the 'Add candidate' option in round 1 accordion, all the candidates who are eligible for 'round 1' and whose interviews have not been scheduled will be displayed.
+          </p>
+          <div style={phStyle(260, 32)} />
+
+          <p style={{ ...bodyStyle, marginBottom: 16 }}>
+            2. By clicking on the 'Manage candidates' button all the candidate with different interview statuses will be displayed.
+          </p>
+          <div style={phStyle(260, 32)} />
+
+          <p style={{ ...bodyStyle, marginBottom: 16 }}>3. By dragging and dropping candidates to rounds or panelist accordion</p>
+          <div style={phStyle(260, 32)} />
+
+          <h3 style={{ ...h3Style }}>Challenge</h3>
+          <p style={{ ...bodyStyle, marginBottom: 24 }}>
+            The slot allocation for the candidate interview round will depend on the availability of the panelists, not the availability of the candidate.
+          </p>
+
+          <h3 style={{ ...h3Style }}>Solution</h3>
+          <p style={{ ...bodyStyle, marginBottom: 48 }}>
+            To address this challenge, the drawer component was selected as the ideal solution for slot selection and scheduling. This approach allows users to see all selected fields at once, rather than using a stepper approach. Prioritizing panelist selection is crucial since the calendar and timeslot sections are affected by the availability of the panelists.
+          </p>
+
+          {/* Candidate Interview Cards */}
+          <h2 style={{ ...h2Style }}>Candidate Interview Cards</h2>
+          <p style={{ ...bodyStyle, marginBottom: 20 }}>
+            These custom cards allow end users to live track the interview progress of each candidate. These different cards are to represent different interview statuses.
+          </p>
+          <div style={phStyle(300, 64)} />
+
+          {/* Viewing Candidate Details */}
+          <h2 style={{ ...h2Style }}>Viewing Candidate Details, Rescheduling and Cancelling Interviews</h2>
+          <p style={{ ...bodyStyle, marginBottom: 20 }}>
+            This drawer is very important for view the candidate details, it helps the users make decisions and perform actions such as rescheduling interviews or cancel if the candidate or panelist is not available or for other reasons.
+          </p>
+          <div style={phStyle(300, 64)} />
+
+          {/* Candidate Tab */}
+          <h2 style={{ ...h2Style }}>Candidate tab</h2>
+          <p style={{ ...bodyStyle, marginBottom: 20 }}>
+            This displays all the candidates who are participating in this interview event.
+          </p>
+          <div style={phStyle(260, 64)} />
+
+          {/* Last Notes */}
+          <h2 style={{ ...h2Style }}>Last notes</h2>
+          <p style={{ ...bodyStyle }}>
+            The entire solution has been built over several iterations and versions. With continuous feedback from my head and the stakeholders, we crafted a simple yet efficient solution that fulfills all user needs. Our collective efforts enabled us to better advocate for the users and create a solution that truly caters to their requirements.
+          </p>
+        </>
+      )}
+    </div>
+  );
+}
+
 function CaseStudyPlaceholder({ title }: { title: string }) {
   return (
     <div
@@ -1716,6 +1929,8 @@ function CaseStudyBrowser({
           <AIAgentsHRContent view={view} />
         ) : studyId === "reimagining-ai" ? (
           <ReimaginingAIContent view={view} />
+        ) : studyId === "interview-scheduling" ? (
+          <InterviewSchedulingContent view={view} />
         ) : (
           <CaseStudyPlaceholder title={study.fullTitle} />
         )}
@@ -1827,6 +2042,8 @@ function CaseStudyBottomSheet({
             <AIAgentsHRContent view={view} />
           ) : studyId === "reimagining-ai" ? (
             <ReimaginingAIContent view={view} />
+          ) : studyId === "interview-scheduling" ? (
+            <InterviewSchedulingContent view={view} />
           ) : (
             <CaseStudyPlaceholder title={study.fullTitle} />
           )}
