@@ -2587,9 +2587,6 @@ export const Desktop = (): JSX.Element => {
               >
                 {/* Left: conversation panel */}
                 <div className="h-full overflow-y-auto hide-scrollbar" style={{ paddingTop: 4 }}>
-                  <p style={{ fontSize: 11, color: "#D0D0D0", fontFamily: "monospace", marginBottom: 20, letterSpacing: "0.04em" }}>
-                    {sessionId.current}
-                  </p>
                   {history.map((entry, i) => (
                     <CompletedEntry key={i} entry={entry} />
                   ))}
