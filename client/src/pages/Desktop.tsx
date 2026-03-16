@@ -2162,7 +2162,7 @@ function CaseStudyBottomSheet({
       <div
         style={{
           position: "relative",
-          height: "78vh",
+          height: "90vh",
           background: "white",
           borderRadius: "20px 20px 0 0",
           display: "flex",
@@ -2212,7 +2212,7 @@ function CaseStudyBottomSheet({
           </button>
         </div>
         {/* Scrollable content */}
-        <div className="hide-scrollbar" style={{ flex: 1, overflowY: "auto", background: "#F2F3F4" }}>
+        <div className="hide-scrollbar" style={{ flex: 1, overflowY: "auto", background: "#F2F3F4", padding: "0 20px" }}>
           {studyId === "ai-agents-hr" ? (
             <AIAgentsHRContent view={view} />
           ) : studyId === "reimagining-ai" ? (
