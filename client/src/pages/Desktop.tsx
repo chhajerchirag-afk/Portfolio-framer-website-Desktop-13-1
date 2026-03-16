@@ -683,7 +683,7 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
                 outline: isSelected ? "2px solid #171717" : "2px solid transparent",
                 outlineOffset: 2,
                 transition: "outline-color 0.2s ease, opacity 0.2s ease",
-                opacity: isDimmed ? 0.4 : 1,
+                opacity: 1,
               }}
             >
               <img
