@@ -1220,8 +1220,8 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               { number: "Reduced Dependency", label: "Dependency on external support has been reduced" },
             ].map((stat, i) => (
               <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
-                <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.01em", marginBottom: 10, color: "#171717" }}>{stat.number}</div>
-                <div style={{ fontSize: 13, lineHeight: "1.5", color: "#666" }}>{stat.label}</div>
+                <div style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 24, fontWeight: 700, marginBottom: 10, color: "#14191F" }}>{stat.number}</div>
+                <div style={{ fontSize: 16, lineHeight: "22px", color: "#7A7A7A" }}>{stat.label}</div>
               </div>
             ))}
           </div>
@@ -1232,12 +1232,12 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
         /* ── Strategic + Closing ── */
         <div style={section("#F6F6F7")}>
           <div style={inner}>
-            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>What Changed Strategically?</h2>
-            <div style={{ marginBottom: 48 }}>
-              <p style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>The product moved from:</p>
-              <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 14 }}>Flow-based automation <strong>to</strong> Outcome-driven orchestration</p>
-              <p style={{ fontSize: 14, color: "#888", marginBottom: 6 }}>From</p>
-              <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>System-first thinking <strong>to</strong> Recruiter mental-model alignment</p>
+            <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>What Changed Strategically?</h2>
+            <div style={{ marginBottom: 64 }}>
+              <p style={{ fontSize: 20, fontWeight: 400, lineHeight: "28px", color: "#14191F", marginBottom: 8 }}>The product moved from:</p>
+              <p style={{ fontSize: 16, fontWeight: 500, lineHeight: "22px", color: "#7A7A7A", marginBottom: 12 }}>Flow-based automation <strong style={{ color: "#14191F" }}>to</strong> Outcome-driven orchestration</p>
+              <p style={{ fontSize: 14, color: "#888", marginBottom: 12 }}>From</p>
+              <p style={{ fontSize: 16, fontWeight: 500, lineHeight: "22px", color: "#7A7A7A" }}>System-first thinking <strong style={{ color: "#14191F" }}>to</strong> Recruiter mental-model alignment</p>
             </div>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>What I'd Evolve Next</h2>
             {[
@@ -1245,12 +1245,12 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               { n: "#2", title: "Designing for Exception Handling at Scale", body: "As automation grows, edge cases multiply. I would invest in better visibility into failure states and AI recovery patterns." },
               { n: "#3", title: "Making Autonomy Configurable by Maturity Level", body: "Different customers require different levels of control. Future iterations should adapt autonomy dynamically based on user confidence and usage patterns." },
             ].map((point, i) => (
-              <div key={i} style={{ marginBottom: 24 }}>
-                <p style={{ fontSize: 15, fontWeight: 700, marginBottom: 6, color: "#171717" }}>{point.n} {point.title}</p>
-                <p style={{ fontSize: 14, lineHeight: "1.7", color: "#555" }}>{point.body}</p>
+              <div key={i} style={{ marginBottom: 20 }}>
+                <p style={{ fontSize: 20, fontWeight: 400, lineHeight: "28px", marginBottom: 4, color: "#14191F" }}>{point.n} {point.title}</p>
+                <p style={{ fontSize: 16, lineHeight: "22px", color: "#7A7A7A" }}>{point.body}</p>
               </div>
             ))}
-            <div style={{ marginTop: 48 }}>
+            <div style={{ marginTop: 64 }}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>Closing Reflection</h2>
               <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 16 }}>
                 The core challenge wasn't building better automation.<br />
