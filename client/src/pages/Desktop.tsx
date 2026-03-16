@@ -1037,7 +1037,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             key={i}
             style={{ background: "#F7F7F7", borderRadius: 12, padding: "20px 16px" }}
             className="bg-[#EAECED] pl-[20px] pr-[20px]">
-            <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10, color: "#D0392B" }}>
+            <div
+              style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.02em", marginBottom: 10, color: "#D0392B" }}
+              className="text-[#7C0505] text-[24px] font-semibold">
               {stat.number}{stat.arrow}
             </div>
             <div style={{ fontSize: 13, lineHeight: "1.5", color: "#555" }}>{stat.label}</div>
