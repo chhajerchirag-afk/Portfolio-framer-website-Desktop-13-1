@@ -2431,11 +2431,17 @@ export const Desktop = (): JSX.Element => {
                 backgroundPosition: "center",
               }}
             />
-            <img
-              className="absolute top-[19px] left-[19px] w-[86px] h-[34px] z-10"
-              alt="Logo"
-              src="/figmaAssets/vector-22.svg"
-            />
+            <button
+              onClick={handleReset}
+              data-testid="button-logo-home"
+              style={{ cursor: "pointer", position: "absolute", top: 19, left: 19, zIndex: 10, background: "none", border: "none", padding: 0 }}
+            >
+              <img
+                className="w-[86px] h-[34px]"
+                alt="Logo"
+                src="/figmaAssets/vector-22.svg"
+              />
+            </button>
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
               <ThreeDotsMenu />
             </div>
