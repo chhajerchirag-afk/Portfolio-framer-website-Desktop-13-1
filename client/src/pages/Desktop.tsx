@@ -858,7 +858,7 @@ function UserBubble({ message }: { message: string }) {
   );
 }
 
-function CompletedEntry({ entry }: { entry: ConversationEntry }) {
+function CompletedEntry({ entry, onOpen, selectedId, singleColumn }: { entry: ConversationEntry; onOpen?: (id: string) => void; selectedId?: string | null; singleColumn?: boolean }) {
   const steps = reasoningSteps[entry.responseType];
   const blocks = responseBlocks[entry.responseType];
 
@@ -867,7 +867,7 @@ function CompletedEntry({ entry }: { entry: ConversationEntry }) {
       <UserBubble message={entry.userMessage} />
       <CollapsibleReasoning steps={steps} defaultCollapsed={true} />
       <StaticBlockText blocks={blocks} />
-      {entry.responseType === "work" && <WorkCards />}
+      {entry.responseType === "work" && <WorkCards onOpen={onOpen} selectedId={selectedId} singleColumn={singleColumn} />}
       {entry.responseType === "resume" && <ResumeCard />}
     </>
   );
@@ -2537,7 +2537,7 @@ export const Desktop = (): JSX.Element => {
                   style={{ width: "100%", maxWidth: "min(720px, calc(100% - 40px))", marginLeft: "auto", marginRight: "auto", paddingBottom: 80 }}
                 >
                   <div ref={scrollContentRef}>
-                    {history.map((entry, i) => (<CompletedEntry key={i} entry={entry} />))}
+                    {history.map((entry, i) => (<CompletedEntry key={i} entry={entry} onOpen={(id) => setActiveCaseStudy(id)} />))}
                     <UserBubble message={pendingQuery} />
                     {activePhase === "reasoning" && (<ActiveReasoning steps={reasoningSteps[pendingType]} currentStep={reasoningStep} />)}
                     {(activePhase === "streaming" || activePhase === "done") && (
@@ -2636,7 +2636,13 @@ export const Desktop = (): JSX.Element => {
                   >
                     <div ref={scrollContentRef}>
                       {history.map((entry, i) => (
-                        <CompletedEntry key={i} entry={entry} />
+                        <CompletedEntry
+                          key={i}
+                          entry={entry}
+                          onOpen={(id) => { setActiveCaseStudy(id); setCaseStudyFullscreen(false); }}
+                          selectedId={activeCaseStudy}
+                          singleColumn={!!activeCaseStudy}
+                        />
                       ))}
 
                       <UserBubble message={pendingQuery} />
