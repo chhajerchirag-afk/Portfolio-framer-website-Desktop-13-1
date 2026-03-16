@@ -2434,9 +2434,10 @@ export const Desktop = (): JSX.Element => {
             </div>
 
             <div
-              className="absolute inset-0 flex flex-col items-center justify-center z-10 w-full px-5 overflow-y-auto hide-scrollbar py-16"
+              className="absolute inset-0 flex flex-col items-center z-10 w-full px-5 overflow-y-auto hide-scrollbar"
               style={{ gap: 0 }}
             >
+              <div className="flex flex-col items-center w-full my-auto py-16">
               <h1
                 className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
                 style={{
@@ -2509,6 +2510,7 @@ export const Desktop = (): JSX.Element => {
                     onClick={() => handlePromptChipClick(item)}
                   />
                 ))}
+              </div>
               </div>
             </div>
           </div>
