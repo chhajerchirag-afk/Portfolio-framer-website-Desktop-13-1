@@ -2259,6 +2259,21 @@ export const Desktop = (): JSX.Element => {
   const inputRef = useRef<HTMLInputElement>(null);
   const time = useLiveClock();
   const isMobile = useIsMobile();
+  const [streamedPlaceholder, setStreamedPlaceholder] = useState("");
+
+  useEffect(() => {
+    const full = "Ask me anything about Chirag...";
+    let i = 0;
+    const startDelay = setTimeout(() => {
+      const interval = setInterval(() => {
+        i++;
+        setStreamedPlaceholder(full.slice(0, i));
+        if (i >= full.length) clearInterval(interval);
+      }, 38);
+      return () => clearInterval(interval);
+    }, 400);
+    return () => clearTimeout(startDelay);
+  }, []);
 
   const smoothScrollToBottom = () => {
     if (scrollRef.current) {
@@ -2459,7 +2474,7 @@ export const Desktop = (): JSX.Element => {
                       onKeyDown={(e) =>
                         e.key === "Enter" && handleManualSubmit(inputValue)
                       }
-                      placeholder="Ask me anything about Chirag..."
+                      placeholder={streamedPlaceholder}
                       className="flex-1 border-0 shadow-none p-0 h-auto font-['Inter',sans-serif] font-normal text-base leading-6 focus:outline-none bg-transparent text-[#171717] placeholder:text-[#a6a6a6]"
                       style={{ letterSpacing: 0 }}
                     />
