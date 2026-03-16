@@ -2529,7 +2529,7 @@ export const Desktop = (): JSX.Element => {
             /* ── Mobile: normal chat + bottom sheet overlay ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
+                <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
@@ -2582,7 +2582,7 @@ export const Desktop = (): JSX.Element => {
             /* ── Full-screen case study ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
+                <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
@@ -2603,7 +2603,7 @@ export const Desktop = (): JSX.Element => {
             /* ── Unified chat view (animates into 30/70 split when case study opens) ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
-                <button onClick={handleReset} data-testid="button-logo-home">
+                <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
