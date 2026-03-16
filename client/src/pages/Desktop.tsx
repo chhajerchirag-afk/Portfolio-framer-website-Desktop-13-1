@@ -965,7 +965,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
     <div style={{ width: "100%", fontFamily: "Inter, sans-serif", color: "#14191F" }}>
 
       {/* ── Hero ── */}
-      <div style={section("white", 60)}>
+      <div style={section("#F6F6F7", 60)}>
         <div style={inner}>
           <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
             Redefining hiring at scale<br />with AI Agents
@@ -980,7 +980,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       </div>
 
       {/* ── Context ── */}
-      <div style={section("white")}>
+      <div style={section("#F6F6F7")}>
         <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, color: "#14191F" }}>Context</h2>
           <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 14 }}>
@@ -1013,7 +1013,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       {view === "intense" && (
         <>
           {/* ── My Role + Team ── */}
-          <div style={section("#F5F5F5")}>
+          <div style={section("#F6F6F7")}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, color: "#14191F" }}>My Role</h2>
               <div style={{ marginBottom: 32 }}>
@@ -1065,7 +1065,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
 
           {/* ── Research + Insight ── */}
-          <div style={section("#F5F5F5")}>
+          <div style={section("#F6F6F7")}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>What We Need to Learn?</h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 48 }}>
@@ -1083,7 +1083,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
 
           {/* ── Initial Conceptualising ── */}
-          <div style={section("white")}>
+          <div style={section("#F6F6F7")}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>Initial Conceptualising Using Lovable</h2>
               <div style={{ borderRadius: 14, overflow: "hidden" }}>
@@ -1093,7 +1093,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
 
           {/* ── Design Iterations V1 + V2 ── */}
-          <div style={section("white")}>
+          <div style={section("#F6F6F7")}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 32, color: "#14191F" }}>Design Iterations</h2>
 
@@ -1199,7 +1199,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               <p style={{ fontSize: 15, lineHeight: "1.7", color: "#9090B0", marginBottom: 24 }}>
                 The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
               </p>
-              <div style={{ background: "#1F1E1C", borderRadius: 14, padding: "20px", border: "1px solid #33322F" }}>
+              <div style={{ background: "#131215", borderRadius: 14, padding: "20px", border: "1px solid #33322F" }}>
                 <img src="/project-1/cover.gif" alt="Solution Preview" style={{ width: "100%", borderRadius: 10, display: "block" }} />
               </div>
             </div>
@@ -1208,7 +1208,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       )}
 
       {/* ── Achieved Goals ── */}
-      <div style={section("#F5F5F5")}>
+      <div style={section("#F6F6F7")}>
         <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>Achieved Goals</h2>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
@@ -1228,7 +1228,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
 
       {view === "intense" && (
         /* ── Strategic + Closing ── */
-        <div style={section("white")}>
+        <div style={section("#F6F6F7")}>
           <div style={inner}>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>What Changed Strategically?</h2>
             <div style={{ marginBottom: 48 }}>
