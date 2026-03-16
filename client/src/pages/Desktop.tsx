@@ -1044,14 +1044,14 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 { label: "Pain Point 3: Limited Scalability", body: "Automation could not scale across hiring scenarios, forcing admins to repeatedly rebuild similar journeys.", stats: [], img: "/project-1/3.png" },
               ].map((pp, i) => (
                 <div key={i} style={{ marginBottom: 48 }}>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 10, letterSpacing: "-0.01em" }}>{pp.label}</h3>
-                  <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 14 }}>{pp.body}</p>
+                  <h3 style={{ fontSize: 20, fontWeight: 500, marginBottom: 12, letterSpacing: "-0.01em" }}>{pp.label}</h3>
+                  <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 12 }}>{pp.body}</p>
                   {pp.stats.length > 0 && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
                       {pp.stats.map((s, j) => (
-                        <div key={j} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#F0F0F0", borderRadius: 999, padding: "5px 12px", width: "fit-content" }}>
-                          <span style={{ fontSize: 13, fontWeight: 700, color: "#171717" }}>{s.highlight}</span>
-                          <span style={{ fontSize: 13, color: "#666" }}>{s.desc}</span>
+                        <div key={j} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#EAECED", borderRadius: 4, padding: "4px 8px", width: "fit-content" }}>
+                          <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 16, fontWeight: 700, color: "#7C0505", letterSpacing: "-0.02em" }}>{s.highlight}</span>
+                          <span style={{ fontSize: 16, fontWeight: 500, color: "#14191F" }}>{s.desc}</span>
                         </div>
                       ))}
                     </div>
@@ -1070,7 +1070,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>What We Need to Learn?</h2>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 48 }}>
                 {["How do recruiters mentally model hiring work?", "Where does trust break in AI-driven workflows?", "What balance of control vs autonomy drives adoption?"].map((q, i) => (
-                  <div key={i} style={{ background: "white", borderRadius: 12, padding: "16px 14px", fontSize: 14, lineHeight: "1.6", color: "#333" }}>{q}</div>
+                  <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px", fontSize: 16, lineHeight: "22px", fontWeight: 500, color: "#14191F" }}>{q}</div>
                 ))}
               </div>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 12, color: "#14191F" }}>Core Insight</h2>
