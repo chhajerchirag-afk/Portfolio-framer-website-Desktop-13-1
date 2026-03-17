@@ -1622,10 +1622,10 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
 
   return (
     <div style={{ width: "100%", fontFamily: "Inter, sans-serif", color: "#14191F" }}>
-    <div style={{ ...section("white", 60), paddingBottom: view === "intense" ? 56 : 80 }}>
-    <div style={inner}>
 
-      {/* Title */}
+    {/* ── Section 1: Title + Hero + Note — bg #F2F3F4 ── */}
+    <div style={section("#F2F3F4", 60)}>
+    <div style={inner}>
       <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
         Streamlining interview scheduling for<br />talent acquisition and HR managers.
       </h1>
@@ -1640,11 +1640,15 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
 
       {/* Note */}
       <h2 style={{ ...h2Style, marginBottom: 12 }}>Note</h2>
-      <p style={{ ...bodyStyle, fontStyle: "italic", marginBottom: 64 }}>
+      <p style={{ ...bodyStyle, fontStyle: "italic", marginBottom: 0, color: "#55595E" }}>
         My work spans the entire platform, affecting how users interact with features from creating job requisitions to scheduling interviews and onboarding candidates. I notably led the design and solution for the interview scheduling module, incorporating ongoing feedback from my lead. (<span style={{ textDecoration: "underline" }}>Arun Antony</span>).
       </p>
+    </div>
+    </div>
 
-      {/* Problem Statement */}
+    {/* ── Section 2: Problem Statement → Constraint Note — bg #ffffff ── */}
+    <div style={section("#ffffff", 56)}>
+    <div style={inner}>
       <h2 style={{ ...h2Style }}>Problem Statement</h2>
       <p style={{ ...bodyStyle, marginBottom: 16 }}>Before we initiated work on the product, the interview creation feature was quite basic:</p>
       <ul style={{ ...bodyStyle, paddingLeft: 20, marginBottom: 16, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1664,30 +1668,34 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           "See the number of rounds and its details.",
           "Schedule interview for each candidate individually",
         ].map((text, i) => (
-          <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
+          <div key={i} style={{ background: "#F4F6F7", borderRadius: 12, padding: "20px" }}>
             <p style={{ fontSize: 13, fontWeight: 600, color: "#14191F", marginBottom: 6 }}>User wants to</p>
-            <p style={{ fontSize: 14, lineHeight: "20px", color: "#555" }}>{text}</p>
+            <p style={{ fontSize: 14, lineHeight: "20px", color: "#14191F" }}>{text}</p>
           </div>
         ))}
       </div>
-      <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
+      <div style={{ background: "#F4F6F7", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
         <p style={{ fontSize: 13, fontWeight: 600, color: "#14191F", marginBottom: 6 }}>User wants to</p>
-        <p style={{ fontSize: 14, lineHeight: "20px", color: "#555" }}>See the candidate status and progress in the interview event.</p>
+        <p style={{ fontSize: 14, lineHeight: "20px", color: "#14191F" }}>See the candidate status and progress in the interview event.</p>
       </div>
 
       {/* Constraint Note */}
-      <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px", marginBottom: 32 }}>
+      <div style={{ background: "#F4F6F7", borderRadius: 12, padding: "20px" }}>
         <p style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: "#14191F" }}>Note</p>
         {[
           "Creation and editing of an interview event are currently not possible due to technical issues. Therefore, the interview event will be created and edited within the job requisition module. Hence each interview event should be connected with a job requisition.",
           `Only candidates whose statuses have been changed to "interview" under a job requisition will be displayed in this module.`,
           "Interviews are called as events.",
         ].map((text, i) => (
-          <p key={i} style={{ fontSize: 14, lineHeight: "21px", color: "#555", marginBottom: i < 2 ? 10 : 0 }}>{i + 1}. {text}</p>
+          <p key={i} style={{ fontSize: 14, lineHeight: "21px", color: "#55595E", marginBottom: i < 2 ? 10 : 0 }}>{i + 1}. {text}</p>
         ))}
       </div>
+    </div>
+    </div>
 
-      {/* Goals */}
+    {/* ── Section 3: Goals — bg #F2F3F4 ── */}
+    <div style={section("#F2F3F4", 56)}>
+    <div style={inner}>
       <h2 style={{ ...h2Style }}>Goals</h2>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 0 }}>
         {[
@@ -1704,7 +1712,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
 
       {view === "intense" && (
         <>
-          {/* Dark section: Research + Wireframe + Solution */}
+          {/* ── Section 4: Research + Wireframe + Solution — bg #131215 ── */}
           <div style={section("#131215", 64)}>
           <div style={inner}>
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 24, letterSpacing: "0", color: "white" }}>Research</h2>
@@ -1733,7 +1741,8 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           </div>
           </div>
 
-          <div style={section("white", 64)}>
+          {/* ── Section 5: Monitoring → End — bg #F2F3F4 ── */}
+          <div style={section("#F2F3F4", 64)}>
           <div style={{ ...inner, paddingBottom: 24 }}>
           {/* Monitoring and Managing Interviews */}
           <h2 style={{ ...h2Style }}>Monitoring and Managing Interviews</h2>
