@@ -1869,6 +1869,7 @@ function CaseStudyBrowser({
 }) {
   const [urlOpen, setUrlOpen] = useState(false);
   const urlRef = useRef<HTMLDivElement>(null);
+  const contentScrollRef = useRef<HTMLDivElement>(null);
   const study = caseStudies.find((s) => s.id === studyId)!;
 
   useEffect(() => {
@@ -1878,6 +1879,12 @@ function CaseStudyBrowser({
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  useEffect(() => {
+    if (contentScrollRef.current) {
+      contentScrollRef.current.scrollTop = 0;
+    }
+  }, [studyId]);
 
   return (
     <div
@@ -2027,6 +2034,7 @@ function CaseStudyBrowser({
 
       {/* Content */}
       <div
+        ref={contentScrollRef}
         style={{
           flex: 1,
           overflowY: "auto",
