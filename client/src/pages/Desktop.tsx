@@ -1723,21 +1723,21 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
             <img src="/project-4/4.gif" alt="Wireframe" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 48 }} />
 
             <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "white" }}>Solution</h2>
-            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 24 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", marginBottom: 24 }}>
               The solution features simplified navigation, a clear visual hierarchy, and scalability, achieved using an in-house design system I created.
             </p>
             <img src="/project-4/5.webp" alt="Solution" style={{ width: "100%", borderRadius: 12, display: "block", marginBottom: 24 }} />
-            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 16 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", marginBottom: 16 }}>
               Introducing the home screen of the Interview Control Center. This page includes key event metrics, a table that provides an overview of all events with various statuses, and options for search and filter to find the events quickly.
             </p>
-            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", marginBottom: 10 }}>Through this table, users gain insights into:</p>
-            <ul style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", marginBottom: 10 }}>Through this table, users gain insights into:</p>
+            <ul style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
               <li>Interviews, including start and end dates</li>
               <li>Displays names of the primary recruiter and hiring manager</li>
               <li>Shows the number of panelists and candidates</li>
               <li>Provides an option to download reports</li>
             </ul>
-            <p style={{ fontSize: 16, lineHeight: "22px", color: "#D8D8D8" }}>This helps in managing multiple interview events simultaneously.</p>
+            <p style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1" }}>This helps in managing multiple interview events simultaneously.</p>
           </div>
           </div>
 
