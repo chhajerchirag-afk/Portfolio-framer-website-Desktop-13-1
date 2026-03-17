@@ -387,10 +387,10 @@ const menuLinks = [
     iconType: "mail",
   },
   {
-    label: "Say Hello!",
-    href: null,
-    bg: "#3d2a6e",
-    iconType: "person",
+    label: "Resume",
+    href: "https://drive.google.com/file/d/1kJuQsC_f8T5I_KDlP2aAHh5aY1DeY--W/view?usp=sharing",
+    bg: "#111111",
+    iconType: "resume",
   },
   {
     label: "LinkedIn",
@@ -414,6 +414,14 @@ function MenuIcon({ type }: { type: string }) {
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
         <circle cx="10" cy="7" r="3.5" stroke="white" strokeWidth="1.5"/>
         <path d="M3 17c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    );
+  }
+  if (type === "resume") {
+    return (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <rect x="4" y="2" width="12" height="16" rx="1.5" stroke="white" strokeWidth="1.5"/>
+        <path d="M7 7h6M7 10h6M7 13h4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
     );
   }
@@ -554,19 +562,10 @@ function ThreeDotsMenu() {
                   width: 48,
                   height: 48,
                   borderRadius: "50%",
-                  background: item.iconType === "person" ? "transparent" : item.bg,
+                  background: item.bg,
                 }}
               >
-                {item.iconType === "person" ? (
-                  <img
-                    src={sayHelloImg}
-                    alt="Say Hello"
-                    className="w-full h-full object-cover"
-                    style={{ borderRadius: "50%" }}
-                  />
-                ) : (
-                  <MenuIcon type={item.iconType} />
-                )}
+                <MenuIcon type={item.iconType} />
               </span>
               <span
                 className="font-['Inter',sans-serif] text-center whitespace-nowrap"
