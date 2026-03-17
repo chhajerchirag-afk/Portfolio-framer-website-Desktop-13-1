@@ -212,6 +212,20 @@
   animation: gradient-drift 20s ease-in-out infinite;
 }
 
+@keyframes hello-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0%   0 0); }
+}
+
+.animate-hello-reveal {
+  background: linear-gradient(to right, #C084FC, #818CF8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  animation: hello-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
 
 @keyframes fadeInTile {
   0% { opacity: 0; transform: translateY(10px); }

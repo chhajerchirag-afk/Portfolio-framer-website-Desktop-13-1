@@ -2393,7 +2393,7 @@ export const Desktop = (): JSX.Element => {
                 }}
                 data-testid="text-heading"
               >
-                Hello! I&apos;m Chirag&apos;s portfolio AI.
+                <span className="animate-hello-reveal">Hello!</span> I&apos;m Chirag&apos;s portfolio AI.
               </h1>
 
               <div
