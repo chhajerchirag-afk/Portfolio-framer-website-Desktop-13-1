@@ -212,18 +212,23 @@
   animation: gradient-drift 20s ease-in-out infinite;
 }
 
-@keyframes hello-reveal {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0%   0 0); }
+@keyframes hello-overlay {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 1; }
+  52%  { clip-path: inset(0 0%   0 0); opacity: 1; }
+  68%  { clip-path: inset(0 0%   0 0); opacity: 1; }
+  100% { clip-path: inset(0 0%   0 0); opacity: 0; }
 }
 
-.animate-hello-reveal {
+.animate-hello-overlay {
   background: linear-gradient(to right, #C084FC, #818CF8);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  display: inline-block;
-  animation: hello-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  display: block;
+  position: absolute;
+  inset: 0;
+  animation: hello-overlay 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  pointer-events: none;
 }
 
 
