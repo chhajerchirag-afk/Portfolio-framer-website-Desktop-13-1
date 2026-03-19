@@ -404,8 +404,8 @@ function MenuIcon({ type }: { type: string }) {
   if (type === "mail") {
     return (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect x="2" y="4" width="16" height="12" rx="2" stroke="white" strokeWidth="1.5"/>
-        <path d="M2 7L10 12L18 7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M2 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Z" fill="white"/>
+        <path d="M2 6.5l8 5.5 8-5.5" stroke="#111111" strokeWidth="1.4" strokeLinecap="round" fill="none"/>
       </svg>
     );
   }
@@ -420,8 +420,8 @@ function MenuIcon({ type }: { type: string }) {
   if (type === "resume") {
     return (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect x="4" y="2" width="12" height="16" rx="1.5" stroke="white" strokeWidth="1.5"/>
-        <path d="M7 7h6M7 10h6M7 13h4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+        <rect x="4" y="2" width="12" height="16" rx="1.5" fill="white"/>
+        <path d="M7 7h6M7 10h6M7 13h4" stroke="#111111" strokeWidth="1.4" strokeLinecap="round"/>
       </svg>
     );
   }
