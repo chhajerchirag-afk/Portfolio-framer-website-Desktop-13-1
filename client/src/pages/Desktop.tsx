@@ -1440,7 +1440,8 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
     initials: string,
     role: string,
     children: React.ReactNode,
-    key?: number
+    key?: number,
+    bubbleStyle?: React.CSSProperties
   ) => (
     <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 16 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
@@ -1452,6 +1453,7 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
         padding: "8px 16px", maxWidth: 480, fontSize: 14, lineHeight: "20px",
         color: "#14191F", fontFamily: "Inter, sans-serif",
         boxShadow: "0px 2px 12px rgba(0,0,0,0.08)",
+        ...bubbleStyle,
       }}>
         {children}
       </div>
@@ -1593,7 +1595,9 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
           src="/project-3/PRD-doc.png"
           alt="Product Requirement Document"
           style={{ width: "100%", borderRadius: 12, display: "block" }}
-        />
+        />,
+        undefined,
+        { padding: 0, border: "none", boxShadow: "none", background: "transparent" }
       )}
 
       {senderBubble("AG", "Product Manger",
