@@ -1651,9 +1651,9 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
     <div style={inner}>
       <h2 style={{ ...h2Style }}>Problem Statement</h2>
       <p style={{ ...bodyStyle, marginBottom: 16 }}>Before we initiated work on the product, the interview creation feature was quite basic:</p>
-      <ul style={{ ...bodyStyle, paddingLeft: 20, marginBottom: 16, display: "flex", flexDirection: "column", gap: 8 }}>
-        <li>Users could only select the type of interview, name it, set start and end dates, specify the number of rounds, and assign panelists.</li>
-        <li>Interviews was inefficient and lacked effective process management.</li>
+      <ul style={{ ...bodyStyle, paddingLeft: 24, marginBottom: 16, listStyleType: "disc" }}>
+        <li style={{ marginBottom: 8 }}>Users could only select the type of interview, name it, set start and end dates, specify the number of rounds, and assign panelists.</li>
+        <li style={{ marginBottom: 8 }}>Interviews was inefficient and lacked effective process management.</li>
         <li>Regular users, mainly recruiters and hiring managers, had to rely on other tools for conducting interviews.</li>
       </ul>
       <p style={{ ...bodyStyle, marginBottom: 32 }}>Due to numerous client requests received by Hyreo's sales team, the decision was made to enhance this feature, despite initially not knowing the best solution.</p>
@@ -1680,15 +1680,13 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
       </div>
 
       {/* Constraint Note */}
-      <div style={{ background: "#F4F6F7", borderRadius: 12, padding: "20px" }}>
-        <p style={{ fontSize: 14, fontWeight: 600, marginBottom: 12, color: "#14191F" }}>Note</p>
-        {[
-          "Creation and editing of an interview event are currently not possible due to technical issues. Therefore, the interview event will be created and edited within the job requisition module. Hence each interview event should be connected with a job requisition.",
-          `Only candidates whose statuses have been changed to "interview" under a job requisition will be displayed in this module.`,
-          "Interviews are called as events.",
-        ].map((text, i) => (
-          <p key={i} style={{ fontSize: 14, lineHeight: "21px", color: "#55595E", marginBottom: i < 2 ? 10 : 0 }}>{i + 1}. {text}</p>
-        ))}
+      <div style={{ marginBottom: 0 }}>
+        <p style={{ fontSize: 16, fontWeight: 600, marginBottom: 12, color: "#14191F" }}>Note</p>
+        <ol style={{ fontSize: 16, lineHeight: "22px", color: "#55595E", paddingLeft: 24, listStyleType: "decimal", fontStyle: "italic" }}>
+          <li style={{ marginBottom: 10 }}>Creation and editing of an interview event are currently not possible due to technical issues. Therefore, the interview event will be created and edited within the job requisition module. Hence each interview event should be connected with a job requisition.</li>
+          <li style={{ marginBottom: 10 }}>Only candidates whose statuses have been changed to "interview" under a job requisition will be displayed in this module.</li>
+          <li>Interviews are called as events.</li>
+        </ol>
       </div>
     </div>
     </div>
@@ -1703,7 +1701,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           "Making search and filtering candidates simple to schedule interview's quickly",
         ].map((g, i) => (
           <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
-            <p style={{ fontSize: 15, fontWeight: 500, lineHeight: "22px", color: "#14191F" }}>{g}</p>
+            <p style={{ fontSize: 16, fontWeight: 400, lineHeight: "22px", color: "#14191F" }}>{g}</p>
           </div>
         ))}
       </div>
@@ -1731,10 +1729,10 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
               Introducing the home screen of the Interview Control Center. This page includes key event metrics, a table that provides an overview of all events with various statuses, and options for search and filter to find the events quickly.
             </p>
             <p style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", marginBottom: 10 }}>Through this table, users gain insights into:</p>
-            <ul style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", paddingLeft: 18, display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
-              <li>Interviews, including start and end dates</li>
-              <li>Displays names of the primary recruiter and hiring manager</li>
-              <li>Shows the number of panelists and candidates</li>
+            <ul style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1", paddingLeft: 24, listStyleType: "disc", marginBottom: 16 }}>
+              <li style={{ marginBottom: 6 }}>Interviews, including start and end dates</li>
+              <li style={{ marginBottom: 6 }}>Displays names of the primary recruiter and hiring manager</li>
+              <li style={{ marginBottom: 6 }}>Shows the number of panelists and candidates</li>
               <li>Provides an option to download reports</li>
             </ul>
             <p style={{ fontSize: 16, lineHeight: "22px", color: "#F8F8F1" }}>This helps in managing multiple interview events simultaneously.</p>
@@ -1749,10 +1747,10 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 24 }}>
             After discussion with the developers and my head, I understood the technical limitations as well as different possible edge cases around the Kanban approach. Hence, I adjusted my initial plan from a Kanban approach to an accordion approach, as I realized that the Kanban approach wasn't the optimal solution.
           </p>
-          <img src="/project-4/6.webp" alt="Monitoring and managing interviews" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 24 }} />
-          <p style={{ ...bodyStyle, marginBottom: 64 }}>
+          <p style={{ ...bodyStyle, marginBottom: 32 }}>
             Then, I brainstormed possible solutions that would help the end users monitor, manage and schedule interviews seamlessly. Also validated the solution and ultimately designed the final approach.
           </p>
+          <img src="/project-4/6.webp" alt="Monitoring and managing interviews" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
 
           {/* Functionalities */}
           <h2 style={{ ...h2Style }}>Functionalities</h2>
@@ -1760,9 +1758,9 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
             This is a full-page modal with options to switch between different events using the up and down buttons, followed by the number of events at the top. The header includes the job requisition name and ID, followed by key details of the event. It also has an option to email candidates and panelists who are part of this event, eliminating the need for other mailing tools.
           </p>
           <p style={{ ...bodyStyle, marginBottom: 12 }}>I have seperated the bottom section into three tabs:</p>
-          <ol style={{ ...bodyStyle, paddingLeft: 20, marginBottom: 32, display: "flex", flexDirection: "column", gap: 6 }}>
-            <li>Control panel tab: Used to manage interviews</li>
-            <li>Candidate tab: See all candidate details participating in the interview event</li>
+          <ol style={{ ...bodyStyle, paddingLeft: 24, marginBottom: 32, listStyleType: "decimal" }}>
+            <li style={{ marginBottom: 6 }}>Control panel tab: Used to manage interviews</li>
+            <li style={{ marginBottom: 6 }}>Candidate tab: See all candidate details participating in the interview event</li>
             <li>Panelist tab: See all panelist details participating in the interview event</li>
           </ol>
           <img src="/project-4/7.webp" alt="Functionalities" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
