@@ -1442,15 +1442,16 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
     children: React.ReactNode,
     key?: number
   ) => (
-    <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 20 }}>
+    <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginBottom: 16 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
-        <span style={{ fontSize: 12, fontWeight: 600, color: "#14191F", fontFamily: "Inter, sans-serif" }}>{initials}</span>
-        <span style={{ fontSize: 11, color: "#9B9B9B", fontFamily: "Inter, sans-serif" }}>• {role}</span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "#171717", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>{initials}</span>
+        <span style={{ fontSize: 12, color: "#A1A1A1", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>• {role}</span>
       </div>
       <div style={{
-        background: "white", border: "0.5px solid #E0E0E0", borderRadius: "4px 14px 14px 14px",
-        padding: "14px 16px", maxWidth: 480, fontSize: 15, lineHeight: "22px",
+        background: "white", border: "1px solid #D9D9D9", borderRadius: "12px 12px 12px 4px",
+        padding: "8px 16px", maxWidth: 480, fontSize: 14, lineHeight: "20px",
         color: "#14191F", fontFamily: "Inter, sans-serif",
+        boxShadow: "0px 2px 12px rgba(0,0,0,0.08)",
       }}>
         {children}
       </div>
@@ -1458,15 +1459,16 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
   );
 
   const myBubble = (children: React.ReactNode, key?: number) => (
-    <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginBottom: 20 }}>
+    <div key={key} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", marginBottom: 16 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
-        <span style={{ fontSize: 12, fontWeight: 600, color: "#14191F", fontFamily: "Inter, sans-serif" }}>Me</span>
-        <span style={{ fontSize: 11, color: "#9B9B9B", fontFamily: "Inter, sans-serif" }}>• Product Designer</span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "#171717", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>Me</span>
+        <span style={{ fontSize: 12, color: "#A1A1A1", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>• Product Designer</span>
       </div>
       <div style={{
-        background: "#1B72E8", borderRadius: "14px 4px 14px 14px",
-        padding: "14px 16px", maxWidth: 480, fontSize: 15, lineHeight: "22px",
+        background: "#0F87FF", borderRadius: "12px 4px 12px 12px",
+        padding: "8px 16px", maxWidth: 480, fontSize: 14, lineHeight: "20px",
         color: "white", fontFamily: "Inter, sans-serif",
+        boxShadow: "inset 0px 1px 2px rgba(255,255,255,0.5), 0px 2px 12px rgba(0,0,0,0.08)",
       }}>
         {children}
       </div>
@@ -1482,20 +1484,28 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
   );
 
   const avatarRow = (label: string) => (
-    <div style={{ display: "flex", alignItems: "center", gap: 12, margin: "28px 0 32px", justifyContent: "center" }}>
-      <div style={{ display: "flex" }}>
-        {["#C5D8F7", "#F7D4C5", "#D4C5F7"].map((bg, i) => (
-          <div key={i} style={{
-            width: 34, height: 34, borderRadius: "50%", background: bg,
-            border: "2px solid white", marginLeft: i === 0 ? 0 : -8,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 15,
-          }}>
-            {["🧑‍💼","👩‍💻","🧑‍🎨"][i]}
-          </div>
-        ))}
+    <div style={{ display: "flex", alignItems: "center", gap: 0, margin: "64px 0", width: "100%" }}>
+      <div style={{ flex: 1, height: 1, background: "#D9D9D9" }} />
+      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 16px" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          {[
+            "/project-3/Avatar 01.png",
+            "/project-3/Avatar 02.png",
+            "/project-3/Avatar 03.png",
+            "/project-3/Avatar 04.png",
+          ].map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt={`Participant ${i + 1}`}
+              className="cs3-avatar"
+              style={{ marginLeft: i === 0 ? 0 : -10, zIndex: i }}
+            />
+          ))}
+        </div>
+        <span style={{ fontSize: 14, fontWeight: 500, fontFamily: "'JetBrains Mono', monospace", color: "#14191F", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>{label}</span>
       </div>
-      <span style={{ fontSize: 12, fontFamily: "'JetBrains Mono', monospace", color: "#555", letterSpacing: "0.03em" }}>{label}</span>
+      <div style={{ flex: 1, height: 1, background: "#D9D9D9" }} />
     </div>
   );
 
