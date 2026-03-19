@@ -212,11 +212,16 @@
   animation: gradient-drift 20s ease-in-out infinite;
 }
 
-@keyframes hello-overlay {
+@keyframes hello-gradient-wipe {
   0%   { clip-path: inset(0 100% 0 0); opacity: 1; }
-  52%  { clip-path: inset(0 0%   0 0); opacity: 1; }
-  68%  { clip-path: inset(0 0%   0 0); opacity: 1; }
+  45%  { clip-path: inset(0 0%   0 0); opacity: 1; }
+  62%  { clip-path: inset(0 0%   0 0); opacity: 1; }
   100% { clip-path: inset(0 0%   0 0); opacity: 0; }
+}
+
+@keyframes hello-dark-fadein {
+  0%,  62% { opacity: 0; }
+  100%      { opacity: 1; }
 }
 
 .animate-hello-overlay {
@@ -227,8 +232,13 @@
   display: block;
   position: absolute;
   inset: 0;
-  animation: hello-overlay 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  animation: hello-gradient-wipe 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
   pointer-events: none;
+}
+
+.animate-hello-dark {
+  opacity: 0;
+  animation: hello-dark-fadein 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
 }
 
 

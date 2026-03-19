@@ -2403,7 +2403,7 @@ export const Desktop = (): JSX.Element => {
                 data-testid="text-heading"
               >
                 <span style={{ position: "relative", display: "inline-block" }}>
-                  Hello!
+                  <span className="animate-hello-dark">Hello!</span>
                   <span className="animate-hello-overlay" aria-hidden="true">Hello!</span>
                 </span> I&apos;m Chirag&apos;s portfolio AI.
               </h1>
