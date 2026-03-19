@@ -2561,18 +2561,16 @@ export const Desktop = (): JSX.Element => {
                 <AnimatedClock time={time} />
               </div>
               <div className="flex-1 overflow-hidden" style={{ minHeight: 0, position: "relative" }}>
-                {/* Left: chat panel — slides left with translateX (no width change = no reflow/scale) */}
+                {/* Left: chat panel */}
                 <div
                   style={{
                     position: "absolute",
                     top: 0,
                     left: 0,
                     bottom: 0,
-                    width: "100%",
-                    transform: activeCaseStudy ? "translateX(-70%)" : "translateX(0)",
-                    transition: "transform 0.38s ease-out",
+                    width: activeCaseStudy ? "30%" : "100%",
+                    transition: "width 0.38s ease-out",
                     overflow: "hidden",
-                    willChange: "transform",
                   }}
                 >
                   <div
