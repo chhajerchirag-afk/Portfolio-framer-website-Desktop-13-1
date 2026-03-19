@@ -1532,12 +1532,12 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
       {senderBubble("SD", "Managing Director",
         <div>
           <p style={{ marginBottom: 10 }}>Here are your topic:</p>
-          <ul style={{ paddingLeft: 18, marginBottom: 12, display: "flex", flexDirection: "column", gap: 4 }}>
-            <li>AI Notetaker - Team A</li>
-            <li>AI Receptionist - Team B</li>
-            <li>Video AI - Team C [🧑‍💻 Me]</li>
-            <li>AI Powered Career Sites - Team D</li>
-            <li>ROI Agent - Team E</li>
+          <ul style={{ paddingLeft: 18, marginBottom: 12, display: "flex", flexDirection: "column", gap: 4, listStyleType: "disc" }}>
+            <li style={{ display: "list-item" }}>AI Notetaker - Team A</li>
+            <li style={{ display: "list-item" }}>AI Receptionist - Team B</li>
+            <li style={{ display: "list-item" }}>Video AI - Team C [🧑‍💻 Me]</li>
+            <li style={{ display: "list-item" }}>AI Powered Career Sites - Team D</li>
+            <li style={{ display: "list-item" }}>ROI Agent - Team E</li>
           </ul>
           <p>The best project wins a cash prize. Good luck, and thanks for joining!</p>
         </div>
@@ -1590,19 +1590,11 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
 
       {senderBubble("AG", "Product Manger",
         <div>
-          {/* PRD attachment card */}
-          <div style={{
-            background: "#F5F5F7", border: "0.5px solid #E0E0E0", borderRadius: 10,
-            padding: "10px 12px", marginBottom: 10, display: "flex", alignItems: "center", gap: 10,
-          }}>
-            <div style={{ width: 32, height: 40, background: "#E0E0E8", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="14" rx="2" fill="#9090B0"/><rect x="5" y="5" width="6" height="1" rx="0.5" fill="white"/><rect x="5" y="8" width="6" height="1" rx="0.5" fill="white"/><rect x="5" y="11" width="4" height="1" rx="0.5" fill="white"/></svg>
-            </div>
-            <div>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "#14191F", marginBottom: 2 }}>Product Requirement Document</p>
-              <p style={{ fontSize: 11, color: "#9B9B9B" }}>AI Video Interview Agent Automated Screening Interview</p>
-            </div>
-          </div>
+          <img
+            src="/project-3/PRD-doc.png"
+            alt="Product Requirement Document"
+            style={{ width: "100%", borderRadius: 12, marginBottom: 10, display: "block" }}
+          />
           <p>Chirag, here's the final PRD. Let me know if you have any questions!</p>
         </div>
       )}
