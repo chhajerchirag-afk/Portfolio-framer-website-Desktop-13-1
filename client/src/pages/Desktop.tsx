@@ -1750,7 +1750,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 32 }}>
             Then, I brainstormed possible solutions that would help the end users monitor, manage and schedule interviews seamlessly. Also validated the solution and ultimately designed the final approach.
           </p>
-          <img src="/project-4/6.webp" alt="Monitoring and managing interviews" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
+          <img src="/project-4/6.webp" alt="Monitoring and managing interviews" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64, border: "1px solid #DADADB" }} />
 
           {/* Functionalities */}
           <h2 style={{ ...h2Style }}>Functionalities</h2>
@@ -1763,7 +1763,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
             <li style={{ marginBottom: 6 }}>Candidate tab: See all candidate details participating in the interview event</li>
             <li>Panelist tab: See all panelist details participating in the interview event</li>
           </ol>
-          <img src="/project-4/7.webp" alt="Functionalities" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
+          <img src="/project-4/7.webp" alt="Functionalities" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64, border: "1px solid #DADADB" }} />
 
           {/* Different Views */}
           <h2 style={{ ...h2Style }}>Different Views of the Control Center</h2>
@@ -1773,13 +1773,13 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             In this view, the accordions have the round names and details. This view highlights the name of the panelist assigned to the round and the number of scheduled interviews for each panelist.
           </p>
-          <img src="/project-4/8.webp" alt="Group by rounds" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 48 }} />
+          <img src="/project-4/8.webp" alt="Group by rounds" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 48, border: "1px solid #DADADB" }} />
 
           <h3 style={{ ...h3Style }}>Group by Panelist</h3>
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             In this view, the accordions change from showing round names to displaying panelist names. This view highlights the rounds each panelist is assigned to and the number of scheduled interviews for each panelist.
           </p>
-          <img src="/project-4/9.webp" alt="Group by panelist" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
+          <img src="/project-4/9.webp" alt="Group by panelist" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64, border: "1px solid #DADADB" }} />
 
           {/* Scheduling Interview */}
           <h2 style={{ ...h2Style }}>Scheduling Interview</h2>
@@ -1788,15 +1788,15 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 16 }}>
             1. By clicking on the 'Add candidate' button on the accordion. For example, if the user clicks on the 'Add candidate' option in round 1 accordion, all the candidates who are eligible for 'round 1' and whose interviews have not been scheduled will be displayed.
           </p>
-          <img src="/project-4/10.webp" alt="Scheduling interview - add candidate" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32 }} />
+          <img src="/project-4/10.webp" alt="Scheduling interview - add candidate" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32, border: "1px solid #DADADB" }} />
 
           <p style={{ ...bodyStyle, marginBottom: 16 }}>
             2. By clicking on the 'Manage candidates' button all the candidate with different interview statuses will be displayed.
           </p>
-          <img src="/project-4/11.webp" alt="Scheduling interview - manage candidates" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32 }} />
+          <img src="/project-4/11.webp" alt="Scheduling interview - manage candidates" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32, border: "1px solid #DADADB" }} />
 
           <p style={{ ...bodyStyle, marginBottom: 16 }}>3. By dragging and dropping candidates to rounds or panelist accordion</p>
-          <img src="/project-4/12.webp" alt="Scheduling interview - drag and drop" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32 }} />
+          <img src="/project-4/12.webp" alt="Scheduling interview - drag and drop" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 32, border: "1px solid #DADADB" }} />
 
           <h3 style={{ ...h3Style }}>Challenge</h3>
           <p style={{ ...bodyStyle, marginBottom: 24 }}>
@@ -1813,21 +1813,21 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             These custom cards allow end users to live track the interview progress of each candidate. These different cards are to represent different interview statuses.
           </p>
-          <img src="/project-4/13.webp" alt="Candidate interview cards" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
+          <img src="/project-4/13.webp" alt="Candidate interview cards" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64, border: "1px solid #DADADB" }} />
 
           {/* Viewing Candidate Details */}
           <h2 style={{ ...h2Style }}>Viewing Candidate Details, Rescheduling and Cancelling Interviews</h2>
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             This drawer is very important for view the candidate details, it helps the users make decisions and perform actions such as rescheduling interviews or cancel if the candidate or panelist is not available or for other reasons.
           </p>
-          <img src="/project-4/14.webp" alt="Viewing candidate details, rescheduling and cancelling" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
+          <img src="/project-4/14.webp" alt="Viewing candidate details, rescheduling and cancelling" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64, border: "1px solid #DADADB" }} />
 
           {/* Candidate Tab */}
           <h2 style={{ ...h2Style }}>Candidate tab</h2>
           <p style={{ ...bodyStyle, marginBottom: 20 }}>
             This displays all the candidates who are participating in this interview event.
           </p>
-          <img src="/project-4/15.webp" alt="Candidate tab" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64 }} />
+          <img src="/project-4/15.webp" alt="Candidate tab" style={{ width: "100%", borderRadius: 14, display: "block", marginBottom: 64, border: "1px solid #DADADB" }} />
 
           {/* Last Notes */}
           <h2 style={{ ...h2Style }}>Last notes</h2>
