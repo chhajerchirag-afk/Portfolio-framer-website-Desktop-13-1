@@ -691,8 +691,7 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
               <img
                 src={study.thumbnail}
                 alt={study.title}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06]"
-                style={{ transition: "transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)" }}
+                className="absolute inset-0 w-full h-full object-cover"
                 draggable={false}
               />
             </div>
@@ -2562,16 +2561,18 @@ export const Desktop = (): JSX.Element => {
                 <AnimatedClock time={time} />
               </div>
               <div className="flex-1 overflow-hidden" style={{ minHeight: 0, position: "relative" }}>
-                {/* Left: chat panel — width transitions from 100% to 30% */}
+                {/* Left: chat panel — slides left with translateX (no width change = no reflow/scale) */}
                 <div
                   style={{
                     position: "absolute",
                     top: 0,
                     left: 0,
                     bottom: 0,
-                    width: activeCaseStudy ? "30%" : "100%",
-                    transition: "width 0.38s ease-out",
+                    width: "100%",
+                    transform: activeCaseStudy ? "translateX(-70%)" : "translateX(0)",
+                    transition: "transform 0.38s ease-out",
                     overflow: "hidden",
+                    willChange: "transform",
                   }}
                 >
                   <div
