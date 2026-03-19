@@ -2373,9 +2373,10 @@ export const Desktop = (): JSX.Element => {
               style={{ cursor: "pointer", position: "absolute", top: 19, left: 19, zIndex: 10, background: "none", border: "none", padding: 0 }}
             >
               <img
-                className="w-[86px] h-[34px]"
+                className="h-[40px] w-auto"
                 alt="Logo"
-                src="/Sign.png"
+                src="/sign/Sign.png"
+                style={{ filter: "invert(1)", mixBlendMode: "multiply" }}
               />
             </button>
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
@@ -2475,7 +2476,7 @@ export const Desktop = (): JSX.Element => {
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/Sign.png" />
+                  <img className="h-[40px] w-auto" alt="Logo" src="/sign/Sign.png" style={{ filter: "invert(1)", mixBlendMode: "multiply" }} />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
@@ -2528,7 +2529,7 @@ export const Desktop = (): JSX.Element => {
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/Sign.png" />
+                  <img className="h-[40px] w-auto" alt="Logo" src="/sign/Sign.png" style={{ filter: "invert(1)", mixBlendMode: "multiply" }} />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
@@ -2549,7 +2550,7 @@ export const Desktop = (): JSX.Element => {
             (<div className="relative w-full h-full flex flex-col bg-white">
               <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
                 <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
-                  <img className="w-[86px] h-[34px]" alt="Logo" src="/Sign.png" />
+                  <img className="h-[40px] w-auto" alt="Logo" src="/sign/Sign.png" style={{ filter: "invert(1)", mixBlendMode: "multiply" }} />
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
                 <AnimatedClock time={time} />
