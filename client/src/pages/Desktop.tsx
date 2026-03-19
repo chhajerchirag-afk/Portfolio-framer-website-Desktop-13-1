@@ -1589,14 +1589,15 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
       {divider("Meeting Ended")}
 
       {senderBubble("AG", "Product Manger",
-        <div>
-          <img
-            src="/project-3/PRD-doc.png"
-            alt="Product Requirement Document"
-            style={{ width: "100%", borderRadius: 12, marginBottom: 10, display: "block" }}
-          />
-          <p>Chirag, here's the final PRD. Let me know if you have any questions!</p>
-        </div>
+        <img
+          src="/project-3/PRD-doc.png"
+          alt="Product Requirement Document"
+          style={{ width: "100%", borderRadius: 12, display: "block" }}
+        />
+      )}
+
+      {senderBubble("AG", "Product Manger",
+        "Chirag, here's the final PRD. Let me know if you have any questions!"
       )}
 
       {myBubble("Thanks, will go through it!")}
