@@ -2528,14 +2528,14 @@ export const Desktop = (): JSX.Element => {
           ) : activeCaseStudy && caseStudyFullscreen ? (
             /* ── Full-screen case study ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+              <div className="flex-shrink-0 relative z-20" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", padding: "16px 20px" }}>
                 <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
-                <AnimatedClock time={time} />
+                <ThreeDotsMenu />
+                <div style={{ display: "flex", justifyContent: "flex-end" }}><AnimatedClock time={time} /></div>
               </div>
-              <div className="flex-1 overflow-hidden" style={{ padding: "0 8px 8px" }}>
+              <div className="flex-1 overflow-hidden" style={{ padding: "20px 8px 8px" }}>
                 <CaseStudyBrowser
                   studyId={activeCaseStudy}
                   fullscreen={true}
@@ -2549,12 +2549,12 @@ export const Desktop = (): JSX.Element => {
           ) : (
             /* ── Unified chat view (animates into 30/70 split when case study opens) ── */
             (<div className="relative w-full h-full flex flex-col bg-white">
-              <div className="flex items-center justify-between px-5 py-4 flex-shrink-0 relative z-20">
+              <div className="flex-shrink-0 relative z-20" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", padding: "16px 20px" }}>
                 <button onClick={handleReset} data-testid="button-logo-home" style={{ cursor: "pointer" }}>
                   <img className="w-[86px] h-[34px]" alt="Logo" src="/figmaAssets/vector-22.svg" />
                 </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4"><ThreeDotsMenu /></div>
-                <AnimatedClock time={time} />
+                <ThreeDotsMenu />
+                <div style={{ display: "flex", justifyContent: "flex-end" }}><AnimatedClock time={time} /></div>
               </div>
               <div className="flex-1 overflow-hidden" style={{ minHeight: 0, position: "relative" }}>
                 {/* Left: chat panel — width transitions from 100% to 30% */}
@@ -2669,6 +2669,7 @@ export const Desktop = (): JSX.Element => {
                     transition: "transform 0.38s ease-out",
                     overflow: "hidden",
                     willChange: "transform",
+                    paddingTop: 20,
                   }}
                 >
                   <CaseStudyBrowser
