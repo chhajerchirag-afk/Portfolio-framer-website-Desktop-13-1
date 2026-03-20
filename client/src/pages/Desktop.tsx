@@ -1323,8 +1323,23 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 24 }}>
                 The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
               </p>
-              <div style={{ overflow: "hidden" }}>
-                <img src="/project-1/cover.gif" alt="Solution Preview" style={{ width: "100%", display: "block" }} />
+              <div
+                style={{
+                  borderRadius: isMobile ? 12 : 24,
+                  border: "1px solid #33322F",
+                  overflow: "hidden",
+                  padding: "75% 0 0 0",
+                  position: "relative",
+                }}
+              >
+                <iframe
+                  src="https://player.vimeo.com/video/1175506100?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="AI Agent Builder Solution Preview"
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                />
               </div>
             </div>
           </div>
