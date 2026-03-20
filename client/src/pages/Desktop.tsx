@@ -1865,7 +1865,7 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
           </p>
         </div>,
         undefined,
-        { padding: 0, border: "none", boxShadow: "none", background: "transparent" }
+        { padding: 0, border: "none", boxShadow: "none", background: "transparent", maxWidth: "none", width: "100%" }
       )}
 
       {senderBubble("AG", "Product Manger",
