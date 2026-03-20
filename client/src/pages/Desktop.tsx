@@ -1012,7 +1012,7 @@ function useLiveClock() {
 }
 
 function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
-  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto" };
+  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
   return (
@@ -1322,7 +1322,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
 }
 
 function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
-  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto" };
+  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
   return (
@@ -1563,7 +1563,7 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
     </div>
   );
 
-  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto" };
+  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
   return (
@@ -1676,7 +1676,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
   const h2Style: React.CSSProperties = { fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" };
   const h3Style: React.CSSProperties = { fontSize: 20, fontWeight: 500, lineHeight: "28px", marginBottom: 12, color: "#14191F" };
   const bodyStyle: React.CSSProperties = { fontSize: 16, lineHeight: "22px", letterSpacing: "0", color: "#14191F" };
-  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto" };
+  const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
   return (
@@ -2222,7 +2222,7 @@ function CaseStudyBottomSheet({
           </button>
         </div>
         {/* Scrollable content */}
-        <div className="hide-scrollbar" style={{ flex: 1, overflowY: "auto", background: "#F2F3F4", padding: "0 20px" }}>
+        <div className="hide-scrollbar" style={{ flex: 1, overflowY: "auto", background: "#F2F3F4" }}>
           {studyId === "ai-agents-hr" ? (
             <AIAgentsHRContent view={view} />
           ) : studyId === "reimagining-ai" ? (
