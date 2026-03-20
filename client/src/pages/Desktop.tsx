@@ -1044,13 +1044,13 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             As communication volume increased across chat, SMS, and voice, automation complexity grew. Admins struggled to configure and scale agents efficiently. AI was intended to reduce recruiter effort — instead, it increased operational overhead.
           </p>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>What Actually Happened?</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 24 }}>
+          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 12, marginBottom: 24 }}>
             {[
               { number: "38%", arrow: "↓", label: "Sense AI adoption stagnated at 38%" },
               { number: "62%", arrow: "↑", label: "Recruiters spent more time on manual tasks (sourcing, tracking and follow-ups)" },
               { number: "47%", arrow: "↓", label: "Hiring outcomes and momentum declined" },
             ].map((stat, i) => (
-              <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
+              <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px", textAlign: "left" }}>
                 <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 24, fontWeight: 700, letterSpacing: "-0.02em", lineHeight: "36px", marginBottom: 10, color: "#7C0505" }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><span>{stat.number}</span><span>{stat.arrow}</span></span>
                 </div>
