@@ -1626,6 +1626,7 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
 function VimeoAutoplayEmbed({ videoId }: { videoId: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -1654,7 +1655,17 @@ function VimeoAutoplayEmbed({ videoId }: { videoId: string }) {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ position: "relative", width: "100%", paddingBottom: "56.25%", overflow: "hidden" }}>
+    <div
+      ref={containerRef}
+      style={{
+        position: "relative",
+        width: "100%",
+        paddingBottom: "56.25%",
+        overflow: "hidden",
+        borderRadius: isMobile ? 12 : 24,
+        border: "1px solid #D9D9D9",
+      }}
+    >
       <iframe
         ref={iframeRef}
         src={`https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&loop=1&muted=1&autoplay=0`}
