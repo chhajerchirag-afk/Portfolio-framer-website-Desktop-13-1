@@ -1083,6 +1083,61 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
   const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
+  const vimeoContainerRef = useRef<HTMLDivElement>(null);
+  const vimeoPlayerRef = useRef<any>(null);
+
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
+    function initPlayer() {
+      const iframe = vimeoContainerRef.current?.querySelector("iframe");
+      if (!iframe || !(window as any).Vimeo) return;
+
+      const player = new (window as any).Vimeo.Player(iframe);
+      vimeoPlayerRef.current = player;
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!vimeoPlayerRef.current) return;
+            if (entry.isIntersecting) {
+              vimeoPlayerRef.current.play().catch(() => {});
+            } else {
+              vimeoPlayerRef.current.pause().catch(() => {});
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+
+      if (vimeoContainerRef.current) {
+        observer.observe(vimeoContainerRef.current);
+      }
+    }
+
+    if ((window as any).Vimeo) {
+      initPlayer();
+    } else {
+      const existing = document.querySelector('script[src="https://player.vimeo.com/api/player.js"]');
+      if (existing) {
+        existing.addEventListener("load", initPlayer);
+      } else {
+        const script = document.createElement("script");
+        script.src = "https://player.vimeo.com/api/player.js";
+        script.onload = initPlayer;
+        document.head.appendChild(script);
+      }
+    }
+
+    return () => {
+      observer?.disconnect();
+      if (vimeoPlayerRef.current) {
+        vimeoPlayerRef.current.destroy().catch(() => {});
+        vimeoPlayerRef.current = null;
+      }
+    };
+  }, []);
+
   return (
     <div style={{ width: "100%", fontFamily: "Inter, sans-serif", color: "#14191F" }}>
 
@@ -1324,21 +1379,22 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
               </p>
               <div
+                ref={vimeoContainerRef}
                 style={{
                   borderRadius: isMobile ? 12 : 24,
                   border: "1px solid #33322F",
                   overflow: "hidden",
-                  padding: "75% 0 0 0",
                   position: "relative",
+                  paddingTop: "56.25%",
                 }}
               >
                 <iframe
-                  src="https://player.vimeo.com/video/1175506100?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1"
+                  src="https://player.vimeo.com/video/1175506100?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1"
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   title="AI Agent Builder Solution Preview"
-                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", display: "block" }}
                 />
               </div>
             </div>
