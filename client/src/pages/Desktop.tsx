@@ -9,6 +9,7 @@ import {
   ChevronsUpDownIcon,
   CheckIcon,
   XIcon,
+  FileTextIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -1838,33 +1839,45 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
       {divider("Meeting Ended")}
 
       {senderBubble("AG", "Product Manger",
-        <div style={{
-          background: "white",
-          border: "1px solid #D9D9D9",
-          borderRadius: "12px 12px 12px 4px",
-          padding: "12px 16px",
-          boxShadow: "0px 2px 12px rgba(0,0,0,0.08)",
-          display: "flex",
-          flexDirection: "column",
-          gap: 8,
-          fontFamily: "Inter, sans-serif",
-        }}>
-          <span style={{ fontSize: 11, fontWeight: 500, color: "#828282", letterSpacing: "-0.01em" }}>
-            Product Requirement Document
+        <a
+          href="https://drive.google.com/file/d/1sIKUCuvxRnVCNzspn6NBzyButYne7Omo/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 6,
+            padding: "12px 8px 10px",
+            textDecoration: "none",
+            cursor: "pointer",
+          }}
+        >
+          <div style={{
+            width: 40, height: 40, borderRadius: 8,
+            background: "#EFF4FF",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            flexShrink: 0,
+          }}>
+            <FileTextIcon size={20} color="#0F87FF" />
+          </div>
+          <span style={{ fontSize: 11, fontWeight: 500, color: "#14191F", textAlign: "center", lineHeight: "14px", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>
+            PRD
           </span>
-          <p style={{ fontSize: 16, fontWeight: 500, color: "#2B2B2B", lineHeight: "22px", letterSpacing: "-0.01em", margin: 0 }}>
-            AI Video Interview Agent Automated Screening Interview
-          </p>
-          <div style={{ height: 1, background: "#E8E8E8", margin: "2px 0" }} />
-          <p style={{ fontSize: 13, fontWeight: 400, color: "#2B2B2B", lineHeight: "18px", margin: 0 }}>
-            Description: What it is?
-          </p>
-          <p style={{ fontSize: 12, fontWeight: 300, color: "#8C8C8C", lineHeight: "17px", margin: 0 }}>
-            Build an AI Video Interview Agent that automates first-round screening interviews for recruiters across ...
-          </p>
-        </div>,
+          <span style={{ fontSize: 10, fontWeight: 400, color: "#A1A1A1", fontFamily: "Inter, sans-serif", letterSpacing: "0.02em" }}>
+            PDF
+          </span>
+        </a>,
         undefined,
-        { padding: 0, border: "none", boxShadow: "none", background: "transparent", maxWidth: "none", width: "100%" }
+        {
+          padding: 0,
+          border: "1px solid #D9D9D9",
+          boxShadow: "0px 2px 12px rgba(0,0,0,0.08)",
+          background: "white",
+          borderRadius: 12,
+          width: 100,
+          overflow: "hidden",
+        }
       )}
 
       {senderBubble("AG", "Product Manger",
