@@ -491,6 +491,7 @@ function ThreeDotsMenu() {
         height: open ? 130 : 34,
         background: "#F5F5F5",
         borderRadius: 999,
+        border: "1px solid #DEDEDE",
         overflow: "hidden",
         cursor: open ? "default" : "pointer",
         transition: [
