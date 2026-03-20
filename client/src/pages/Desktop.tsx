@@ -309,49 +309,58 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
 }
 
 const aboutPhotos = [
-  { src: "/About/1st.jpg", alt: "Star Product Designer Award at Sense", rotate: "-3deg" },
-  { src: "/About/2nd.jpg", alt: "Chirag portrait", rotate: "2deg" },
-  { src: "/About/3rd.jpg", alt: "Cat", rotate: "-1.5deg" },
-  { src: "/About/4th.jpg", alt: "Landscape", rotate: "2.5deg" },
+  { src: "/About/1st.jpg", alt: "Star Product Designer Award at Sense", rotate: "-3deg", flex: "1.8 1 0", heightPct: "72%", zIndex: 1 },
+  { src: "/About/2nd.jpg", alt: "Chirag portrait", rotate: "2deg",    flex: "1 1 0",   heightPct: "100%", zIndex: 2 },
+  { src: "/About/3rd.jpg", alt: "Cat",             rotate: "-1.5deg", flex: "1 1 0",   heightPct: "78%",  zIndex: 5 },
+  { src: "/About/4th.jpg", alt: "Landscape",       rotate: "2.5deg",  flex: "1 1 0",   heightPct: "88%",  zIndex: 3 },
 ];
 
 function AboutImages() {
   return (
     <div className="animate-stream-line" style={{ marginTop: 24 }}>
-      <div
-        className="mx-auto w-full md:max-w-[calc(100%-120px)]"
-      >
-        <div className="flex items-end" style={{ width: "100%", height: 170 }}>
-          {aboutPhotos.map((photo, i) => {
-            const isLandscape = i === 0;
-            return (
+      <div className="mx-auto w-full md:max-w-[calc(100%-120px)]">
+        <div className="flex items-end" style={{ width: "100%", height: 180 }}>
+          {aboutPhotos.map((photo, i) => (
+            <div
+              key={i}
+              className="group"
+              style={{
+                transform: `rotate(${photo.rotate})`,
+                flex: photo.flex,
+                minWidth: 0,
+                height: photo.heightPct,
+                marginLeft: i === 0 ? 0 : -20,
+                position: "relative",
+                zIndex: photo.zIndex,
+              }}
+            >
+              {/* Masking wrapper — clips the zoomed image cleanly */}
               <div
-                key={i}
-                className="group"
+                className="rounded-[8px] md:rounded-[12px] transition-transform duration-200 ease-out md:group-hover:-translate-y-[5px] md:group-hover:scale-[1.03]"
                 style={{
-                  transform: `rotate(${photo.rotate})`,
-                  flex: isLandscape ? "1.8 1 0" : "1 1 0",
-                  minWidth: 0,
-                  height: isLandscape ? "75%" : "100%",
-                  marginLeft: i === 0 ? 0 : -20,
-                  position: "relative",
-                  zIndex: i + 1,
+                  width: "100%",
+                  height: "100%",
+                  overflow: "hidden",
+                  border: "3px solid #ffffff",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+                  borderRadius: "inherit",
                 }}
               >
                 <img
                   src={photo.src}
                   alt={photo.alt}
-                  className="w-full h-full rounded-[8px] md:rounded-[12px] transition-transform duration-200 ease-out md:group-hover:-translate-y-[5px] md:group-hover:scale-[1.03]"
                   style={{
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-                    border: "3px solid #ffffff",
+                    width: "100%",
+                    height: "100%",
                     objectFit: "cover",
                     display: "block",
+                    transform: "scale(1.08)",
+                    transformOrigin: "center center",
                   }}
                 />
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </div>
