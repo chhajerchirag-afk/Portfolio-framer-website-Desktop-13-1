@@ -1658,12 +1658,11 @@ function VimeoAutoplayEmbed({ videoId }: { videoId: string }) {
     <div
       ref={containerRef}
       style={{
-        position: "relative",
         width: "100%",
-        paddingBottom: "56.25%",
-        overflow: "hidden",
+        aspectRatio: "16/9",
         borderRadius: isMobile ? 12 : 24,
         border: "1px solid #D9D9D9",
+        overflow: "hidden",
       }}
     >
       <iframe
@@ -1672,7 +1671,7 @@ function VimeoAutoplayEmbed({ videoId }: { videoId: string }) {
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
         referrerPolicy="strict-origin-when-cross-origin"
-        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+        style={{ display: "block", width: "100%", height: "100%" }}
         title="AI Powered Video Interview"
       />
     </div>
@@ -1879,6 +1878,8 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
       <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 16 }}>
         Here is the initial prototype I created for the hackathon using Lovable.
       </p>
+    </div>
+    <div style={{ maxWidth: 720, margin: "0 auto", width: "100%" }}>
       <VimeoAutoplayEmbed videoId="1175522753" />
     </div>
     </div>
