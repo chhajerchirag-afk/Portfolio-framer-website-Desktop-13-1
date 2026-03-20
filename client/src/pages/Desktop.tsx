@@ -628,13 +628,22 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
     }
   }, []);
 
-  const handleTouchStart = useCallback((id: string) => {
+  const touchStartY = useRef<number>(0);
+  const touchStartX = useRef<number>(0);
+
+  const handleTouchStart = useCallback((id: string, e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+    touchStartX.current = e.touches[0].clientX;
     setTappedId(id);
   }, []);
 
-  const handleTouchEnd = useCallback((id: string) => {
+  const handleTouchEnd = useCallback((id: string, e: React.TouchEvent) => {
+    const dy = Math.abs(e.changedTouches[0].clientY - touchStartY.current);
+    const dx = Math.abs(e.changedTouches[0].clientX - touchStartX.current);
     setTimeout(() => setTappedId(null), 300);
-    onOpen?.(id);
+    if (dy < 10 && dx < 10) {
+      onOpen?.(id);
+    }
   }, [onOpen]);
 
   return (
@@ -680,8 +689,8 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
             data-testid={`card-work-${i}`}
             className="group flex flex-col select-none"
             onClick={isTouch ? undefined : () => onOpen?.(study.id)}
-            onTouchStart={isTouch ? () => handleTouchStart(study.id) : undefined}
-            onTouchEnd={isTouch ? (e) => { e.preventDefault(); handleTouchEnd(study.id); } : undefined}
+            onTouchStart={isTouch ? (e) => handleTouchStart(study.id, e) : undefined}
+            onTouchEnd={isTouch ? (e) => handleTouchEnd(study.id, e) : undefined}
             style={{
               gap: 10,
               opacity: 0,
@@ -2436,8 +2445,8 @@ export const Desktop = (): JSX.Element => {
             </div>
 
             <div
-              className="absolute inset-0 flex flex-col items-center z-10 w-full px-5 overflow-y-auto hide-scrollbar"
-              style={{ gap: 0 }}
+              className="absolute inset-0 flex flex-col items-center z-10 w-full px-5 hide-scrollbar"
+              style={{ gap: 0, overflowY: "scroll", WebkitOverflowScrolling: "touch" as any }}
             >
               <div className="flex flex-col items-center w-full my-auto py-16" style={{ paddingBottom: "calc(4rem + env(safe-area-inset-bottom, 0px))" }}>
               <h1
