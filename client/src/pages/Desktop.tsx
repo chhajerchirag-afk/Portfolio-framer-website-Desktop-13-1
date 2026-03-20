@@ -1104,7 +1104,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                   {pp.stats.length > 0 && (
                     <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
                       {pp.stats.map((s, j) => (
-                        <div key={j} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#EAECED", borderRadius: 4, padding: "4px 8px", width: "fit-content" }}>
+                        <div key={j} style={{ display: "inline-flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 4 : 6, background: "#EAECED", borderRadius: 4, padding: "4px 8px", width: isMobile ? "100%" : "fit-content" }}>
                           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 16, fontWeight: 700, color: "#7C0505", letterSpacing: "-0.02em" }}>{s.highlight}</span>
                           <span style={{ fontSize: 16, fontWeight: 500, color: "#14191F" }}>{s.desc}</span>
                         </div>
