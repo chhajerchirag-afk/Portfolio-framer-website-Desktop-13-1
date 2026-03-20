@@ -343,7 +343,6 @@ function AboutImages() {
                   overflow: "hidden",
                   border: "3px solid #ffffff",
                   boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-                  borderRadius: "inherit",
                 }}
               >
                 <img
@@ -990,6 +989,7 @@ function CompletedEntry({ entry, onOpen, selectedId, singleColumn }: { entry: Co
       <StaticBlockText blocks={blocks} />
       {entry.responseType === "work" && <WorkCards onOpen={onOpen} selectedId={selectedId} singleColumn={singleColumn} />}
       {entry.responseType === "resume" && <ResumeCard />}
+      {entry.responseType === "about" && <AboutImages />}
     </>
   );
 }
