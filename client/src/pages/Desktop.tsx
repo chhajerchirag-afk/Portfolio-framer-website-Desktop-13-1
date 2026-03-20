@@ -1138,7 +1138,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           </div>
 
           {/* ── Initial Conceptualising ── */}
-          <div style={section("#F6F6F7")}>
+          <div style={section("#F6F6F7", 0)}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>Initial Conceptualising Using Lovable</h2>
               <div style={{ overflow: "hidden" }}>
