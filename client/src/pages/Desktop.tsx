@@ -1122,9 +1122,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           <div style={section("#F6F6F7", 64)}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>What We Need to Learn?</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 64 }}>
+              <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 12, marginBottom: 64 }}>
                 {["How do recruiters mentally model hiring work?", "Where does trust break in AI-driven workflows?", "What balance of control vs autonomy drives adoption?"].map((q, i) => (
-                  <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px", fontSize: 16, lineHeight: "22px", fontWeight: 500, color: "#14191F" }}>{q}</div>
+                  <div key={i} style={{ background: "#EAECED", borderRadius: 12, padding: "20px", fontSize: 16, lineHeight: "22px", fontWeight: 500, color: "#14191F", textAlign: "left" }}>{q}</div>
                 ))}
               </div>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 12, color: "#14191F" }}>Core Insight</h2>
