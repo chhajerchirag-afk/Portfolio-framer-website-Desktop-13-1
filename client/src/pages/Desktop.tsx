@@ -617,6 +617,8 @@ const caseStudies = [
 function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string) => void; singleColumn?: boolean; selectedId?: string | null }) {
   const chipRef = useRef<HTMLDivElement>(null);
   const [chipVisible, setChipVisible] = useState(false);
+  const [tappedId, setTappedId] = useState<string | null>(null);
+  const isTouchDevice = useRef(typeof window !== "undefined" && window.matchMedia("(hover: none)").matches);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (chipRef.current) {
@@ -625,57 +627,71 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
     }
   }, []);
 
+  const handleTouchStart = useCallback((id: string) => {
+    setTappedId(id);
+  }, []);
+
+  const handleTouchEnd = useCallback((id: string) => {
+    setTimeout(() => setTappedId(null), 300);
+    onOpen?.(id);
+  }, [onOpen]);
+
   return (
     <>
-      {/* Custom cursor chip — follows mouse, portal-style via fixed positioning */}
-      <div
-        ref={chipRef}
-        style={{
-          position: "fixed",
-          pointerEvents: "none",
-          zIndex: 99999,
-          transform: chipVisible
-            ? "translate(-50%, -50%) scale(1)"
-            : "translate(-50%, -50%) scale(0.72)",
-          opacity: chipVisible ? 1 : 0,
-          transition: "opacity 0.18s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1)",
-          background: "#171717",
-          color: "white",
-          borderRadius: 999,
-          padding: "7px 18px",
-          fontSize: 13,
-          fontFamily: "Inter, sans-serif",
-          fontWeight: 500,
-          letterSpacing: "-0.01em",
-          whiteSpace: "nowrap",
-          left: 0,
-          top: 0,
-        }}
-      >
-        View Project
-      </div>
+      {/* Custom cursor chip — desktop hover only, hidden on touch devices */}
+      {!isTouchDevice.current && (
+        <div
+          ref={chipRef}
+          style={{
+            position: "fixed",
+            pointerEvents: "none",
+            zIndex: 99999,
+            transform: chipVisible
+              ? "translate(-50%, -50%) scale(1)"
+              : "translate(-50%, -50%) scale(0.72)",
+            opacity: chipVisible ? 1 : 0,
+            transition: "opacity 0.18s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1)",
+            background: "#171717",
+            color: "white",
+            borderRadius: 999,
+            padding: "7px 18px",
+            fontSize: 13,
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            whiteSpace: "nowrap",
+            left: "-200px",
+            top: "-200px",
+          }}
+        >
+          View Project
+        </div>
+      )}
 
       <div className={`grid grid-cols-1 ${singleColumn ? "" : "md:grid-cols-2"} mt-6 animate-stream-line`} style={{ gap: 20 }}>
         {caseStudies.map((study, i) => {
           const isSelected = selectedId === study.id;
-          const isDimmed = selectedId != null && !isSelected;
+          const isTapped = tappedId === study.id;
+          const isTouch = isTouchDevice.current;
           return (
           <div
             key={i}
             data-testid={`card-work-${i}`}
             className="group flex flex-col select-none"
-            onClick={() => onOpen?.(study.id)}
+            onClick={isTouch ? undefined : () => onOpen?.(study.id)}
+            onTouchStart={isTouch ? () => handleTouchStart(study.id) : undefined}
+            onTouchEnd={isTouch ? (e) => { e.preventDefault(); handleTouchEnd(study.id); } : undefined}
             style={{
               gap: 10,
               opacity: 0,
-              cursor: "none",
+              cursor: isTouch ? "pointer" : "none",
               animation: "fadeInTile 0.45s ease forwards",
               animationDelay: `${i * 0.12}s`,
               transition: "opacity 0.2s ease",
             }}
-            onMouseEnter={() => setChipVisible(true)}
-            onMouseLeave={() => setChipVisible(false)}
-            onMouseMove={handleMouseMove}
+            onMouseEnter={isTouch ? undefined : () => setChipVisible(true)}
+            onMouseLeave={isTouch ? undefined : () => setChipVisible(false)}
+            onMouseMove={isTouch ? undefined : handleMouseMove}
           >
             <div
               className="relative overflow-hidden rounded-2xl flex-shrink-0"
@@ -694,6 +710,33 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
                 className="absolute inset-0 w-full h-full object-cover"
                 draggable={false}
               />
+              {/* Mobile tap feedback label */}
+              {isTouch && (
+                <div style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(0,0,0,0.18)",
+                  opacity: isTapped ? 1 : 0,
+                  transition: "opacity 0.15s ease",
+                  borderRadius: "inherit",
+                  pointerEvents: "none",
+                }}>
+                  <span style={{
+                    background: "#171717",
+                    color: "white",
+                    borderRadius: 999,
+                    padding: "7px 18px",
+                    fontSize: 13,
+                    fontFamily: "Inter, sans-serif",
+                    fontWeight: 500,
+                    letterSpacing: "-0.01em",
+                    whiteSpace: "nowrap",
+                  }}>View Project</span>
+                </div>
+              )}
             </div>
             <p
               className="font-['Inter',sans-serif] text-[#222222]"
