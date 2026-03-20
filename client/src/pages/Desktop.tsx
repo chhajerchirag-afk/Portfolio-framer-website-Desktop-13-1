@@ -1268,7 +1268,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       <div style={section("#F6F6F7", 64)}>
         <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 20, color: "#14191F" }}>Achieved Goals</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 12 }}>
             {[
               { number: "75% - 85%", label: "reduction in average setup time" },
               { number: "1.4X", label: "increase in setup completion rate" },
