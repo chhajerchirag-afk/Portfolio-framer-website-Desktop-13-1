@@ -1070,11 +1070,11 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           <div style={section("#F6F6F7")}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, color: "#14191F" }}>My Role</h2>
-              <div style={{ marginBottom: 32 }}>
+              <ul style={{ marginBottom: 32, paddingLeft: 20, listStyleType: "disc" }}>
                 {["Defined end-to-end conversational journeys", "Designed conversation logic, edge cases and fallback states", "Shaped success metrics with PM + Eng"].map((r, i) => (
-                  <div key={i} style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>{r}</div>
+                  <li key={i} style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 4 }}>{r}</li>
                 ))}
-              </div>
+              </ul>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 6, color: "#14191F" }}>Team</h2>
               <div>
                 {["1x Product Designer", "1x Lead Product Designer", "2x Product Manager", "4x Engineers"].map((r, i) => (
