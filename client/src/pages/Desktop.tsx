@@ -1024,7 +1024,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       </div>
 
       {/* ── Context ── */}
-      <div style={section("#F6F6F7")}>
+      <div style={section("#F6F6F7", 0)}>
         <div style={inner}>
           <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, color: "#14191F" }}>Context</h2>
           <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 14 }}>
