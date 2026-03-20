@@ -1012,6 +1012,7 @@ function useLiveClock() {
 }
 
 function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
+  const isMobile = useIsMobile();
   const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
@@ -1022,10 +1023,10 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
       <div style={section("#F6F6F7", 60)}>
         <div style={inner}>
           <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
-            Redefining hiring at scale<br />with AI Agents
+            Redefining hiring at scale{!isMobile && <br />}with AI Agents
           </h1>
           <p style={{ fontSize: 16, lineHeight: "24px", color: "#14191F", marginBottom: 40 }}>
-            Designed a Conversational AI recruiting co-pilot that automates<br />talent engagement at every stage of the recruiting funnel.
+            Designed a Conversational AI recruiting co-pilot that automates{!isMobile && <br />}talent engagement at every stage of the recruiting funnel.
           </p>
           <div style={{ borderRadius: 16, overflow: "hidden", backgroundImage: "url('/project-1/hero-proj-1.jpg')", backgroundSize: "cover", backgroundPosition: "center", padding: "20px" }}>
             <img src="/project-1/cover.gif" alt="AI Agents for HR Teams UI" style={{ width: "100%", borderRadius: 10, display: "block" }} />
@@ -1307,7 +1308,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
             <div style={{ marginTop: 64 }}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>Closing Reflection</h2>
               <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 16 }}>
-                The core challenge wasn't building better automation.<br />
+                The core challenge wasn't building better automation.{!isMobile && <br />}
                 It was designing the right balance between AI autonomy and human control in a high-stakes domain.
               </p>
               <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F" }}>
@@ -1322,6 +1323,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
 }
 
 function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
+  const isMobile = useIsMobile();
   const inner: React.CSSProperties = { maxWidth: 720, margin: "0 auto", paddingLeft: 20, paddingRight: 20 };
   const section = (bg: string, py = 56): React.CSSProperties => ({ width: "100%", background: bg, padding: `${py}px 0` });
 
@@ -1331,7 +1333,7 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
       <div style={section("#F2F3F4", 60)}>
         <div style={inner}>
           <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
-            Reimagining the<br />AI Experience for Users
+            Reimagining the{!isMobile && <br />}AI Experience for Users
           </h1>
           <p style={{ fontSize: 16, lineHeight: "24px", letterSpacing: "0", color: "#14191F", marginBottom: 56 }}>
             I led the end-to-end design of the "Thread Page," from problem research to implementation, incorporating continuous team feedback. This page serves as a dedicated space where users can store YouTube videos for learning and reference.
@@ -1671,6 +1673,7 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
 }
 
 function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) {
+  const isMobile = useIsMobile();
   const phStyle = (h: number, mb = 48): React.CSSProperties => ({ background: "#E0E0E3", borderRadius: 14, height: h, marginBottom: mb });
   const phDark = (h: number, mb = 32): React.CSSProperties => ({ background: "#1C1C24", borderRadius: 14, height: h, marginBottom: mb });
   const h2Style: React.CSSProperties = { fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 14, letterSpacing: "0", color: "#14191F" };
@@ -1686,7 +1689,7 @@ function InterviewSchedulingContent({ view }: { view: "intense" | "overview" }) 
     <div style={section("#F2F3F4", 60)}>
     <div style={inner}>
       <h1 style={{ fontSize: 40, fontWeight: 500, lineHeight: "50px", letterSpacing: "-0.02em", marginBottom: 16, color: "#14191F" }}>
-        Streamlining interview scheduling for<br />talent acquisition and HR managers.
+        Streamlining interview scheduling for{!isMobile && <br />}talent acquisition and HR managers.
       </h1>
       <p style={{ ...bodyStyle, lineHeight: "24px", marginBottom: 56 }}>
         Hyreo is an advanced talent relationship management solution that anticipates the needs of every stakeholder in the recruitment process before they even arise. As a candidate relationship management platform, Hyreo provides recruiters with exceptional insights, ensuring they remain informed and engaged throughout the recruitment journey.
