@@ -1100,8 +1100,8 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                       ))}
                     </div>
                   )}
-                  <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid #e5e5e5", background: "white", padding: "16px" }}>
-                    <img src={pp.img} alt={pp.label} style={{ width: "100%", borderRadius: 8, display: "block" }} />
+                  <div style={{ overflow: "hidden" }}>
+                    <img src={pp.img} alt={pp.label} style={{ width: "100%", display: "block" }} />
                   </div>
                 </div>
               ))}
@@ -1130,7 +1130,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
           <div style={section("#F6F6F7")}>
             <div style={inner}>
               <h2 style={{ fontSize: 24, fontWeight: 500, lineHeight: "32px", marginBottom: 16, color: "#14191F" }}>Initial Conceptualising Using Lovable</h2>
-              <div style={{ borderRadius: 14, overflow: "hidden" }}>
+              <div style={{ overflow: "hidden" }}>
                 <img src="/project-1/4.png" alt="Initial Conceptualising" style={{ width: "100%", display: "block" }} />
               </div>
             </div>
@@ -1158,7 +1158,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 <div style={{ marginBottom: 24 }}>
                   <div style={{ fontSize: 16, color: "#14191F", lineHeight: "1.7", display: "flex", gap: 8 }}><span style={{ color: "#bbb" }}>•</span>Recruiters will feel safe using AI</div>
                 </div>
-                <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
+                <div style={{ overflow: "hidden", marginBottom: 24 }}>
                   <img src="/project-1/5.png" alt="V1 Design" style={{ width: "100%", display: "block" }} />
                 </div>
                 <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
@@ -1188,7 +1188,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     <div key={j} style={{ fontSize: 16, color: "#14191F", lineHeight: "1.7", display: "flex", gap: 8 }}><span style={{ color: "#bbb" }}>•</span>{w}</div>
                   ))}
                 </div>
-                <div style={{ borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
+                <div style={{ overflow: "hidden", marginBottom: 24 }}>
                   <img src="/project-1/6.png" alt="V2 Design" style={{ width: "100%", display: "block" }} />
                 </div>
                 <div style={{ background: "#EAECED", borderRadius: 12, padding: "20px" }}>
@@ -1225,7 +1225,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                   <div style={{ fontSize: 20, fontWeight: 500, color: "white", marginBottom: 8 }}>{point.n}. {point.title}</div>
                   <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 8 }}><span style={{ fontWeight: 500 }}>The shift: </span>{point.shift}</p>
                   <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 20 }}><span style={{ fontWeight: 500 }}>Why it worked: </span>{point.worked}</p>
-                  <div style={{ borderRadius: 12, overflow: "hidden" }}>
+                  <div style={{ overflow: "hidden" }}>
                     <img src={point.img} alt={point.title} style={{ width: "100%", display: "block" }} />
                   </div>
                 </div>
@@ -1245,8 +1245,8 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               <p style={{ fontSize: 16, lineHeight: "1.7", color: "#D8D8D8", marginBottom: 24 }}>
                 The AI Agent Builder enables admins to create goal-driven conversational agents without building decision trees. Instead of forcing recruiters to think in system logic, we let them define hiring outcomes and guide AI execution.
               </p>
-              <div style={{ background: "#131215", borderRadius: 14, padding: "20px", border: "1px solid #33322F" }}>
-                <img src="/project-1/cover.gif" alt="Solution Preview" style={{ width: "100%", borderRadius: 10, display: "block" }} />
+              <div style={{ overflow: "hidden" }}>
+                <img src="/project-1/cover.gif" alt="Solution Preview" style={{ width: "100%", display: "block" }} />
               </div>
             </div>
           </div>
