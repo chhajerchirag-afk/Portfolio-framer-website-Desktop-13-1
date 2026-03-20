@@ -2462,7 +2462,7 @@ export const Desktop = (): JSX.Element => {
 
               <div
                 className="flex items-center flex-wrap justify-center animate-entrance-3"
-                style={{ gap: 8, marginTop: 12 }}
+                style={{ gap: 8, marginTop: 16 }}
               >
                 {navItems.map((item) => (
                   <NavPill
