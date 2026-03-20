@@ -1839,11 +1839,31 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
       {divider("Meeting Ended")}
 
       {senderBubble("AG", "Product Manger",
-        <img
-          src="/project-3/PRD-doc.png"
-          alt="Product Requirement Document"
-          style={{ width: "100%", borderRadius: 12, display: "block" }}
-        />,
+        <div style={{
+          background: "white",
+          border: "1px solid #D9D9D9",
+          borderRadius: "12px 12px 12px 4px",
+          padding: "12px 16px",
+          boxShadow: "0px 2px 12px rgba(0,0,0,0.08)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+          fontFamily: "Inter, sans-serif",
+        }}>
+          <span style={{ fontSize: 11, fontWeight: 500, color: "#828282", letterSpacing: "-0.01em" }}>
+            Product Requirement Document
+          </span>
+          <p style={{ fontSize: 16, fontWeight: 500, color: "#2B2B2B", lineHeight: "22px", letterSpacing: "-0.01em", margin: 0 }}>
+            AI Video Interview Agent Automated Screening Interview
+          </p>
+          <div style={{ height: 1, background: "#E8E8E8", margin: "2px 0" }} />
+          <p style={{ fontSize: 13, fontWeight: 400, color: "#2B2B2B", lineHeight: "18px", margin: 0 }}>
+            Description: What it is?
+          </p>
+          <p style={{ fontSize: 12, fontWeight: 300, color: "#8C8C8C", lineHeight: "17px", margin: 0 }}>
+            Build an AI Video Interview Agent that automates first-round screening interviews for recruiters across ...
+          </p>
+        </div>,
         undefined,
         { padding: 0, border: "none", boxShadow: "none", background: "transparent" }
       )}
