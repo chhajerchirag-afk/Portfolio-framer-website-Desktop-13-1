@@ -85,7 +85,7 @@ const reasoningSteps: Record<ResponseType, string[]> = {
 };
 
 interface ResponseBlock {
-  type: "paragraph" | "heading" | "numbered-item" | "bullet" | "break" | "experience-role";
+  type: "paragraph" | "heading" | "numbered-item" | "bullet" | "break" | "experience-role" | "html";
   text?: string;
   number?: number;
   subtitle?: string;
@@ -103,14 +103,11 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
   about: [
     { type: "heading", text: "About Chirag" },
     { type: "break" },
-    { type: "paragraph", text: "Chirag is a Product Designer who thinks beyond screens \u2014 working at the intersection of user experience, product thinking, and business impact. He enjoys turning complex problems (especially in AI and workflow-heavy products) into experiences that feel simple, intuitive, and actually useful." },
+    { type: "html", text: "I'm a <strong>Product Designer with 3+ years of experience</strong> — started back in the Adobe XD days and have been obsessing over how products <em>think</em> ever since. I work at the intersection of user experience, product strategy, and business impact." },
     { type: "break" },
-    { type: "paragraph", text: "He has worked on AI-driven products, recruiter tools, and emerging tech platforms across companies like Sense, Gistr, and Nudge Lab, focusing on building systems that scale rather than just shipping features." },
+    { type: "html", text: "I've shipped across <strong>AI-driven products, talent engagement platforms, learning tools, legal platforms, and cybersecurity products</strong> at <strong>Sense HQ, Gistr, and Nudge Lab</strong>. Nine months into my current role, I was named ⭐ <span style=\"background:#FEF08A;padding:1px 5px;border-radius:3px;font-weight:600;\">Star Product Designer</span> — not for making things pretty, but for making things matter." },
     { type: "break" },
-    { type: "paragraph", text: "Outside of design, Chirag enjoys cooking \uD83C\uDF73 and swimming \uD83C\uDFCA\u200D\u2642\uFE0F \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy." },
-    { type: "break" },
-    { type: "paragraph", text: "\u003Cb\u003EIn short:\u003C/b\u003E" },
-    { type: "paragraph", text: "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense. \u2728" },
+    { type: "html", text: "Outside work, I'm a cat parent navigating the daily chaos of a creature who has zero respect for my Figma deadlines. I cook to experiment, swim to reset, and somehow both feel a lot like design — figure out what's broken, try something, iterate." },
   ],
   experience: [
     { type: "heading", text: "Here\u2019s Chirag\u2019s career progression so far." },
@@ -224,7 +221,7 @@ function WordStreamingText({
 
 function getBlockPlainText(block: ResponseBlock): string {
   if (block.type === "break") return "";
-  if (block.type === "paragraph" || block.type === "heading") return stripHtml(block.text || "");
+  if (block.type === "paragraph" || block.type === "heading" || block.type === "html") return stripHtml(block.text || "");
   if (block.type === "numbered-item") {
     const numPrefix = block.number ? `${block.number}. ` : "";
     return `${numPrefix}${block.text || ""} ${block.description || ""}`.trim();
@@ -294,6 +291,10 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
   if (block.type === "bullet") {
     const words = (block.text || "").split(/\s+/).filter(Boolean);
     return <p className="ml-4">{"\u2022 "}{words.slice(0, visibleWords).join(" ")}</p>;
+  }
+  if (block.type === "html") {
+    if (visibleWords <= 0) return null;
+    return <p dangerouslySetInnerHTML={{ __html: block.text || "" }} />;
   }
   if (block.type === "experience-role") {
     return <ExperienceRoleBlock block={block} visibleWords={visibleWords} />;
