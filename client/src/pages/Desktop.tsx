@@ -101,16 +101,11 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
     { type: "paragraph", text: "\u003Cb\u003EHere\u2019s a compilation of Chirag\u2019s work.\u003C/b\u003E It includes projects from Sense, Gistr, and Nudge Lab, focusing on solving complex product problems." },
   ],
   about: [
-    { type: "heading", text: "About Chirag" },
+    { type: "paragraph", text: "Chirag is a <b>Product Designer with 3+ years</b> of experience \u2014 started back in the Adobe XD days and has been obsessing over how products think ever since. He works at the intersection of user experience, product strategy, and business impact." },
     { type: "break" },
-    { type: "paragraph", text: "Chirag is a Product Designer who thinks beyond screens \u2014 working at the intersection of user experience, product thinking, and business impact. He enjoys turning complex problems (especially in AI and workflow-heavy products) into experiences that feel simple, intuitive, and actually useful." },
+    { type: "paragraph", text: "He\u2019s shipped across <b>AI-driven products</b>, talent engagement platforms, learning tools, legal platforms, and cybersecurity products at <a href=\"https://www.sensehq.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Sense HQ</a>, <a href=\"https://gistr.so/\" target=\"_blank\" rel=\"noopener noreferrer\">Gistr</a>, and <a href=\"https://nudgelab.co/\" target=\"_blank\" rel=\"noopener noreferrer\">Nudge Lab</a>. Nine months into his current role, he was named \u2b50 <b>Star Product Designer</b> \u2014 not for making things pretty, but for making things matter." },
     { type: "break" },
-    { type: "paragraph", text: "He has worked on AI-driven products, recruiter tools, and emerging tech platforms across companies like Sense, Gistr, and Nudge Lab, focusing on building systems that scale rather than just shipping features." },
-    { type: "break" },
-    { type: "paragraph", text: "Outside of design, Chirag enjoys cooking \uD83C\uDF73 and swimming \uD83C\uDFCA\u200D\u2642\uFE0F \u2014 one lets him experiment with flavors, the other helps him clear his head when product problems get messy." },
-    { type: "break" },
-    { type: "paragraph", text: "\u003Cb\u003EIn short:\u003C/b\u003E" },
-    { type: "paragraph", text: "He designs thoughtful products, cooks a mean meal, and occasionally escapes to the pool when Figma gets too intense. \u2728" },
+    { type: "paragraph", text: "Outside work, he\u2019s a cat parent \uD83D\uDC31 navigating the daily chaos of a creature who has zero respect for my Figma \uD83E\uDD23 deadlines. He cooks to experiment \uD83E\uDDD1\u200D\uD83C\uDF73, swims to reset \uD83C\uDFCA, and somehow both feel a lot like design." },
   ],
   experience: [
     { type: "heading", text: "Here\u2019s Chirag\u2019s career progression so far." },
@@ -249,10 +244,22 @@ function stripHtml(html: string): string {
 function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWords: number }) {
   if (block.type === "paragraph") {
     const raw = block.text || "";
-    const plainWords = stripHtml(raw).split(/\s+/).filter(Boolean);
-    const shown = plainWords.slice(0, visibleWords).join(" ");
+    const hasLinks = raw.includes("<a ");
     const hasBold = raw.includes("<b>");
-    if (hasBold) {
+    const plainWords = stripHtml(raw).split(/\s+/).filter(Boolean);
+    const totalWords = plainWords.length;
+
+    if ((hasLinks || hasBold) && visibleWords >= totalWords) {
+      return (
+        <p
+          dangerouslySetInnerHTML={{ __html: raw }}
+          className="[&_a]:underline [&_a]:text-[#222222] [&_a]:decoration-[#222222] [&_b]:font-medium [&_b]:font-['Inter',sans-serif]"
+        />
+      );
+    }
+
+    const shown = plainWords.slice(0, visibleWords).join(" ");
+    if (hasBold && !hasLinks) {
       const boldMatch = raw.match(/<b>(.*?)<\/b>/);
       const boldText = boldMatch ? boldMatch[1] : "";
       const afterBold = raw.replace(/<b>.*?<\/b>\s*/, "");
@@ -299,6 +306,36 @@ function RenderBlock({ block, visibleWords }: { block: ResponseBlock; visibleWor
     return <ExperienceRoleBlock block={block} visibleWords={visibleWords} />;
   }
   return null;
+}
+
+const aboutPhotos = [
+  { src: "/About/1st.jpg", alt: "Star Product Designer Award at Sense", rotate: "-3deg" },
+  { src: "/About/2nd.jpg", alt: "Chirag portrait", rotate: "2deg" },
+  { src: "/About/3rd.jpg", alt: "Cat", rotate: "-1.5deg" },
+  { src: "/About/4th.jpg", alt: "Landscape", rotate: "2.5deg" },
+];
+
+function AboutImages() {
+  return (
+    <div className="animate-stream-line" style={{ marginTop: 24 }}>
+      <div className="flex items-end justify-center gap-2 md:gap-3 px-0 md:px-[50px]">
+        {aboutPhotos.map((photo, i) => (
+          <div
+            key={i}
+            className="flex-1 min-w-0 group"
+            style={{ transform: `rotate(${photo.rotate})` }}
+          >
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              className="w-full block rounded-[8px] md:rounded-[12px] transition-transform duration-200 ease-out md:group-hover:-translate-y-[5px] md:group-hover:scale-[1.03]"
+              style={{ boxShadow: "0 3px 8px rgba(255,255,255,0.4)" }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function ExperienceRoleBlock({ block, visibleWords }: { block: ResponseBlock; visibleWords: number }) {
@@ -2593,6 +2630,7 @@ export const Desktop = (): JSX.Element => {
                           <WorkCards onOpen={(id) => setActiveCaseStudy(id)} />
                         )}
                         {pendingType === "resume" && streamComplete && <ResumeCard />}
+                        {pendingType === "about" && streamComplete && <AboutImages />}
                         {streamComplete && suggestedItems.length > 0 && (
                           <div className="animate-stream-line" style={{ marginTop: 40 }}>
                             <p className="font-['Inter',sans-serif] text-[#222222] leading-6" style={{ fontSize: 16 }}>More Options:</p>
@@ -2723,6 +2761,8 @@ export const Desktop = (): JSX.Element => {
                           {pendingType === "resume" && streamComplete && (
                             <ResumeCard />
                           )}
+
+                          {pendingType === "about" && streamComplete && <AboutImages />}
 
                           {streamComplete && suggestedItems.length > 0 && (
                             <div className="animate-stream-line" style={{ marginTop: 40 }}>
