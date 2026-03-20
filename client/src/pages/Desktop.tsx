@@ -1623,6 +1623,51 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
   );
 }
 
+function VimeoAutoplayEmbed({ videoId }: { videoId: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const sendMessage = (method: string) => {
+      iframeRef.current?.contentWindow?.postMessage(
+        JSON.stringify({ method }),
+        "https://player.vimeo.com"
+      );
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          sendMessage("play");
+        } else {
+          sendMessage("pause");
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} style={{ position: "relative", width: "100%", paddingBottom: "56.25%", overflow: "hidden" }}>
+      <iframe
+        ref={iframeRef}
+        src={`https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&loop=1&muted=1&autoplay=0`}
+        frameBorder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        referrerPolicy="strict-origin-when-cross-origin"
+        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+        title="AI Powered Video Interview"
+      />
+    </div>
+  );
+}
+
 function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
   const phStyle = (h: number, mt = 32, mb = 0): React.CSSProperties => ({
     background: "#E8E8EA", borderRadius: 14, height: h, marginTop: mt, marginBottom: mb,
@@ -1800,10 +1845,10 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
 
       {divider("Prototype Delivered")}
 
-      <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 0 }}>
+      <p style={{ fontSize: 16, lineHeight: "22px", color: "#14191F", marginBottom: 16 }}>
         Here is the initial prototype I created for the hackathon using Lovable.
       </p>
-      <div style={phStyle(360, 24, 0)} />
+      <VimeoAutoplayEmbed videoId="1175522753" />
     </div>
     </div>
     </div>
