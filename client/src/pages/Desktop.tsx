@@ -1846,27 +1846,26 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            gap: 6,
-            padding: "12px 8px 10px",
+            gap: 8,
+            padding: "12px 16px",
             textDecoration: "none",
             cursor: "pointer",
+            fontFamily: "Inter, sans-serif",
           }}
         >
-          <div style={{
-            width: 40, height: 40, borderRadius: 8,
-            background: "#EFF4FF",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            flexShrink: 0,
-          }}>
-            <FileTextIcon size={20} color="#0F87FF" />
-          </div>
-          <span style={{ fontSize: 11, fontWeight: 500, color: "#14191F", textAlign: "center", lineHeight: "14px", fontFamily: "Inter, sans-serif", letterSpacing: "-0.01em" }}>
-            PRD
+          <span style={{ fontSize: 11, fontWeight: 500, color: "#828282", letterSpacing: "-0.01em" }}>
+            Product Requirement Document
           </span>
-          <span style={{ fontSize: 10, fontWeight: 400, color: "#A1A1A1", fontFamily: "Inter, sans-serif", letterSpacing: "0.02em" }}>
-            PDF
-          </span>
+          <p style={{ fontSize: 16, fontWeight: 500, color: "#2B2B2B", lineHeight: "22px", letterSpacing: "-0.01em", margin: 0 }}>
+            AI Video Interview Agent Automated Screening Interview
+          </p>
+          <div style={{ height: 1, background: "#E8E8E8", margin: "2px 0" }} />
+          <p style={{ fontSize: 13, fontWeight: 400, color: "#2B2B2B", lineHeight: "18px", margin: 0 }}>
+            Description: What it is?
+          </p>
+          <p style={{ fontSize: 12, fontWeight: 300, color: "#8C8C8C", lineHeight: "17px", margin: 0 }}>
+            Build an AI Video Interview Agent that automates first-round screening interviews for recruiters across ...
+          </p>
         </a>,
         undefined,
         {
@@ -1875,7 +1874,6 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
           boxShadow: "0px 2px 12px rgba(0,0,0,0.08)",
           background: "white",
           borderRadius: 12,
-          width: 100,
           overflow: "hidden",
         }
       )}
