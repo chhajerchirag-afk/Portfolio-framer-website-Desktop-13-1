@@ -717,7 +717,7 @@ function WorkCards({ onOpen, singleColumn, selectedId }: { onOpen?: (id: string)
               <img
                 src={study.thumbnail}
                 alt={study.title}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                 draggable={false}
               />
               {/* Mobile tap feedback label */}
