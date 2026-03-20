@@ -2401,7 +2401,7 @@ export const Desktop = (): JSX.Element => {
   const isChatScreen = inChatMode;
 
   return (
-    <div className="flex items-center justify-center h-screen bg-white">
+    <div className="flex items-center justify-center h-dvh bg-white">
       <div
         className="w-full h-full relative overflow-hidden"
         style={{ border: "0.5px solid #e5e5e5" }}
@@ -2438,7 +2438,7 @@ export const Desktop = (): JSX.Element => {
               className="absolute inset-0 flex flex-col items-center z-10 w-full px-5 overflow-y-auto hide-scrollbar"
               style={{ gap: 0 }}
             >
-              <div className="flex flex-col items-center w-full my-auto py-16">
+              <div className="flex flex-col items-center w-full my-auto py-16" style={{ paddingBottom: "calc(4rem + env(safe-area-inset-bottom, 0px))" }}>
               <h1
                 className="font-['Inter',sans-serif] font-normal text-[#171717] text-center animate-entrance-1 md:whitespace-nowrap"
                 style={{

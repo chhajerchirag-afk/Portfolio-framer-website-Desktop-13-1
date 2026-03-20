@@ -356,6 +356,15 @@
     padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
   }
 
+  .h-dvh {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
   .cs3-avatar {
     width: 40px;
     height: 40px;
