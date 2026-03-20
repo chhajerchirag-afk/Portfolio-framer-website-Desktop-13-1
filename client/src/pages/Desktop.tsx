@@ -8,6 +8,7 @@ import {
   GlobeIcon,
   ChevronsUpDownIcon,
   CheckIcon,
+  XIcon,
 } from "lucide-react";
 import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
@@ -1925,6 +1926,7 @@ function CaseStudyBrowser({
   studyId,
   fullscreen,
   onToggleFullscreen,
+  onClose,
   view,
   onViewChange,
   onNavigate,
@@ -1932,6 +1934,7 @@ function CaseStudyBrowser({
   studyId: string;
   fullscreen: boolean;
   onToggleFullscreen: () => void;
+  onClose?: () => void;
   view: "intense" | "overview";
   onViewChange: (v: "intense" | "overview") => void;
   onNavigate: (id: string) => void;
@@ -2098,6 +2101,32 @@ function CaseStudyBrowser({
             )}
           </div>
         </div>
+
+        {/* Right: close button */}
+        {onClose && (
+          <button
+            onClick={onClose}
+            data-testid="button-case-study-close"
+            style={{
+              flexShrink: 0,
+              width: 28,
+              height: 28,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 6,
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "#888",
+              transition: "background 0.15s",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#F5F5F5"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+          >
+            <XIcon size={16} />
+          </button>
+        )}
 
       </div>
 
@@ -2735,6 +2764,7 @@ export const Desktop = (): JSX.Element => {
                     studyId={activeCaseStudy ?? caseStudies[0].id}
                     fullscreen={false}
                     onToggleFullscreen={() => setCaseStudyFullscreen(true)}
+                    onClose={() => setActiveCaseStudy(null)}
                     view={caseStudyView}
                     onViewChange={setCaseStudyView}
                     onNavigate={setActiveCaseStudy}
