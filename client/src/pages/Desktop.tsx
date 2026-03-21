@@ -5094,7 +5094,7 @@ function CaseStudyBottomSheet({
       <div
         style={{
           position: "relative",
-          height: "90vh",
+          height: "80vh",
           background: "white",
           borderRadius: "20px 20px 0 0",
           display: "flex",
