@@ -2103,9 +2103,12 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                   </div>
                 </div>
                 <div style={{ overflow: "hidden", marginBottom: 24 }}>
-                  <img
-                    src="/project-1/5.png"
-                    alt="V1 Design"
+                  <video
+                    src="https://kuthq1kled.ufs.sh/f/8W28hiHCl7NX2RkeNcPfKsO79JoINYHeT1ncqijRArazlbBZ"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     style={{ width: "100%", display: "block" }}
                   />
                 </div>
