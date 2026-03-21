@@ -1411,6 +1411,26 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
 
   const vimeoContainerRef = useRef<HTMLDivElement>(null);
   const vimeoPlayerRef = useRef<any>(null);
+  const v1VideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = v1VideoRef.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let observer: IntersectionObserver | null = null;
@@ -2102,10 +2122,17 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     safe using AI
                   </div>
                 </div>
-                <div style={{ overflow: "hidden", marginBottom: 24 }}>
+                <div
+                  style={{
+                    overflow: "hidden",
+                    marginBottom: 24,
+                    borderRadius: 12,
+                    border: "1px solid #D9D9D9",
+                  }}
+                >
                   <video
+                    ref={v1VideoRef}
                     src="https://kuthq1kled.ufs.sh/f/8W28hiHCl7NX2RkeNcPfKsO79JoINYHeT1ncqijRArazlbBZ"
-                    autoPlay
                     muted
                     loop
                     playsInline
