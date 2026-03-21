@@ -636,7 +636,7 @@ const menuLinks = [
   },
   {
     label: "Resume",
-    href: "https://drive.google.com/file/d/1kJuQsC_f8T5I_KDlP2aAHh5aY1DeY--W/view?usp=sharing",
+    href: "https://drive.google.com/file/d/10DmAeSzyfSMQe6tcE00KUpwWLp_69YFN/view?usp=sharing",
     bg: "#111111",
     iconType: "resume",
   },
@@ -1084,7 +1084,7 @@ function ResumeCard() {
   return (
     <div className="mt-6 animate-stream-line">
       <a
-        href="https://drive.google.com/file/d/1kJuQsC_f8T5I_KDlP2aAHh5aY1DeY--W/view?usp=sharing"
+        href="https://drive.google.com/file/d/10DmAeSzyfSMQe6tcE00KUpwWLp_69YFN/view?usp=sharing"
         target="_blank"
         rel="noopener noreferrer"
         className="block rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0px_4px_16px_rgba(0,0,0,0.08)]"
