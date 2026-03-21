@@ -755,7 +755,8 @@ function ThreeDotsMenu() {
       }}
       style={{
         position: "fixed",
-        top: 4,
+        top: isMobile ? "auto" : 4,
+        bottom: isMobile ? 16 : "auto",
         left: "50%",
         transform: "translateX(-50%)",
         zIndex: 9999,
@@ -1283,6 +1284,32 @@ function getResponseType(input: string): ResponseType {
     return "experience";
   if (lower.includes("resume") || lower.includes("cv")) return "resume";
   return "out-of-scope";
+}
+
+function ClockOrRestart({ time, onRestart }: { time: string; onRestart: () => void }) {
+  const isMobile = useIsMobile();
+  if (isMobile) {
+    return (
+      <button
+        onClick={onRestart}
+        data-testid="button-restart-chat"
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: 12,
+          color: "#b8b8b8",
+          letterSpacing: "-0.02em",
+          padding: 0,
+          textTransform: "uppercase",
+        }}
+      >
+        Restart Chat
+      </button>
+    );
+  }
+  return <AnimatedClock time={time} />;
 }
 
 function AnimatedClock({ time }: { time: string }) {
@@ -5398,7 +5425,7 @@ export const Desktop = (): JSX.Element => {
               }}
             >
               <img
-                className="w-[86px] h-[34px]"
+                className="w-[64px] h-[26px] md:w-[86px] md:h-[34px]"
                 alt="Logo"
                 src="/figmaAssets/vector-22.svg"
               />
@@ -5407,7 +5434,7 @@ export const Desktop = (): JSX.Element => {
               <ThreeDotsMenu />
             </div>
             <div className="absolute top-4 right-5 z-10">
-              <AnimatedClock time={time} />
+              <ClockOrRestart time={time} onRestart={handleReset} />
             </div>
 
             <div
@@ -5543,7 +5570,7 @@ export const Desktop = (): JSX.Element => {
                   style={{ cursor: "pointer" }}
                 >
                   <img
-                    className="w-[86px] h-[34px]"
+                    className="w-[64px] h-[26px] md:w-[86px] md:h-[34px]"
                     alt="Logo"
                     src="/figmaAssets/vector-22.svg"
                   />
@@ -5551,7 +5578,7 @@ export const Desktop = (): JSX.Element => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-4">
                   <ThreeDotsMenu />
                 </div>
-                <AnimatedClock time={time} />
+                <ClockOrRestart time={time} onRestart={handleReset} />
               </div>
               <div className="relative flex-1 overflow-hidden">
                 <div
@@ -5653,7 +5680,7 @@ export const Desktop = (): JSX.Element => {
                   style={{ cursor: "pointer" }}
                 >
                   <img
-                    className="w-[86px] h-[34px]"
+                    className="w-[64px] h-[26px] md:w-[86px] md:h-[34px]"
                     alt="Logo"
                     src="/figmaAssets/vector-22.svg"
                   />
@@ -5661,7 +5688,7 @@ export const Desktop = (): JSX.Element => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-4">
                   <ThreeDotsMenu />
                 </div>
-                <AnimatedClock time={time} />
+                <ClockOrRestart time={time} onRestart={handleReset} />
               </div>
               <div
                 className="flex-1 overflow-hidden"
@@ -5687,7 +5714,7 @@ export const Desktop = (): JSX.Element => {
                   style={{ cursor: "pointer" }}
                 >
                   <img
-                    className="w-[86px] h-[34px]"
+                    className="w-[64px] h-[26px] md:w-[86px] md:h-[34px]"
                     alt="Logo"
                     src="/figmaAssets/vector-22.svg"
                   />
@@ -5695,7 +5722,7 @@ export const Desktop = (): JSX.Element => {
                 <div className="absolute left-1/2 -translate-x-1/2 top-4">
                   <ThreeDotsMenu />
                 </div>
-                <AnimatedClock time={time} />
+                <ClockOrRestart time={time} onRestart={handleReset} />
               </div>
               <div
                 className="flex-1 overflow-hidden"
