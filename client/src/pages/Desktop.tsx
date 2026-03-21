@@ -1286,9 +1286,20 @@ function getResponseType(input: string): ResponseType {
   return "out-of-scope";
 }
 
-function ClockOrRestart({ time, onRestart }: { time: string; onRestart: () => void }) {
+function ClockOrRestart({ time, onRestart, inChatMode = false }: { time: string; onRestart: () => void; inChatMode?: boolean }) {
   const isMobile = useIsMobile();
-  if (isMobile) {
+  const [showRestart, setShowRestart] = useState(false);
+
+  useEffect(() => {
+    if (isMobile && inChatMode) {
+      const t = setTimeout(() => setShowRestart(true), 50);
+      return () => clearTimeout(t);
+    } else {
+      setShowRestart(false);
+    }
+  }, [isMobile, inChatMode]);
+
+  if (isMobile && inChatMode) {
     return (
       <button
         onClick={onRestart}
@@ -1303,6 +1314,9 @@ function ClockOrRestart({ time, onRestart }: { time: string; onRestart: () => vo
           letterSpacing: "-0.02em",
           padding: 0,
           textTransform: "uppercase",
+          opacity: showRestart ? 1 : 0,
+          transform: showRestart ? "translateY(0)" : "translateY(4px)",
+          transition: "opacity 0.3s ease, transform 0.3s ease",
         }}
       >
         Restart Chat
@@ -5396,6 +5410,7 @@ export const Desktop = (): JSX.Element => {
 
   return (
     <div className="flex items-center justify-center h-dvh bg-white">
+      {isMobile && <ThreeDotsMenu />}
       <div
         className="w-full h-full relative overflow-hidden"
         style={{ border: "0.5px solid #e5e5e5" }}
@@ -5430,11 +5445,13 @@ export const Desktop = (): JSX.Element => {
                 src="/figmaAssets/vector-22.svg"
               />
             </button>
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
-              <ThreeDotsMenu />
-            </div>
+            {!isMobile && (
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+                <ThreeDotsMenu />
+              </div>
+            )}
             <div className="absolute top-4 right-5 z-10">
-              <ClockOrRestart time={time} onRestart={handleReset} />
+              <ClockOrRestart time={time} onRestart={handleReset} inChatMode={false} />
             </div>
 
             <div
@@ -5575,10 +5592,12 @@ export const Desktop = (): JSX.Element => {
                     src="/figmaAssets/vector-22.svg"
                   />
                 </button>
-                <div className="absolute left-1/2 -translate-x-1/2 top-4">
-                  <ThreeDotsMenu />
-                </div>
-                <ClockOrRestart time={time} onRestart={handleReset} />
+                {!isMobile && (
+                  <div className="absolute left-1/2 -translate-x-1/2 top-4">
+                    <ThreeDotsMenu />
+                  </div>
+                )}
+                <ClockOrRestart time={time} onRestart={handleReset} inChatMode={true} />
               </div>
               <div className="relative flex-1 overflow-hidden">
                 <div
