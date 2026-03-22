@@ -250,6 +250,12 @@ function WordStreamingText({
   >([]);
   const [wordCount, setWordCount] = useState(0);
   const completedRef = useRef(false);
+  const [streamDone, setStreamDone] = useState(false);
+  const [revealedCount, setRevealedCount] = useState(0);
+
+  const experienceBlocks = blocks
+    .map((b, i) => ({ block: b, idx: i }))
+    .filter(({ block }) => block.type === "experience-role");
 
   if (allWords.current.length === 0) {
     const words: typeof allWords.current = [];
@@ -283,9 +289,23 @@ function WordStreamingText({
       return () => clearTimeout(timer);
     } else if (!completedRef.current) {
       completedRef.current = true;
-      onComplete();
+      if (experienceBlocks.length === 0) {
+        onComplete();
+      } else {
+        setStreamDone(true);
+      }
     }
   }, [wordCount, onComplete]);
+
+  useEffect(() => {
+    if (!streamDone) return;
+    if (revealedCount >= experienceBlocks.length) {
+      onComplete();
+      return;
+    }
+    const t = setTimeout(() => setRevealedCount((c) => c + 1), 180);
+    return () => clearTimeout(t);
+  }, [streamDone, revealedCount, experienceBlocks.length, onComplete]);
 
   const visibleWordsByBlock = new Map<number, number>();
   const reachedBlocks = new Set<number>();
@@ -306,6 +326,21 @@ function WordStreamingText({
       style={{ letterSpacing: 0 }}
     >
       {blocks.map((block, bIdx) => {
+        if (block.type === "experience-role") {
+          const expIdx = experienceBlocks.findIndex((e) => e.idx === bIdx);
+          if (!streamDone || expIdx >= revealedCount) return null;
+          return (
+            <div
+              key={bIdx}
+              style={{
+                opacity: 0,
+                animation: "fade-up 0.45s ease-out forwards",
+              }}
+            >
+              <RenderBlock block={block} visibleWords={999} />
+            </div>
+          );
+        }
         if (!reachedBlocks.has(bIdx)) return null;
         const visibleWords = visibleWordsByBlock.get(bIdx) || 0;
         if (block.type === "break") return <br key={bIdx} />;
@@ -327,7 +362,7 @@ function getBlockPlainText(block: ResponseBlock): string {
   }
   if (block.type === "bullet") return block.text || "";
   if (block.type === "experience-role") {
-    return block.subtitle || "";
+    return "";
   }
   return "";
 }
