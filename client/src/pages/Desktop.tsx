@@ -1071,9 +1071,21 @@ function WorkCards({
   const chipRef = useRef<HTMLDivElement>(null);
   const [chipVisible, setChipVisible] = useState(false);
   const [tappedId, setTappedId] = useState<string | null>(null);
+  const [cardsVisible, setCardsVisible] = useState(true);
+  const [activeSingleColumn, setActiveSingleColumn] = useState(singleColumn);
   const isTouchDevice = useRef(
     typeof window !== "undefined" && window.matchMedia("(hover: none)").matches,
   );
+
+  useEffect(() => {
+    if (activeSingleColumn === singleColumn) return;
+    setCardsVisible(false);
+    const t = setTimeout(() => {
+      setActiveSingleColumn(singleColumn);
+      setCardsVisible(true);
+    }, 160);
+    return () => clearTimeout(t);
+  }, [singleColumn]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (chipRef.current) {
@@ -1137,8 +1149,12 @@ function WorkCards({
       )}
 
       <div
-        className={`grid grid-cols-1 ${singleColumn ? "" : "md:grid-cols-2"} mt-6 animate-stream-line`}
-        style={{ gap: 20 }}
+        className={`grid grid-cols-1 ${activeSingleColumn ? "" : "md:grid-cols-2"} mt-6 animate-stream-line`}
+        style={{
+          gap: 20,
+          opacity: cardsVisible ? 1 : 0,
+          transition: "opacity 0.16s ease",
+        }}
       >
         {caseStudies.map((study, i) => {
           const isSelected = selectedId === study.id;
@@ -5923,8 +5939,6 @@ export const Desktop = (): JSX.Element => {
                     bottom: 0,
                     width: activeCaseStudy ? "30%" : "100%",
                     overflow: "hidden",
-                    opacity: activeCaseStudy ? 0.72 : 1,
-                    transition: "opacity 0.3s ease",
                   }}
                 >
                   <div
