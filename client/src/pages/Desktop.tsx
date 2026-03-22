@@ -577,34 +577,43 @@ function ExperienceRoleBlock({
           gap: 8,
         }}
       >
-        {/* Left: [chevron slot] [logo + name + now] */}
-        <div style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
-          {/* Fixed-width chevron slot — always reserves space, icon fades in */}
-          <div
-            style={{
-              width: isMobile ? 0 : 16,
-              flexShrink: 0,
-              marginRight: isMobile ? 0 : 8,
-              opacity: isFullyShown && (open || hovered) ? 1 : 0,
-              transition: "opacity 0.15s ease",
-              overflow: "hidden",
-            }}
-          >
-            {open ? (
-              <ChevronUpIcon size={16} color="#7A7A7A" />
-            ) : (
-              <ChevronRightIcon size={16} color="#7A7A7A" />
-            )}
-          </div>
+        {/* Left: [logo + name + now] with chevron appearing absolutely on hover */}
+        <div style={{ display: "flex", alignItems: "center", minWidth: 0, position: "relative" }}>
+          {/* Chevron — absolutely positioned, no reserved space */}
+          {!isMobile && (
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                opacity: isFullyShown && (open || hovered) ? 1 : 0,
+                transform:
+                  isFullyShown && (open || hovered)
+                    ? "translateX(0)"
+                    : "translateX(-4px)",
+                transition: "opacity 0.2s ease, transform 0.2s ease",
+                pointerEvents: "none",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {open ? (
+                <ChevronUpIcon size={16} color="#7A7A7A" />
+              ) : (
+                <ChevronRightIcon size={16} color="#7A7A7A" />
+              )}
+            </div>
+          )}
 
-          {/* Logo + name — shift right on hover */}
+          {/* Logo + name — shift right on hover/open */}
           <div
             style={{
               display: "flex",
               alignItems: isMobile ? "flex-start" : "center",
               gap: 12,
               transform:
-                isFullyShown && hovered ? "translateX(4px)" : "translateX(0)",
+                !isMobile && isFullyShown && (hovered || open)
+                  ? "translateX(20px)"
+                  : "translateX(0)",
               transition: "transform 0.2s ease",
               flexDirection: "row",
               minWidth: 0,
