@@ -691,7 +691,7 @@ function ExperienceRoleBlock({
         {block.description && (
           <div
             style={{
-              paddingLeft: isMobile ? 0 : 56,
+              paddingLeft: isMobile ? 0 : 66,
               paddingTop: 10,
             }}
           >
@@ -699,9 +699,9 @@ function ExperienceRoleBlock({
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: 400,
-                fontSize: 14,
-                color: "#424242",
-                lineHeight: "20px",
+                fontSize: 16,
+                color: "#767676",
+                lineHeight: "22px",
                 opacity: open ? 1 : 0,
                 transform: open ? "translateY(0)" : "translateY(6px)",
                 transition:
