@@ -556,7 +556,7 @@ function ExperienceRoleBlock({
       }}
     >
       {block.text}
-      <span style={{ margin: "0 6px", color: "#E0E0E0" }}>·</span>
+      <span style={{ margin: "0 6px", color: "#7A7A7A", fontSize: isMobile ? 15 : 18 }}>·</span>
       {block.duration}
     </span>
   ) : null;
@@ -5621,7 +5621,7 @@ export const Desktop = (): JSX.Element => {
                       Hello!
                     </span>
                   </span>{" "}
-                  I&apos;m Chirag&apos;s portfolio AI.
+                  I&apos;m Chirag&apos;s portfolio AI
                 </h1>
 
                 <div
