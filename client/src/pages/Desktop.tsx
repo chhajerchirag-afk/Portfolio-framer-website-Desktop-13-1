@@ -2582,7 +2582,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     "Added visible 'human handoff triggers' so recruiters know when and how to step in.",
                   worked:
                     "Preserved AI momentum while giving recruiters control at critical moments.",
-                  img: "/project-1/8.png",
+                  video: "https://kuthq1kled.ufs.sh/f/8W28hiHCl7NX8Fob2sHCl7NX10gWZhjDeFfTVJqtMBLYHKmz",
                 },
                 {
                   n: "#3",
