@@ -5922,8 +5922,9 @@ export const Desktop = (): JSX.Element => {
                     left: 0,
                     bottom: 0,
                     width: activeCaseStudy ? "30%" : "100%",
-                    transition: "width 0.38s ease-out",
                     overflow: "hidden",
+                    opacity: activeCaseStudy ? 0.72 : 1,
+                    transition: "opacity 0.3s ease",
                   }}
                 >
                   <div
@@ -6049,7 +6050,7 @@ export const Desktop = (): JSX.Element => {
                     transform: activeCaseStudy
                       ? "translateX(0)"
                       : "translateX(100%)",
-                    transition: "transform 0.38s ease-out",
+                    transition: "transform 0.42s cubic-bezier(0.22, 1, 0.36, 1)",
                     overflow: "hidden",
                     willChange: "transform",
                   }}
