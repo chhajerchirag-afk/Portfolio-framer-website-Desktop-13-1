@@ -562,7 +562,7 @@ function ExperienceRoleBlock({
             <img
               src={iconSrc}
               alt={block.subtitle}
-              style={{ width: 48, height: 48, borderRadius: 12, flexShrink: 0 }}
+              style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }}
             />
           )}
           <div className="flex items-center gap-3">
@@ -608,7 +608,7 @@ function ExperienceRoleBlock({
             <span
               style={{
                 fontFamily: "'JetBrains Mono', monospace",
-                fontWeight: 400,
+                fontWeight: 300,
                 fontSize: 16,
                 color: "#7A7A7A",
                 letterSpacing: "-0.02em",
