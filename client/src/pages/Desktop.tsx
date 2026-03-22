@@ -2553,18 +2553,18 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                   {pt}
                 </div>
               ))}
-              <p
+              <h3
                 style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "#555",
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
+                  fontSize: 24,
+                  fontWeight: 500,
+                  lineHeight: "32px",
+                  color: "#ffffff",
+                  fontFamily: "Inter, sans-serif",
                   margin: "64px 0 12px",
                 }}
               >
                 What we exposed:
-              </p>
+              </h3>
               {[
                 {
                   n: "#1",
