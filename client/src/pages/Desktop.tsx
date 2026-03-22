@@ -764,8 +764,6 @@ function CaseStudyVideo({ src }: { src: string }) {
         style={{
           width: "100%",
           display: "block",
-          transform: "scale(1.2)",
-          transformOrigin: "center center",
         }}
       />
     </div>
