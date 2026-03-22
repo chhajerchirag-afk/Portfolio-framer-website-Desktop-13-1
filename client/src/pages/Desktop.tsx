@@ -730,6 +730,48 @@ function ExperienceRoleBlock({
   );
 }
 
+function CaseStudyVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        });
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div
+      style={{
+        overflow: "hidden",
+        borderRadius: 12,
+        border: "1px solid #e2e8f0",
+      }}
+    >
+      <video
+        ref={ref}
+        src={src}
+        muted
+        loop
+        playsInline
+        style={{
+          width: "100%",
+          display: "block",
+          transform: "scale(1.2)",
+          transformOrigin: "center center",
+        }}
+      />
+    </div>
+  );
+}
+
 function StaticBlockText({ blocks }: { blocks: ResponseBlock[] }) {
   return (
     <div
@@ -1913,7 +1955,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                       desc: "to configure one hiring campaign",
                     },
                   ],
-                  img: "/project-1/1.png",
+                  video: "https://kuthq1kled.ufs.sh/f/8W28hiHCl7NXwsPCqbfaUPoRuX4YS30Hd7vgyJfOqVI6brxN",
                 },
                 {
                   label: "Pain Point 2: Channel Silos",
@@ -1924,7 +1966,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                       desc: "missed follow-ups due to fragmented flows",
                     },
                   ],
-                  img: "/project-1/2.png",
+                  video: "https://kuthq1kled.ufs.sh/f/8W28hiHCl7NXr8h4hE5QbYfU6F7u5t1gjLHexpM3hwo9ZSin",
                 },
                 {
                   label: "Pain Point 3: Limited Scalability",
@@ -2001,13 +2043,17 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                       ))}
                     </div>
                   )}
-                  <div style={{ overflow: "hidden" }}>
-                    <img
-                      src={pp.img}
-                      alt={pp.label}
-                      style={{ width: "100%", display: "block" }}
-                    />
-                  </div>
+                  {"video" in pp && pp.video ? (
+                    <CaseStudyVideo src={pp.video} />
+                  ) : (
+                    <div style={{ overflow: "hidden" }}>
+                      <img
+                        src={(pp as any).img}
+                        alt={pp.label}
+                        style={{ width: "100%", display: "block" }}
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -2120,13 +2166,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               >
                 Initial Conceptualising Using Lovable
               </h2>
-              <div style={{ overflow: "hidden" }}>
-                <img
-                  src="/project-1/4.png"
-                  alt="Initial Conceptualising"
-                  style={{ width: "100%", display: "block" }}
-                />
-              </div>
+              <CaseStudyVideo src="https://kuthq1kled.ufs.sh/f/8W28hiHCl7NXggiCFtj0aNhrmHZIit8yGjJYW7bRp3CwxqQc" />
             </div>
           </div>
 
@@ -2395,12 +2435,8 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     </div>
                   ))}
                 </div>
-                <div style={{ overflow: "hidden", marginBottom: 24 }}>
-                  <img
-                    src="/project-1/6.png"
-                    alt="V2 Design"
-                    style={{ width: "100%", display: "block" }}
-                  />
+                <div style={{ marginBottom: 24 }}>
+                  <CaseStudyVideo src="https://kuthq1kled.ufs.sh/f/8W28hiHCl7NX1cc3fCeC0xrGQN2Kc6FgupXELiATJZykdnjW" />
                 </div>
                 <div
                   style={{
@@ -2539,7 +2575,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     "Replaced complex branching logic with a simple stage-based flow: Greeting → Data Collection → Screening → Scheduling → Matching.",
                   worked:
                     "Admins define what the agent accomplishes at each stage, not how. This aligned with how recruiters naturally think about hiring work.",
-                  img: "/project-1/7.png",
+                  video: "https://kuthq1kled.ufs.sh/f/8W28hiHCl7NXiF5bP39nARKGIl9t6M7TsZoyEzYNL4vjVrmq",
                 },
                 {
                   n: "#2",
@@ -2602,13 +2638,17 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     <span style={{ fontWeight: 500 }}>Why it worked: </span>
                     {point.worked}
                   </p>
-                  <div style={{ overflow: "hidden" }}>
-                    <img
-                      src={point.img}
-                      alt={point.title}
-                      style={{ width: "100%", display: "block" }}
-                    />
-                  </div>
+                  {"video" in point && point.video ? (
+                    <CaseStudyVideo src={point.video} />
+                  ) : (
+                    <div style={{ overflow: "hidden" }}>
+                      <img
+                        src={(point as any).img}
+                        alt={point.title}
+                        style={{ width: "100%", display: "block" }}
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
               <h2
