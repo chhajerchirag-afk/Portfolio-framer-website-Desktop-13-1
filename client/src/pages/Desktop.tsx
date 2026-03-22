@@ -5515,7 +5515,7 @@ export const Desktop = (): JSX.Element => {
       setShowTooltip(false);
       return;
     }
-    const t = setTimeout(() => setShowTooltip(true), 5000);
+    const t = setTimeout(() => setShowTooltip(true), 12000);
     return () => clearTimeout(t);
   }, [inChatMode]);
 
@@ -5822,16 +5822,17 @@ export const Desktop = (): JSX.Element => {
                     ))}
                   </div>
 
-                  {/* Idle tooltip — appears after 5s of no interaction */}
+                  {/* Idle tooltip — appears after 12s of no interaction */}
                   <div
+                    className={showTooltip ? "animate-tooltip-float" : ""}
                     style={{
                       position: "absolute",
                       top: "calc(100% + 20px)",
                       left: "50%",
-                      transform: "translateX(-50%)",
+                      transform: showTooltip ? undefined : "translateX(-50%)",
                       pointerEvents: "none",
                       opacity: showTooltip ? 1 : 0,
-                      transition: "opacity 0.4s ease, transform 0.4s ease",
+                      transition: "opacity 0.4s ease",
                       zIndex: 50,
                       display: "flex",
                       flexDirection: "column",
