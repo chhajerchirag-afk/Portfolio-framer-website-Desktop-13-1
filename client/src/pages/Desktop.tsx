@@ -602,35 +602,37 @@ function ExperienceRoleBlock({
             style={{
               display: "flex",
               alignItems: isMobile ? "flex-start" : "center",
-              gap: isMobile ? 4 : 12,
+              gap: 12,
               transform:
                 isFullyShown && hovered ? "translateX(4px)" : "translateX(0)",
               transition: "transform 0.2s ease",
-              flexDirection: isMobile ? "column" : "row",
+              flexDirection: "row",
               minWidth: 0,
             }}
           >
-            {/* Icon + name row */}
+            {/* Logo */}
+            {iconSrc && isFullyShown && (
+              <img
+                src={iconSrc}
+                alt={block.subtitle}
+                style={{
+                  width: isMobile ? 42 : 32,
+                  height: isMobile ? 42 : 32,
+                  borderRadius: 8,
+                  flexShrink: 0,
+                }}
+              />
+            )}
+            {/* Name + role/year column (mobile) or just name row (desktop) */}
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
-                gap: 10,
-                flexShrink: 0,
+                flexDirection: isMobile ? "column" : "row",
+                alignItems: isMobile ? "flex-start" : "center",
+                gap: isMobile ? 2 : 10,
+                minWidth: 0,
               }}
             >
-              {iconSrc && isFullyShown && (
-                <img
-                  src={iconSrc}
-                  alt={block.subtitle}
-                  style={{
-                    width: isMobile ? 42 : 32,
-                    height: isMobile ? 42 : 32,
-                    borderRadius: 8,
-                    flexShrink: 0,
-                  }}
-                />
-              )}
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span
                   style={{
@@ -672,9 +674,9 @@ function ExperienceRoleBlock({
                   </div>
                 )}
               </div>
+              {/* Role + year below name on mobile */}
+              {isMobile && roleYearEl}
             </div>
-            {/* Role + year below name on mobile */}
-            {isMobile && roleYearEl}
           </div>
         </div>
 
