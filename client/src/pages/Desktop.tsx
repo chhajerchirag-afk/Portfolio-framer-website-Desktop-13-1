@@ -5494,6 +5494,7 @@ export const Desktop = (): JSX.Element => {
   const time = useLiveClock();
   const isMobile = useIsMobile();
   const [streamedPlaceholder, setStreamedPlaceholder] = useState("");
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     const full = "Ask me anything about Chirag...";
@@ -5508,6 +5509,15 @@ export const Desktop = (): JSX.Element => {
     }, 400);
     return () => clearTimeout(startDelay);
   }, []);
+
+  useEffect(() => {
+    if (inChatMode) {
+      setShowTooltip(false);
+      return;
+    }
+    const t = setTimeout(() => setShowTooltip(true), 5000);
+    return () => clearTimeout(t);
+  }, [inChatMode]);
 
   const smoothScrollToBottom = () => {
     if (scrollRef.current) {
@@ -5533,6 +5543,7 @@ export const Desktop = (): JSX.Element => {
   }, [inChatMode]);
 
   function handlePromptChipClick(item: (typeof navItems)[number]) {
+    setShowTooltip(false);
     setInputValue(item.query);
     setPendingQuery(item.query);
     setPendingType(item.id);
@@ -5748,7 +5759,8 @@ export const Desktop = (): JSX.Element => {
                         ref={inputRef}
                         data-testid="input-query"
                         value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
+                        onChange={(e) => { setShowTooltip(false); setInputValue(e.target.value); }}
+                        onFocus={() => setShowTooltip(false)}
                         onKeyDown={(e) =>
                           e.key === "Enter" && handleManualSubmit(inputValue)
                         }
@@ -5796,17 +5808,65 @@ export const Desktop = (): JSX.Element => {
                   </div>
                 </div>
 
-                <div
-                  className="flex items-center flex-wrap justify-center animate-entrance-3"
-                  style={{ gap: 8, marginTop: 16 }}
-                >
-                  {navItems.map((item) => (
-                    <NavPill
-                      key={item.id}
-                      item={item}
-                      onClick={() => handlePromptChipClick(item)}
+                <div style={{ position: "relative", marginTop: 16 }}>
+                  <div
+                    className="flex items-center flex-wrap justify-center animate-entrance-3"
+                    style={{ gap: 8 }}
+                  >
+                    {navItems.map((item) => (
+                      <NavPill
+                        key={item.id}
+                        item={item}
+                        onClick={() => handlePromptChipClick(item)}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Idle tooltip — appears after 5s of no interaction */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 20px)",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      pointerEvents: "none",
+                      opacity: showTooltip ? 1 : 0,
+                      transition: "opacity 0.4s ease, transform 0.4s ease",
+                      zIndex: 50,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {/* Arrow pointing up */}
+                    <div
+                      style={{
+                        width: 0,
+                        height: 0,
+                        borderLeft: "7px solid transparent",
+                        borderRight: "7px solid transparent",
+                        borderBottom: "7px solid #1a1a1a",
+                        marginBottom: -1,
+                      }}
                     />
-                  ))}
+                    <div
+                      style={{
+                        backgroundColor: "#1a1a1a",
+                        color: "#ffffff",
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: 400,
+                        fontSize: 13,
+                        lineHeight: "18px",
+                        padding: "8px 14px",
+                        borderRadius: 10,
+                        boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
+                        letterSpacing: 0,
+                      }}
+                    >
+                      Try clicking one of these to get started
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
