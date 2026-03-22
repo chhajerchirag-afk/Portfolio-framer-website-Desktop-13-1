@@ -5515,7 +5515,7 @@ export const Desktop = (): JSX.Element => {
       setShowTooltip(false);
       return;
     }
-    const t = setTimeout(() => setShowTooltip(true), 12000);
+    const t = setTimeout(() => setShowTooltip(true), 10000);
     return () => clearTimeout(t);
   }, [inChatMode]);
 
