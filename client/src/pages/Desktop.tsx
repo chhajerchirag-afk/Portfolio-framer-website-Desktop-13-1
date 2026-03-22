@@ -730,7 +730,7 @@ function ExperienceRoleBlock({
   );
 }
 
-function CaseStudyVideo({ src }: { src: string }) {
+function CaseStudyVideo({ src, borderColor = "#e2e8f0" }: { src: string; borderColor?: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const video = ref.current;
@@ -752,7 +752,7 @@ function CaseStudyVideo({ src }: { src: string }) {
       style={{
         overflow: "hidden",
         borderRadius: 12,
-        border: "1px solid #e2e8f0",
+        border: `1px solid ${borderColor}`,
       }}
     >
       <video
@@ -2637,7 +2637,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                     {point.worked}
                   </p>
                   {"video" in point && point.video ? (
-                    <CaseStudyVideo src={point.video} />
+                    <CaseStudyVideo src={point.video} borderColor="#33322F" />
                   ) : (
                     <div style={{ overflow: "hidden" }}>
                       <img
