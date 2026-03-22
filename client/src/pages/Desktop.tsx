@@ -573,32 +573,49 @@ function ExperienceRoleBlock({
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
   const isMobile = useIsMobile();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isNarrow, setIsNarrow] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      setIsNarrow(entry.contentRect.width < 500);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const stacked = isMobile || isNarrow;
 
   const nameWords = (block.subtitle || "").split(/\s+/).filter(Boolean);
   const isFullyShown = visibleWords >= nameWords.length;
   const nameShown = nameWords.slice(0, visibleWords).join(" ");
   const iconSrc = experienceIconMap[block.subtitle || ""] || "";
 
+  const logoSize = stacked ? 42 : 32;
+
   const roleYearEl = isFullyShown ? (
     <span
       style={{
         fontFamily: "'JetBrains Mono', monospace",
         fontWeight: 300,
-        fontSize: isMobile ? 14 : 16,
-        lineHeight: isMobile ? "20px" : "normal",
+        fontSize: stacked ? 14 : 16,
+        lineHeight: stacked ? "20px" : "normal",
         color: "#7A7A7A",
         letterSpacing: "-0.02em",
         whiteSpace: "nowrap",
       }}
     >
       {block.text}
-      <span style={{ margin: "0 6px", color: "#7A7A7A", fontSize: isMobile ? 15 : 18 }}>·</span>
+      <span style={{ margin: "0 6px", color: "#7A7A7A", fontSize: stacked ? 15 : 18 }}>·</span>
       {block.duration}
     </span>
   ) : null;
 
   return (
     <div
+      ref={containerRef}
       className="mb-7 cursor-pointer select-none"
       onClick={() => isFullyShown && setOpen((o) => !o)}
       onMouseEnter={() => setHovered(true)}
@@ -607,15 +624,15 @@ function ExperienceRoleBlock({
       <div
         style={{
           display: "flex",
-          alignItems: isMobile ? "flex-start" : "center",
+          alignItems: stacked ? "flex-start" : "center",
           justifyContent: "space-between",
           gap: 8,
         }}
       >
         {/* Left: [logo + name + now] with chevron appearing absolutely on hover */}
         <div style={{ display: "flex", alignItems: "center", minWidth: 0, position: "relative" }}>
-          {/* Chevron — absolutely positioned, no reserved space */}
-          {!isMobile && (
+          {/* Chevron — absolutely positioned, no reserved space, desktop-wide only */}
+          {!stacked && (
             <div
               style={{
                 position: "absolute",
@@ -639,14 +656,14 @@ function ExperienceRoleBlock({
             </div>
           )}
 
-          {/* Logo + name — shift right on hover/open */}
+          {/* Logo + name — shift right on hover/open (desktop-wide only) */}
           <div
             style={{
               display: "flex",
-              alignItems: isMobile ? "flex-start" : "center",
+              alignItems: stacked ? "flex-start" : "center",
               gap: 12,
               transform:
-                !isMobile && isFullyShown && (hovered || open)
+                !stacked && isFullyShown && (hovered || open)
                   ? "translateX(20px)"
                   : "translateX(0)",
               transition: "transform 0.2s ease",
@@ -660,20 +677,20 @@ function ExperienceRoleBlock({
                 src={iconSrc}
                 alt={block.subtitle}
                 style={{
-                  width: isMobile ? 42 : 32,
-                  height: isMobile ? 42 : 32,
+                  width: logoSize,
+                  height: logoSize,
                   borderRadius: 8,
                   flexShrink: 0,
                 }}
               />
             )}
-            {/* Name + role/year column (mobile) or just name row (desktop) */}
+            {/* Name + role/year column (stacked) or just name row (wide) */}
             <div
               style={{
                 display: "flex",
-                flexDirection: isMobile ? "column" : "row",
-                alignItems: isMobile ? "flex-start" : "center",
-                gap: isMobile ? 2 : 10,
+                flexDirection: stacked ? "column" : "row",
+                alignItems: stacked ? "flex-start" : "center",
+                gap: stacked ? 2 : 10,
                 minWidth: 0,
               }}
             >
@@ -718,14 +735,14 @@ function ExperienceRoleBlock({
                   </div>
                 )}
               </div>
-              {/* Role + year below name on mobile */}
-              {isMobile && roleYearEl}
+              {/* Role + year below name when stacked */}
+              {stacked && roleYearEl}
             </div>
           </div>
         </div>
 
-        {/* Right: role + year — desktop only */}
-        {!isMobile && roleYearEl}
+        {/* Right: role + year — wide layout only */}
+        {!stacked && roleYearEl}
       </div>
 
       {/* Accordion — smooth height transition */}
@@ -739,7 +756,7 @@ function ExperienceRoleBlock({
         {block.description && (
           <div
             style={{
-              paddingLeft: isMobile ? 0 : 66,
+              paddingLeft: stacked ? 0 : 66,
               paddingTop: 10,
             }}
           >
