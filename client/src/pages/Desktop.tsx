@@ -549,7 +549,8 @@ function ExperienceRoleBlock({
       style={{
         fontFamily: "'JetBrains Mono', monospace",
         fontWeight: 300,
-        fontSize: isMobile ? 13 : 16,
+        fontSize: isMobile ? 14 : 16,
+        lineHeight: isMobile ? "20px" : "normal",
         color: "#7A7A7A",
         letterSpacing: "-0.02em",
         whiteSpace: "nowrap",
@@ -581,11 +582,12 @@ function ExperienceRoleBlock({
           {/* Fixed-width chevron slot — always reserves space, icon fades in */}
           <div
             style={{
-              width: 16,
+              width: isMobile ? 0 : 16,
               flexShrink: 0,
-              marginRight: 8,
+              marginRight: isMobile ? 0 : 8,
               opacity: isFullyShown && (open || hovered) ? 1 : 0,
               transition: "opacity 0.15s ease",
+              overflow: "hidden",
             }}
           >
             {open ? (
@@ -600,7 +602,7 @@ function ExperienceRoleBlock({
             style={{
               display: "flex",
               alignItems: isMobile ? "flex-start" : "center",
-              gap: 12,
+              gap: isMobile ? 4 : 12,
               transform:
                 isFullyShown && hovered ? "translateX(4px)" : "translateX(0)",
               transition: "transform 0.2s ease",
@@ -622,8 +624,8 @@ function ExperienceRoleBlock({
                   src={iconSrc}
                   alt={block.subtitle}
                   style={{
-                    width: 32,
-                    height: 32,
+                    width: isMobile ? 42 : 32,
+                    height: isMobile ? 42 : 32,
                     borderRadius: 8,
                     flexShrink: 0,
                   }}
