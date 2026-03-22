@@ -4194,8 +4194,11 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
             Lovable.
           </p>
         </div>
-        <div style={{ maxWidth: 720, margin: "0 auto", width: "100%" }}>
-          <VimeoAutoplayEmbed videoId="1175522753" />
+        <div style={{ maxWidth: 720, margin: "0 auto", width: "100%", paddingLeft: 20, paddingRight: 20 }}>
+          <CaseStudyVideo
+            src="https://kuthq1kled.ufs.sh/f/8W28hiHCl7NXiQdbWg9nARKGIl9t6M7TsZoyEzYNL4vjVrmq"
+            borderColor="#D9D9D9"
+          />
         </div>
       </div>
     </div>
