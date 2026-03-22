@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import {
   BrainIcon,
   ChevronDownIcon,
+  ChevronUpIcon,
   ChevronRightIcon,
   LoaderIcon,
   PanelLeftIcon,
@@ -101,6 +102,7 @@ interface ResponseBlock {
   duration?: string;
   bullets?: string[];
   focusLabel?: string;
+  isNow?: boolean;
 }
 
 const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
@@ -135,32 +137,25 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
     {
       type: "experience-role",
       text: "Product Designer",
-      subtitle: "Sense Hq",
-      duration: "2025 \u2014 Present",
-      highlight: "Sense Hq",
+      subtitle: "Sense",
+      duration: "2025",
+      highlight: "Sense",
+      isNow: true,
       description:
-        "Currently designing AI-powered recruiter tools that help HR teams create conversational talent workflows and automate engagement.",
-      focusLabel: "Focus areas:",
-      bullets: [
-        "AI agents for recruiters",
-        "Simplifying complex AI workflows",
-        "Scaling interaction patterns for enterprise hiring tools",
-      ],
+        "Owns end-to-end design for a flagship AI feature \u2014 enabling recruiters to build conversational chatbots and voice flows using AI agents. His focus is on making complex technical systems feel simple and intuitive for enterprise hiring teams. Awarded Star Product Designer of the Year (2025) for his impact on product outcomes and design quality.",
+      bullets: [],
+      focusLabel: "",
     },
     {
       type: "experience-role",
       text: "Product Designer",
       subtitle: "Nudge Lab",
-      duration: "2023 \u2014 2025",
+      duration: "2023 \u2013 2025",
       highlight: "Nudge Lab",
       description:
-        "Worked across early-stage AI and SaaS products, helping founders turn rough ideas into usable products.",
-      focusLabel: "Focus areas:",
-      bullets: [
-        "Designed AI-powered tools for legal research and cybersecurity",
-        "Improved onboarding and conversion for multiple products",
-        "Built scalable design systems across 100+ screens",
-      ],
+        "Led design across 5+ products at this product design studio \u2014 improving onboarding, activation, and conversion through iterative design and testing. Designed AI-powered workflows across legal, cybersecurity, and hiring domains. Built and scaled design systems across 100+ screens.",
+      bullets: [],
+      focusLabel: "",
     },
     {
       type: "experience-role",
@@ -168,22 +163,19 @@ const responseBlocks: Record<ResponseType, ResponseBlock[]> = {
       subtitle: "Dank",
       duration: "2023",
       highlight: "Dank",
-      description: "First step into product design.",
-      focusLabel: "Worked on:",
-      bullets: [
-        "Messaging and core social features",
-        "Onboarding improvements",
-        "Building the product\u2019s first design system",
-      ],
+      description:
+        "His first step into product design \u2014 a social media app for students. Worked on onboarding, messaging, homepage, and settings, and established the product\u2019s first scalable design system.",
+      bullets: [],
+      focusLabel: "",
     },
     {
       type: "experience-role",
       text: "Graphic Designer",
       subtitle: "GreyToYellow",
-      duration: "2022 \u2014 2023",
+      duration: "2021 \u2013 2022",
       highlight: "GreyToYellow",
       description:
-        "The origin story. Learned how visual storytelling, branding, and communication influence user perception.",
+        "The origin story. Designed digital and print campaigns at a marketing agency \u2014 where he learned how visual storytelling and communication shape the way people perceive a product.",
       bullets: [],
       focusLabel: "",
     },
@@ -535,6 +527,13 @@ function AboutImages() {
   );
 }
 
+const experienceIconMap: Record<string, string> = {
+  Sense: "/experience/sense.svg",
+  "Nudge Lab": "/experience/nudge-lab.svg",
+  Dank: "/experience/dank.svg",
+  GreyToYellow: "/experience/greytoyellow.svg",
+};
+
 function ExperienceRoleBlock({
   block,
   visibleWords,
@@ -542,71 +541,113 @@ function ExperienceRoleBlock({
   block: ResponseBlock;
   visibleWords: number;
 }) {
-  const headerText = `${block.text} @ ${block.subtitle} ${block.duration}`;
-  const headerWords = headerText.split(/\s+/).filter(Boolean);
-  const descWords = (block.description || "").split(/\s+/).filter(Boolean);
-  const focusLabelWords = (block.focusLabel || "").split(/\s+/).filter(Boolean);
-  const bulletTexts = block.bullets || [];
-  const allBulletWords = bulletTexts.map((b) => b.split(/\s+/).filter(Boolean));
+  const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
-  let remaining = visibleWords;
-
-  const headerVisible = Math.min(remaining, headerWords.length);
-  remaining -= headerVisible;
-
-  const descVisible = Math.min(remaining, descWords.length);
-  remaining -= descVisible;
-
-  const focusVisible = Math.min(remaining, focusLabelWords.length);
-  remaining -= focusVisible;
-
-  const bulletVisibles: number[] = [];
-  for (const bw of allBulletWords) {
-    const bv = Math.min(remaining, bw.length);
-    bulletVisibles.push(bv);
-    remaining -= bv;
-  }
-
-  const headerShown = headerWords.slice(0, headerVisible).join(" ");
+  const nameWords = (block.subtitle || "").split(/\s+/).filter(Boolean);
+  const isFullyShown = visibleWords >= nameWords.length;
+  const nameShown = nameWords.slice(0, visibleWords).join(" ");
+  const iconSrc = experienceIconMap[block.subtitle || ""] || "";
 
   return (
-    <div className="mb-8">
-      <div className="flex justify-between items-baseline">
-        <p className="font-['Inter',sans-serif] font-medium">
-          {headerVisible >= headerWords.length ? (
-            <>
-              {block.text} @ {block.subtitle}
-            </>
-          ) : (
-            headerShown
+    <div
+      className="mb-7 cursor-pointer select-none"
+      onClick={() => isFullyShown && setOpen((o) => !o)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="flex items-center justify-between min-h-[48px]">
+        <div className="flex items-center gap-4">
+          {iconSrc && isFullyShown && (
+            <img
+              src={iconSrc}
+              alt={block.subtitle}
+              style={{ width: 48, height: 48, borderRadius: 12, flexShrink: 0 }}
+            />
           )}
-        </p>
-        {headerVisible >= headerWords.length && (
-          <span className="font-['Inter',sans-serif] font-normal text-[#7A7A7A] text-base whitespace-nowrap ml-4">
-            {block.duration}
-          </span>
+          <div className="flex items-center gap-3">
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 500,
+                fontSize: 16,
+                color: "#14191F",
+              }}
+            >
+              {nameShown}
+            </span>
+            {isFullyShown && block.isNow && (
+              <div className="flex items-center gap-1.5">
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    backgroundColor: "#008BF9",
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 400,
+                    fontSize: 16,
+                    color: "#008BF9",
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  Now
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {isFullyShown && (
+          <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+            <span
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontWeight: 400,
+                fontSize: 16,
+                color: "#7A7A7A",
+                letterSpacing: "-0.02em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {block.text}
+              <span style={{ margin: "0 6px", color: "#E0E0E0" }}>·</span>
+              {block.duration}
+            </span>
+            <div
+              style={{
+                opacity: open || hovered ? 1 : 0,
+                transition: "opacity 0.15s ease",
+              }}
+            >
+              {open ? (
+                <ChevronUpIcon size={16} color="#7A7A7A" />
+              ) : (
+                <ChevronDownIcon size={16} color="#7A7A7A" />
+              )}
+            </div>
+          </div>
         )}
       </div>
-      {descVisible > 0 && (
-        <p className="mt-1">{descWords.slice(0, descVisible).join(" ")}</p>
-      )}
-      {focusVisible > 0 && block.focusLabel && (
-        <p className="mt-3 text-[#222222]">
-          {focusLabelWords.slice(0, focusVisible).join(" ")}
-        </p>
-      )}
-      {bulletVisibles.some((v) => v > 0) && (
-        <div className="mt-1 space-y-0.5">
-          {bulletTexts.map((bt, i) => {
-            if (bulletVisibles[i] <= 0) return null;
-            const words = bt.split(/\s+/).filter(Boolean);
-            return (
-              <p key={i} className="flex items-start gap-1.5">
-                <span className="mt-0.5 flex-shrink-0">{"\u2022"}</span>
-                <span>{words.slice(0, bulletVisibles[i]).join(" ")}</span>
-              </p>
-            );
-          })}
+
+      {open && isFullyShown && block.description && (
+        <div style={{ paddingLeft: 64, paddingTop: 12 }}>
+          <p
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 400,
+              fontSize: 16,
+              color: "#424242",
+              lineHeight: "24px",
+            }}
+          >
+            {block.description}
+          </p>
         </div>
       )}
     </div>
