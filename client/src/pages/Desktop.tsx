@@ -635,7 +635,7 @@ function ExperienceRoleBlock({
                 <span
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontWeight: 500,
+                    fontWeight: 400,
                     fontSize: 16,
                     color: "#14191F",
                     textDecoration:
