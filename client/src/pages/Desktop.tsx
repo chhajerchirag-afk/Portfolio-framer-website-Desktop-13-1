@@ -730,7 +730,7 @@ function ExperienceRoleBlock({
   );
 }
 
-function CaseStudyVideo({ src, borderColor = "#e2e8f0" }: { src: string; borderColor?: string }) {
+function CaseStudyVideo({ src, borderColor = "#e2e8f0", muted = true }: { src: string; borderColor?: string; muted?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const video = ref.current;
@@ -758,7 +758,7 @@ function CaseStudyVideo({ src, borderColor = "#e2e8f0" }: { src: string; borderC
       <video
         ref={ref}
         src={src}
-        muted
+        muted={muted}
         loop
         playsInline
         style={{
@@ -2721,32 +2721,11 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
                 of forcing recruiters to think in system logic, we let them
                 define hiring outcomes and guide AI execution.
               </p>
-              <div
-                ref={vimeoContainerRef}
-                style={{
-                  borderRadius: isMobile ? 12 : 24,
-                  border: "1px solid #33322F",
-                  overflow: "hidden",
-                  position: "relative",
-                  paddingTop: "56.25%",
-                }}
-              >
-                <iframe
-                  src="https://player.vimeo.com/video/1175506100?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  title="AI Agent Builder Solution Preview"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    display: "block",
-                  }}
-                />
-              </div>
+              <CaseStudyVideo
+                src="https://kuthq1kled.ufs.sh/f/8W28hiHCl7NXlKCBvXLL2CHP0hEdA6F9Us4YaMcWSvkm1Zzq"
+                borderColor="#33322F"
+                muted={false}
+              />
             </div>
           </div>
         </>
