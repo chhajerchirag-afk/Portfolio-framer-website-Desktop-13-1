@@ -279,7 +279,7 @@ function WordStreamingText({
 
   useEffect(() => {
     if (wordCount < allWords.current.length) {
-      const timer = setTimeout(() => setWordCount((c) => c + 1), 30);
+      const timer = setTimeout(() => setWordCount((c) => c + 2), 20);
       return () => clearTimeout(timer);
     } else if (!completedRef.current) {
       completedRef.current = true;
@@ -327,13 +327,7 @@ function getBlockPlainText(block: ResponseBlock): string {
   }
   if (block.type === "bullet") return block.text || "";
   if (block.type === "experience-role") {
-    const parts = [
-      `${block.text} @ ${block.subtitle} ${block.duration}`,
-      block.description || "",
-      ...(block.focusLabel ? [block.focusLabel] : []),
-      ...(block.bullets || []),
-    ];
-    return parts.join(" ");
+    return block.subtitle || "";
   }
   return "";
 }
@@ -543,11 +537,29 @@ function ExperienceRoleBlock({
 }) {
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const isMobile = useIsMobile();
 
   const nameWords = (block.subtitle || "").split(/\s+/).filter(Boolean);
   const isFullyShown = visibleWords >= nameWords.length;
   const nameShown = nameWords.slice(0, visibleWords).join(" ");
   const iconSrc = experienceIconMap[block.subtitle || ""] || "";
+
+  const roleYearEl = isFullyShown ? (
+    <span
+      style={{
+        fontFamily: "'JetBrains Mono', monospace",
+        fontWeight: 300,
+        fontSize: isMobile ? 13 : 16,
+        color: "#7A7A7A",
+        letterSpacing: "-0.02em",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {block.text}
+      <span style={{ margin: "0 6px", color: "#E0E0E0" }}>·</span>
+      {block.duration}
+    </span>
+  ) : null;
 
   return (
     <div
@@ -556,100 +568,151 @@ function ExperienceRoleBlock({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex items-center justify-between min-h-[48px]">
-        <div className="flex items-center gap-4">
-          {iconSrc && isFullyShown && (
-            <img
-              src={iconSrc}
-              alt={block.subtitle}
-              style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }}
-            />
-          )}
-          <div className="flex items-center gap-3">
-            <span
+      <div
+        style={{
+          display: "flex",
+          alignItems: isMobile ? "flex-start" : "center",
+          justifyContent: "space-between",
+          gap: 8,
+        }}
+      >
+        {/* Left: [chevron slot] [logo + name + now] */}
+        <div style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
+          {/* Fixed-width chevron slot — always reserves space, icon fades in */}
+          <div
+            style={{
+              width: 16,
+              flexShrink: 0,
+              marginRight: 8,
+              opacity: isFullyShown && (open || hovered) ? 1 : 0,
+              transition: "opacity 0.15s ease",
+            }}
+          >
+            {open ? (
+              <ChevronUpIcon size={16} color="#7A7A7A" />
+            ) : (
+              <ChevronRightIcon size={16} color="#7A7A7A" />
+            )}
+          </div>
+
+          {/* Logo + name — shift right on hover */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: isMobile ? "flex-start" : "center",
+              gap: 12,
+              transform:
+                isFullyShown && hovered ? "translateX(4px)" : "translateX(0)",
+              transition: "transform 0.2s ease",
+              flexDirection: isMobile ? "column" : "row",
+              minWidth: 0,
+            }}
+          >
+            {/* Icon + name row */}
+            <div
               style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 500,
-                fontSize: 16,
-                color: "#14191F",
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                flexShrink: 0,
               }}
             >
-              {nameShown}
-            </span>
-            {isFullyShown && block.isNow && (
-              <div className="flex items-center gap-1.5">
-                <div
+              {iconSrc && isFullyShown && (
+                <img
+                  src={iconSrc}
+                  alt={block.subtitle}
                   style={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    backgroundColor: "#008BF9",
+                    width: 32,
+                    height: 32,
+                    borderRadius: 8,
                     flexShrink: 0,
                   }}
                 />
+              )}
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span
                   style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontWeight: 400,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 500,
                     fontSize: 16,
-                    color: "#008BF9",
-                    letterSpacing: "-0.02em",
+                    color: "#14191F",
+                    textDecoration:
+                      isFullyShown && hovered ? "underline" : "none",
+                    textUnderlineOffset: 3,
                   }}
                 >
-                  Now
+                  {nameShown}
                 </span>
+                {isFullyShown && block.isNow && (
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 6 }}
+                  >
+                    <div
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        backgroundColor: "#008BF9",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontWeight: 400,
+                        fontSize: 16,
+                        color: "#008BF9",
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      Now
+                    </span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+            {/* Role + year below name on mobile */}
+            {isMobile && roleYearEl}
           </div>
         </div>
 
-        {isFullyShown && (
-          <div className="flex items-center gap-2 ml-4 flex-shrink-0">
-            <span
+        {/* Right: role + year — desktop only */}
+        {!isMobile && roleYearEl}
+      </div>
+
+      {/* Accordion — smooth height transition */}
+      <div
+        style={{
+          maxHeight: open && isFullyShown ? 400 : 0,
+          overflow: "hidden",
+          transition: "max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        {block.description && (
+          <div
+            style={{
+              paddingLeft: isMobile ? 0 : 56,
+              paddingTop: 10,
+            }}
+          >
+            <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontWeight: 300,
-                fontSize: 16,
-                color: "#7A7A7A",
-                letterSpacing: "-0.02em",
-                whiteSpace: "nowrap",
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 400,
+                fontSize: 14,
+                color: "#424242",
+                lineHeight: "20px",
+                opacity: open ? 1 : 0,
+                transform: open ? "translateY(0)" : "translateY(6px)",
+                transition:
+                  "opacity 0.25s ease 0.12s, transform 0.25s ease 0.12s",
               }}
             >
-              {block.text}
-              <span style={{ margin: "0 6px", color: "#E0E0E0" }}>·</span>
-              {block.duration}
-            </span>
-            <div
-              style={{
-                opacity: open || hovered ? 1 : 0,
-                transition: "opacity 0.15s ease",
-              }}
-            >
-              {open ? (
-                <ChevronUpIcon size={16} color="#7A7A7A" />
-              ) : (
-                <ChevronDownIcon size={16} color="#7A7A7A" />
-              )}
-            </div>
+              {block.description}
+            </p>
           </div>
         )}
       </div>
-
-      {open && isFullyShown && block.description && (
-        <div style={{ paddingLeft: 64, paddingTop: 12 }}>
-          <p
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: 400,
-              fontSize: 16,
-              color: "#424242",
-              lineHeight: "24px",
-            }}
-          >
-            {block.description}
-          </p>
-        </div>
-      )}
     </div>
   );
 }
