@@ -1634,7 +1634,8 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
   const section = (bg: string, py = 56): React.CSSProperties => ({
     width: "100%",
     background: bg,
-    padding: `${py}px 0`,
+    paddingTop: isMobile ? 32 : py,
+    paddingBottom: py,
   });
 
   const vimeoContainerRef = useRef<HTMLDivElement>(null);
@@ -1727,9 +1728,9 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
         <div style={inner}>
           <h1
             style={{
-              fontSize: 40,
+              fontSize: isMobile ? 28 : 40,
               fontWeight: 500,
-              lineHeight: "50px",
+              lineHeight: isMobile ? "38px" : "50px",
               letterSpacing: "-0.02em",
               marginBottom: 16,
               color: "#14191F",
@@ -3012,7 +3013,8 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
   const section = (bg: string, py = 56): React.CSSProperties => ({
     width: "100%",
     background: bg,
-    padding: `${py}px 0`,
+    paddingTop: isMobile ? 32 : py,
+    paddingBottom: py,
   });
 
   return (
@@ -3028,9 +3030,9 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
         <div style={inner}>
           <h1
             style={{
-              fontSize: 40,
+              fontSize: isMobile ? 28 : 40,
               fontWeight: 500,
-              lineHeight: "50px",
+              lineHeight: isMobile ? "38px" : "50px",
               letterSpacing: "-0.02em",
               marginBottom: 16,
               color: "#14191F",
@@ -3801,6 +3803,7 @@ function VimeoAutoplayEmbed({ videoId }: { videoId: string }) {
 }
 
 function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
+  const isMobile = useIsMobile();
   const phStyle = (h: number, mt = 32, mb = 0): React.CSSProperties => ({
     background: "#E8E8EA",
     borderRadius: 14,
@@ -4020,7 +4023,8 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
   const section = (bg: string, py = 56): React.CSSProperties => ({
     width: "100%",
     background: bg,
-    padding: `${py}px 0`,
+    paddingTop: isMobile ? 32 : py,
+    paddingBottom: py,
   });
 
   return (
@@ -4036,9 +4040,9 @@ function MVPVideoAIContent({ view: _view }: { view: "intense" | "overview" }) {
           {/* Title */}
           <h1
             style={{
-              fontSize: 40,
+              fontSize: isMobile ? 28 : 40,
               fontWeight: 500,
-              lineHeight: "50px",
+              lineHeight: isMobile ? "38px" : "50px",
               letterSpacing: "-0.02em",
               marginBottom: 56,
               color: "#14191F",
@@ -4324,7 +4328,8 @@ function InterviewSchedulingContent({
   const section = (bg: string, py = 56): React.CSSProperties => ({
     width: "100%",
     background: bg,
-    padding: `${py}px 0`,
+    paddingTop: isMobile ? 32 : py,
+    paddingBottom: py,
   });
 
   return (
@@ -4340,9 +4345,9 @@ function InterviewSchedulingContent({
         <div style={inner}>
           <h1
             style={{
-              fontSize: 40,
+              fontSize: isMobile ? 28 : 40,
               fontWeight: 500,
-              lineHeight: "50px",
+              lineHeight: isMobile ? "38px" : "50px",
               letterSpacing: "-0.02em",
               marginBottom: 16,
               color: "#14191F",
