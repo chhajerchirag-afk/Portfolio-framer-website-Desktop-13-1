@@ -1225,7 +1225,7 @@ function WorkCards({
                 isTouch ? (e) => handleTouchEnd(study.id, e) : undefined
               }
               style={{
-                gap: 0,
+                gap: 4,
                 opacity: 0,
                 cursor: isTouch ? "pointer" : "none",
                 animation: "fadeInTile 0.45s ease forwards",
@@ -1248,6 +1248,7 @@ function WorkCards({
                   width: "100%",
                   aspectRatio: "350 / 240",
                   borderRadius: 8,
+                  border: "1px solid #E0E0E0",
                 }}
               >
                 <img
