@@ -1736,7 +1736,7 @@ function AIAgentsHRContent({ view }: { view: "intense" | "overview" }) {
               color: "#14191F",
             }}
           >
-            Redefining hiring at scale{!isMobile && <br />}with AI Agents
+            Redefining hiring at scale{isMobile ? " " : <br />}with AI Agents
           </h1>
           <p
             style={{
@@ -3038,7 +3038,7 @@ function ReimaginingAIContent({ view }: { view: "intense" | "overview" }) {
               color: "#14191F",
             }}
           >
-            Reimagining the{!isMobile && <br />}AI Experience for Users
+            Reimagining the{isMobile ? " " : <br />}AI Experience for Users
           </h1>
           <p
             style={{
@@ -4353,7 +4353,7 @@ function InterviewSchedulingContent({
               color: "#14191F",
             }}
           >
-            Streamlining interview scheduling for{!isMobile && <br />}talent
+            Streamlining interview scheduling for{isMobile ? " " : <br />}talent
             acquisition and HR managers.
           </h1>
           <p style={{ ...bodyStyle, lineHeight: "24px", marginBottom: 56 }}>
