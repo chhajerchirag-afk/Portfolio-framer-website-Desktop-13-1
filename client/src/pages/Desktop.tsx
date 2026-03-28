@@ -1234,7 +1234,7 @@ function WorkCards({
                 padding: 4,
                 backgroundColor: "#F9FBFC",
                 border: "1px solid #E0E0E0",
-                borderRadius: 16,
+                borderRadius: 12,
                 outline: isSelected ? "2px solid #171717" : "none",
                 outlineOffset: 2,
               }}
@@ -1247,7 +1247,7 @@ function WorkCards({
                 style={{
                   width: "100%",
                   aspectRatio: "350 / 240",
-                  borderRadius: 12,
+                  borderRadius: 8,
                 }}
               >
                 <img
