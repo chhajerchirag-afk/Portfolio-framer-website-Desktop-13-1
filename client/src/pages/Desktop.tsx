@@ -1225,28 +1225,29 @@ function WorkCards({
                 isTouch ? (e) => handleTouchEnd(study.id, e) : undefined
               }
               style={{
-                gap: 10,
+                gap: 0,
                 opacity: 0,
                 cursor: isTouch ? "pointer" : "none",
                 animation: "fadeInTile 0.45s ease forwards",
                 animationDelay: `${i * 0.12}s`,
                 transition: "opacity 0.2s ease",
+                padding: 4,
+                backgroundColor: "#F9FBFC",
+                border: "1px solid #E0E0E0",
+                borderRadius: 16,
+                outline: isSelected ? "2px solid #171717" : "none",
+                outlineOffset: 2,
               }}
               onMouseEnter={isTouch ? undefined : () => setChipVisible(true)}
               onMouseLeave={isTouch ? undefined : () => setChipVisible(false)}
               onMouseMove={isTouch ? undefined : handleMouseMove}
             >
               <div
-                className="relative overflow-hidden rounded-2xl flex-shrink-0"
+                className="relative overflow-hidden flex-shrink-0"
                 style={{
                   width: "100%",
                   aspectRatio: "350 / 240",
-                  outline: isSelected
-                    ? "2px solid #171717"
-                    : "2px solid transparent",
-                  outlineOffset: 2,
-                  transition: "outline-color 0.2s ease, opacity 0.2s ease",
-                  opacity: 1,
+                  borderRadius: 12,
                 }}
               >
                 <img
@@ -1294,6 +1295,7 @@ function WorkCards({
                 style={{
                   fontSize: 16,
                   lineHeight: "24px",
+                  padding: "8px 12px",
                 }}
               >
                 {study.title}
