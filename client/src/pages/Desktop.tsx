@@ -12,13 +12,11 @@ import {
   XIcon,
   FileTextIcon,
 } from "lucide-react";
-import resumeImagePath from "@assets/Frame_153_1773004120421.png";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useIsMobile } from "@/hooks/use-mobile";
-
-import sayHelloImg from "@assets/Image_1773518148939.png";
-import uiTile1 from "@assets/image_63_1773516807733.png";
 import { fireConfettiFromElement } from "@/components/ui/confetti";
+
+const resumeImagePath = "/figmaAssets/image-51.png";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
