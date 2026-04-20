@@ -5380,12 +5380,16 @@ function UIVisualDesignContent({
             color="#FFFFFF"
             dateColor="#B8B8B8"
           />
-          <TwoCol
-            left="/project-5/20.png"
-            right="/project-5/21.png"
-            leftAlt="Dark Mode 1"
-            rightAlt="Dark Mode 2"
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: stackGap,
+            }}
+          >
+            <FullImage src="/project-5/20.png" alt="Dark Mode 1" />
+            <FullImage src="/project-5/21.png" alt="Dark Mode 2" />
+          </div>
         </div>
       </div>
 
