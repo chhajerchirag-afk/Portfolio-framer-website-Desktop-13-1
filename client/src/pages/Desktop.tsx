@@ -5016,6 +5016,10 @@ function UIVisualDesignContent({
   view: "intense" | "overview";
 }) {
   const isMobile = useIsMobile();
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+
+  const openLightbox = (src: string) => setLightboxSrc(src);
+  const closeLightbox = () => setLightboxSrc(null);
 
   const inner: React.CSSProperties = {
     maxWidth: 720,
@@ -5100,14 +5104,25 @@ function UIVisualDesignContent({
     </div>
   );
 
-  const FullImage = ({ src, alt }: { src: string; alt: string }) => (
+  const FullImage = ({
+    src,
+    alt,
+    border,
+  }: {
+    src: string;
+    alt: string;
+    border?: string;
+  }) => (
     <div
       style={{
         width: "100%",
         borderRadius: 8,
         overflow: "hidden",
         marginBottom: 0,
+        border: border ?? "none",
+        cursor: "pointer",
       }}
+      onClick={() => openLightbox(src)}
     >
       <img
         src={src}
@@ -5123,11 +5138,13 @@ function UIVisualDesignContent({
     right,
     leftAlt,
     rightAlt,
+    border,
   }: {
     left: string;
     right: string;
     leftAlt: string;
     rightAlt: string;
+    border?: string;
   }) => (
     <div
       style={{
@@ -5143,7 +5160,10 @@ function UIVisualDesignContent({
           minWidth: 0,
           borderRadius: 8,
           overflow: "hidden",
+          border: border ?? "none",
+          cursor: "pointer",
         }}
+        onClick={() => openLightbox(left)}
       >
         <img
           src={left}
@@ -5158,7 +5178,10 @@ function UIVisualDesignContent({
           minWidth: 0,
           borderRadius: 8,
           overflow: "hidden",
+          border: border ?? "none",
+          cursor: "pointer",
         }}
+        onClick={() => openLightbox(right)}
       >
         <img
           src={right}
@@ -5171,6 +5194,9 @@ function UIVisualDesignContent({
   );
 
   const stackGap = 16;
+  const lmsBorder = "1px solid #E3E0DD";
+  const cmsBorder = "1px solid #E3E3E3";
+  const dsBorder = "1px solid #E3E3E3";
 
   return (
     <div
@@ -5180,6 +5206,38 @@ function UIVisualDesignContent({
         color: "#14191F",
       }}
     >
+      {/* ── Lightbox overlay ── */}
+      {lightboxSrc && (
+        <div
+          onClick={closeLightbox}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            background: "rgba(0,0,0,0.85)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+        >
+          <img
+            src={lightboxSrc}
+            alt="Enlarged view"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxHeight: "75vh",
+              maxWidth: "100%",
+              objectFit: "contain",
+              borderRadius: 8,
+              boxShadow: "0 24px 80px rgba(0,0,0,0.5)",
+              display: "block",
+            }}
+            draggable={false}
+          />
+        </div>
+      )}
+
       {/* ── Section 1: Title + intro + Featured Work + Talent Engagement + Cybersecurity ── */}
       <div style={section("#F2F3F4", 64)}>
         <div style={inner}>
@@ -5254,15 +5312,16 @@ function UIVisualDesignContent({
               gap: stackGap,
             }}
           >
-            <FullImage src="/project-5/8.png" alt="LMS 1" />
+            <FullImage src="/project-5/8.png" alt="LMS 1" border={lmsBorder} />
             <TwoCol
               left="/project-5/9.png"
               right="/project-5/10.png"
               leftAlt="LMS 2"
               rightAlt="LMS 3"
+              border={lmsBorder}
             />
-            <FullImage src="/project-5/11.png" alt="LMS 4" />
-            <FullImage src="/project-5/12.png" alt="LMS 5" />
+            <FullImage src="/project-5/11.png" alt="LMS 4" border={lmsBorder} />
+            <FullImage src="/project-5/12.png" alt="LMS 5" border={lmsBorder} />
           </div>
         </div>
       </div>
@@ -5281,10 +5340,10 @@ function UIVisualDesignContent({
               gap: stackGap,
             }}
           >
-            <FullImage src="/project-5/13.png" alt="CMS 1" />
-            <FullImage src="/project-5/14.png" alt="CMS 2" />
-            <FullImage src="/project-5/15.png" alt="CMS 3" />
-            <FullImage src="/project-5/16.png" alt="CMS 4" />
+            <FullImage src="/project-5/13.png" alt="CMS 1" border={cmsBorder} />
+            <FullImage src="/project-5/14.png" alt="CMS 2" border={cmsBorder} />
+            <FullImage src="/project-5/15.png" alt="CMS 3" border={cmsBorder} />
+            <FullImage src="/project-5/16.png" alt="CMS 4" border={cmsBorder} />
           </div>
         </div>
       </div>
@@ -5303,9 +5362,9 @@ function UIVisualDesignContent({
               gap: stackGap,
             }}
           >
-            <FullImage src="/project-5/17.png" alt="Design System 1" />
-            <FullImage src="/project-5/18.png" alt="Design System 2" />
-            <FullImage src="/project-5/19.png" alt="Design System 3" />
+            <FullImage src="/project-5/17.png" alt="Design System 1" border={dsBorder} />
+            <FullImage src="/project-5/18.png" alt="Design System 2" border={dsBorder} />
+            <FullImage src="/project-5/19.png" alt="Design System 3" border={dsBorder} />
           </div>
         </div>
       </div>
