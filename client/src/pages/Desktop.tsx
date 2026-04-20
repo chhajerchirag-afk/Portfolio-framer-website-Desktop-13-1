@@ -5429,19 +5429,13 @@ function UIVisualDesignContent({
               leftAlt="Playground 10"
               rightAlt="Playground 11"
             />
+            <TwoCol
+              left="/project-5/33.png"
+              right="/project-5/34.png"
+              leftAlt="Playground 12"
+              rightAlt="Playground 13"
+            />
           </div>
-        </div>
-      </div>
-
-      {/* ── Section 7: Closing (dark) ── */}
-      <div style={section("#090C0E", 64)}>
-        <div style={inner}>
-          <TwoCol
-            left="/project-5/33.png"
-            right="/project-5/34.png"
-            leftAlt="Closing 1"
-            rightAlt="Closing 2"
-          />
         </div>
       </div>
     </div>
