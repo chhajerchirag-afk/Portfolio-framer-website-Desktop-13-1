@@ -5905,6 +5905,8 @@ function CaseStudyBottomSheet({
             <MVPVideoAIContent view={view} />
           ) : studyId === "interview-scheduling" ? (
             <InterviewSchedulingContent view={view} />
+          ) : studyId === "ui-visual-design" ? (
+            <UIVisualDesignContent view={view} />
           ) : (
             <CaseStudyPlaceholder title={study.fullTitle} />
           )}
