@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   BrainIcon,
   ChevronDownIcon,
@@ -5206,8 +5207,8 @@ function UIVisualDesignContent({
         color: "#14191F",
       }}
     >
-      {/* ── Lightbox overlay ── */}
-      {lightboxSrc && (
+      {/* ── Lightbox overlay (portal → renders on document.body) ── */}
+      {lightboxSrc && createPortal(
         <div
           onClick={closeLightbox}
           style={{
@@ -5235,7 +5236,8 @@ function UIVisualDesignContent({
             }}
             draggable={false}
           />
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* ── Section 1: Title + intro + Featured Work + Talent Engagement + Cybersecurity ── */}
