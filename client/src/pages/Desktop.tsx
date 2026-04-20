@@ -5058,11 +5058,12 @@ function UIVisualDesignContent({
       <div
         style={{
           display: "flex",
-          alignItems: "flex-end",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "flex-start" : "flex-end",
           justifyContent: "space-between",
-          gap: 12,
+          gap: isMobile ? 4 : 12,
           width: "100%",
-          whiteSpace: "nowrap",
+          whiteSpace: isMobile ? "normal" : "nowrap",
         }}
       >
         <p
