@@ -5365,8 +5365,8 @@ function UIVisualDesignContent({
             }}
           >
             <FullImage src="/project-5/17.png" alt="Design System 1" border={dsBorder} />
-            <FullImage src="/project-5/18.png" alt="Design System 2" border={dsBorder} />
-            <FullImage src="/project-5/19.png" alt="Design System 3" border={dsBorder} />
+            <FullImage src="/project-5/19.png" alt="Design System 2" border={dsBorder} />
+            <FullImage src="/project-5/18.png" alt="Design System 3" border={dsBorder} />
           </div>
         </div>
       </div>
