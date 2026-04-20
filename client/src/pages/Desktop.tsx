@@ -1107,6 +1107,12 @@ const caseStudies = [
     fullTitle: "Streamlining Interview Scheduling",
     thumbnail: "/project4.png",
   },
+  {
+    id: "ui-visual-design",
+    title: "UI & Visual Design Playground",
+    fullTitle: "UI & Visual Design Playground",
+    thumbnail: "/project5.png",
+  },
 ];
 
 function WorkCards({
@@ -5004,6 +5010,385 @@ function InterviewSchedulingContent({
   );
 }
 
+function UIVisualDesignContent({
+  view,
+}: {
+  view: "intense" | "overview";
+}) {
+  const isMobile = useIsMobile();
+
+  const inner: React.CSSProperties = {
+    maxWidth: 720,
+    margin: "0 auto",
+    paddingLeft: 20,
+    paddingRight: 20,
+  };
+  const section = (bg: string, py = 64): React.CSSProperties => ({
+    width: "100%",
+    background: bg,
+    paddingTop: isMobile ? 32 : py,
+    paddingBottom: isMobile ? 40 : py,
+  });
+  const bodyStyle: React.CSSProperties = {
+    fontSize: 16,
+    lineHeight: "24px",
+    letterSpacing: "0",
+    color: "#14191F",
+  };
+
+  const SectionHeader = ({
+    title,
+    date,
+    subtitle,
+    color = "#14191F",
+    dateColor = "#B8B8B8",
+  }: {
+    title: string;
+    date: string;
+    subtitle?: string;
+    color?: string;
+    dateColor?: string;
+  }) => (
+    <div style={{ marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          gap: 12,
+          width: "100%",
+          whiteSpace: "nowrap",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize: 24,
+            fontWeight: 500,
+            lineHeight: "32px",
+            color,
+            margin: 0,
+          }}
+        >
+          {title}
+        </p>
+        <p
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: 12,
+            lineHeight: "16px",
+            letterSpacing: "-0.24px",
+            color: dateColor,
+            margin: 0,
+          }}
+        >
+          {date}
+        </p>
+      </div>
+      {subtitle && (
+        <p
+          style={{
+            ...bodyStyle,
+            color,
+            marginTop: 4,
+            marginBottom: 0,
+          }}
+        >
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+
+  const FullImage = ({ src, alt }: { src: string; alt: string }) => (
+    <div
+      style={{
+        width: "100%",
+        borderRadius: 8,
+        overflow: "hidden",
+        marginBottom: 0,
+      }}
+    >
+      <img
+        src={src}
+        alt={alt}
+        style={{ width: "100%", height: "auto", display: "block" }}
+        draggable={false}
+      />
+    </div>
+  );
+
+  const TwoCol = ({
+    left,
+    right,
+    leftAlt,
+    rightAlt,
+  }: {
+    left: string;
+    right: string;
+    leftAlt: string;
+    rightAlt: string;
+  }) => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        gap: isMobile ? 16 : 24,
+        width: "100%",
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          minWidth: 0,
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={left}
+          alt={leftAlt}
+          style={{ width: "100%", height: "auto", display: "block" }}
+          draggable={false}
+        />
+      </div>
+      <div
+        style={{
+          flex: 1,
+          minWidth: 0,
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
+      >
+        <img
+          src={right}
+          alt={rightAlt}
+          style={{ width: "100%", height: "auto", display: "block" }}
+          draggable={false}
+        />
+      </div>
+    </div>
+  );
+
+  const stackGap = 16;
+
+  return (
+    <div
+      style={{
+        width: "100%",
+        fontFamily: "Inter, sans-serif",
+        color: "#14191F",
+      }}
+    >
+      {/* ── Section 1: Title + intro + Featured Work + Talent Engagement + Cybersecurity ── */}
+      <div style={section("#F2F3F4", 64)}>
+        <div style={inner}>
+          <h1
+            style={{
+              fontSize: isMobile ? 28 : 40,
+              fontWeight: 500,
+              lineHeight: isMobile ? "38px" : "50px",
+              letterSpacing: "-0.02em",
+              margin: 0,
+              marginBottom: 20,
+              color: "#14191F",
+            }}
+          >
+            UI &amp; Visual Design Playground
+          </h1>
+          <p style={{ ...bodyStyle, margin: 0, marginBottom: 64 }}>
+            A collection of UI and visual design work spanning my entire design
+            journey and from my earliest explorations to the products I&apos;ve
+            shipped across different organizations.
+          </p>
+
+          {/* Featured Work */}
+          <SectionHeader
+            title="Featured Work"
+            date="2024"
+            subtitle="Layers featured my work on X."
+          />
+          <TwoCol
+            left="/project-5/1.png"
+            right="/project-5/2.png"
+            leftAlt="Featured work 1"
+            rightAlt="Featured work 2"
+          />
+
+          <div style={{ height: 64 }} />
+
+          {/* Talent Engagement (HR Tech) */}
+          <SectionHeader
+            title="Talent Engagement (HR Tech)"
+            date="EARLY 2026"
+          />
+          <FullImage src="/project-5/3.png" alt="Talent Engagement" />
+
+          <div style={{ height: 64 }} />
+
+          {/* Cybersecurity Platform */}
+          <SectionHeader title="Cybersecurity Platform" date="LATE 2024" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: stackGap,
+            }}
+          >
+            <FullImage src="/project-5/4.png" alt="Cybersecurity 1" />
+            <FullImage src="/project-5/5.png" alt="Cybersecurity 2" />
+            <FullImage src="/project-5/6.png" alt="Cybersecurity 3" />
+            <FullImage src="/project-5/7.png" alt="Cybersecurity 4" />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 2: Learning Management System (white) ── */}
+      <div style={section("#FFFFFF", 64)}>
+        <div style={inner}>
+          <SectionHeader title="Learning Management System" date="EARLY 2024" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: stackGap,
+            }}
+          >
+            <FullImage src="/project-5/8.png" alt="LMS 1" />
+            <TwoCol
+              left="/project-5/9.png"
+              right="/project-5/10.png"
+              leftAlt="LMS 2"
+              rightAlt="LMS 3"
+            />
+            <FullImage src="/project-5/11.png" alt="LMS 4" />
+            <FullImage src="/project-5/12.png" alt="LMS 5" />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 3: Candidate Management System (#f8f8f8) ── */}
+      <div style={section("#F8F8F8", 64)}>
+        <div style={inner}>
+          <SectionHeader
+            title="Candidate Management System"
+            date="LATE 2023"
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: stackGap,
+            }}
+          >
+            <FullImage src="/project-5/13.png" alt="CMS 1" />
+            <FullImage src="/project-5/14.png" alt="CMS 2" />
+            <FullImage src="/project-5/15.png" alt="CMS 3" />
+            <FullImage src="/project-5/16.png" alt="CMS 4" />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 4: Design System - Components (white) ── */}
+      <div style={section("#FFFFFF", 64)}>
+        <div style={inner}>
+          <SectionHeader
+            title="Design System - Components"
+            date="LATE 2023 - EARLY 2024"
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: stackGap,
+            }}
+          >
+            <FullImage src="/project-5/17.png" alt="Design System 1" />
+            <FullImage src="/project-5/18.png" alt="Design System 2" />
+            <FullImage src="/project-5/19.png" alt="Design System 3" />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 5: Dark Mode Web App UI (#111113, white text) ── */}
+      <div style={section("#111113", 64)}>
+        <div style={inner}>
+          <SectionHeader
+            title="Dark Mode Web App UI"
+            date="LATE 2023"
+            color="#FFFFFF"
+            dateColor="#B8B8B8"
+          />
+          <TwoCol
+            left="/project-5/20.png"
+            right="/project-5/21.png"
+            leftAlt="Dark Mode 1"
+            rightAlt="Dark Mode 2"
+          />
+        </div>
+      </div>
+
+      {/* ── Section 6: Playground (#f8f8f8) ── */}
+      <div style={section("#F8F8F8", 64)}>
+        <div style={inner}>
+          <SectionHeader title="Playground" date="MID 2022 - MID 2023" />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: stackGap,
+            }}
+          >
+            <FullImage src="/project-5/22.png" alt="Playground 1" />
+            <TwoCol
+              left="/project-5/23.png"
+              right="/project-5/24.png"
+              leftAlt="Playground 2"
+              rightAlt="Playground 3"
+            />
+            <TwoCol
+              left="/project-5/25.png"
+              right="/project-5/26.png"
+              leftAlt="Playground 4"
+              rightAlt="Playground 5"
+            />
+            <TwoCol
+              left="/project-5/27.png"
+              right="/project-5/28.png"
+              leftAlt="Playground 6"
+              rightAlt="Playground 7"
+            />
+            <TwoCol
+              left="/project-5/29.png"
+              right="/project-5/30.png"
+              leftAlt="Playground 8"
+              rightAlt="Playground 9"
+            />
+            <TwoCol
+              left="/project-5/31.png"
+              right="/project-5/32.png"
+              leftAlt="Playground 10"
+              rightAlt="Playground 11"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section 7: Closing (dark) ── */}
+      <div style={section("#090C0E", 64)}>
+        <div style={inner}>
+          <TwoCol
+            left="/project-5/33.png"
+            right="/project-5/34.png"
+            leftAlt="Closing 1"
+            rightAlt="Closing 2"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CaseStudyPlaceholder({ title }: { title: string }) {
   return (
     <div
@@ -5320,6 +5705,8 @@ function CaseStudyBrowser({
           <MVPVideoAIContent view={view} />
         ) : studyId === "interview-scheduling" ? (
           <InterviewSchedulingContent view={view} />
+        ) : studyId === "ui-visual-design" ? (
+          <UIVisualDesignContent view={view} />
         ) : (
           <CaseStudyPlaceholder title={study.fullTitle} />
         )}
