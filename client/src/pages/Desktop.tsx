@@ -5049,7 +5049,7 @@ function UIVisualDesignContent({
     dateColor = "#B8B8B8",
   }: {
     title: string;
-    date: string;
+    date?: string;
     subtitle?: string;
     color?: string;
     dateColor?: string;
@@ -5078,18 +5078,20 @@ function UIVisualDesignContent({
         >
           {title}
         </p>
-        <p
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 12,
-            lineHeight: "16px",
-            letterSpacing: "-0.24px",
-            color: dateColor,
-            margin: 0,
-          }}
-        >
-          {date}
-        </p>
+        {date && (
+          <p
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: 12,
+              lineHeight: "16px",
+              letterSpacing: "-0.24px",
+              color: dateColor,
+              margin: 0,
+            }}
+          >
+            {date}
+          </p>
+        )}
       </div>
       {subtitle && (
         <p
@@ -5266,7 +5268,6 @@ function UIVisualDesignContent({
           {/* Featured Work */}
           <SectionHeader
             title="Featured Work"
-            date="2024"
             subtitle="Layers featured my work on X."
           />
           <TwoCol
