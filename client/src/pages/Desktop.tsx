@@ -1321,8 +1321,8 @@ function ResumeCard() {
         href="https://drive.google.com/file/d/10DmAeSzyfSMQe6tcE00KUpwWLp_69YFN/view?usp=sharing"
         target="_blank"
         rel="noopener noreferrer"
-        className="block rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0px_4px_16px_rgba(0,0,0,0.08)]"
-        style={{ border: "0.5px solid #e8e8e8" }}
+        className="block overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0px_4px_16px_rgba(0,0,0,0.08)]"
+        style={{ border: "0.5px solid #e8e8e8", borderRadius: 18 }}
         data-testid="card-resume-preview"
       >
         <img
