@@ -17,7 +17,7 @@ import { TextShimmer } from "@/components/ui/text-shimmer";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { fireConfettiFromElement } from "@/components/ui/confetti";
 
-const resumeImagePath = "/figmaAssets/image-51.png";
+const resumeImagePath = "/resume.png";
 
 type ResponseType = "work" | "about" | "experience" | "resume" | "out-of-scope";
 
